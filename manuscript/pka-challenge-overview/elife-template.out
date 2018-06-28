@@ -1,0 +1,24 @@
+\BOOKMARK [2][-]{subsection*.2}{Keywords}{}% 1
+\BOOKMARK [2][-]{subsection*.3}{Abbreviations}{}% 2
+\BOOKMARK [1][-]{section*.5}{Introduction}{}% 3
+\BOOKMARK [1][-]{section*.22}{Methods}{}% 4
+\BOOKMARK [2][-]{subsection*.23}{Structure and logistics of the SAMPL6 pKa prediction challenge}{section*.22}% 5
+\BOOKMARK [2][-]{subsection*.25}{Analysis metrics for submission performance}{section*.22}% 6
+\BOOKMARK [2][-]{subsection*.26}{Enumeration of requested prediction microscopic protonation states}{section*.22}% 7
+\BOOKMARK [2][-]{subsection*.27}{Closest method for matching experimental and predicted pKas}{section*.22}% 8
+\BOOKMARK [2][-]{subsection*.29}{Hungarian method for matching experimental and predicted pKas}{section*.22}% 9
+\BOOKMARK [2][-]{subsection*.31}{Matching experimental and predicted pKas based on microstate populations}{section*.22}% 10
+\BOOKMARK [2][-]{subsection*.33}{Comparison of errors/performance against molecular descriptors}{section*.22}% 11
+\BOOKMARK [1][-]{section*.35}{Results}{}% 12
+\BOOKMARK [2][-]{subsection*.36}{Analysis of macroscopic pKa predictions \(Type III\)}{section*.35}% 13
+\BOOKMARK [2][-]{subsection*.51}{Analysis of microscopic pKa predictions \(Type I \046 II\)}{section*.35}% 14
+\BOOKMARK [1][-]{section*.62}{Discussion}{}% 15
+\BOOKMARK [2][-]{subsection*.65}{Discussion of matching experimental and predicted values}{section*.62}% 16
+\BOOKMARK [2][-]{subsection*.68}{Prediction performance of individual molecules}{section*.62}% 17
+\BOOKMARK [2][-]{subsection*.74}{Advice for future challenges}{section*.62}% 18
+\BOOKMARK [1][-]{section*.78}{Conclusion}{}% 19
+\BOOKMARK [1][-]{section*.79}{Code and data availability}{}% 20
+\BOOKMARK [1][-]{section*.80}{Overview of supplementary information}{}% 21
+\BOOKMARK [1][-]{section*.83}{Author Contributions}{}% 22
+\BOOKMARK [1][-]{section*.84}{Acknowledgments}{}% 23
+\BOOKMARK [1][-]{section*.86}{Disclosures}{}% 24
