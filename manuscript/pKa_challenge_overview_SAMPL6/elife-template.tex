@@ -28,22 +28,24 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% ARTICLE SETUP
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\title{Overview of SAMPL6 small molecule \pKa{} prediction challenge}
+\title{Overview of the SAMPL6 small molecule \pKa{} prediction challenge}
 
 \author[1,2]{Mehtap Işık}
 \author[1,3]{Ari\"{e}n S. Rustenburg}
 \author[1,4]{Andrea Rizzi}
 \author[5]{Caitlin Bannan}
 \author[6]{Marilyn Gunner}
-\author[7]{David L. Mobley}
+\author[5]{David L. Mobley}
 \author[1*]{John D. Chodera}
 
 \affil[1]{Computational and Systems Biology Program, Sloan Kettering Institute, Memorial Sloan Kettering Cancer Center, New York, NY 10065, United States}
 \affil[2]{Tri-Institutional PhD Program in Chemical Biology, Weill Cornell Graduate School of Medical Sciences, Cornell University, New York, NY 10065, United States}
 \affil[3]{Graduate Program in Physiology, Biophysics, and Systems Biology, Weill Cornell Medical College, New York, NY 10065, United States}
-\affil[5]{?}
-\affil[6]{Department of Pharmaceutical Sciences and Department of Chemistry, University of California,
+\affil[4]{Tri-Institutional PhD Program in Computational Biology and Medicine, Weill Cornell Graduate School of Medical Sciences, Cornell University, New York, NY 10065, United States}
+\affil[5]{Department of Pharmaceutical Sciences and Department of Chemistry, University of California,
 Irvine, Irvine, California 92697, United States}
+\affil[6]{Department of Physics, City College of New York, New York NY 10031}
+
 \corr{john.chodera@choderalab.org}{JDC}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -230,6 +232,16 @@ Uncertainty in each performance statistic was calculated by bootstapping (10,000
 \todo[inline]{Assessment of the groups of methods}
 
 \todo[inline]{Null model for macroscopic pKa predictions}
+
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=1.00\linewidth]{figures/molecules_with_MAE_of_all_methods.pdf}
+\caption{{\bf Molecules of SAMPL6 pKa challenge with MAE calculated for all macroscopic (type III) predictions.} MAE calculated considering all prediction methods indicate which molecules had the lowest prediction accuracy in SAMPL6 challenge. MAE values calculated for each molecule include all the matched pKa values, which could be more than one per method for multiprotic molecules (SM06, SM14, SM15, SM16, SM18, SM22). "C:" and "H:" indicate results based on Closest and Hungarian matching algorithms employed for pairing experimental and predicted pKa values. Calculated MAE values were observed to differ for molecules with multiple experimental pKas. MAE values are reported with 95\% confidence intervals.
+}
+\label{fig:molecules_with_MAE_of_all_methods}
+\end{center}
+\end{figure}
 
 
 \subsection{Analysis of microscopic \pKa{} predictions (Type I \& II)}
