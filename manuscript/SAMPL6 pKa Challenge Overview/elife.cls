@@ -86,8 +86,8 @@
                 %marginparwidth=4cm,% eLife
                 %marginparsep=0.5cm,% eLife
                 %right=1.3cm,% eLife
-                left=3cm,% JDC
-                right=3cm,% JDC
+                left=1.5cm,% JDC
+                right=1.5cm,% JDC
                 top=2cm,%
                 bottom=2.5cm,%
                 headheight=21pt,%
@@ -158,7 +158,8 @@
 \fancyhf{}
 \chead{%
 \setlength{\fboxsep}{3pt}
-\colorbox{eLifeMediumGrey}{\begin{minipage}{\headwidth}\centering\color{white} Preprint ahead of submission~---~\@date\end{minipage}}%
+% JDC: Commented out by request of JCAMD
+%\colorbox{eLifeMediumGrey}{\begin{minipage}{\headwidth}\centering\color{white} Preprint ahead of submission~---~\@date\end{minipage}}%
 }
 
 % Footers
@@ -170,24 +171,48 @@
 %
 % section/subsection/paragraph set-up
 %
-\setcounter{secnumdepth}{0}
+% \setcounter{secnumdepth}{0}
+% \RequirePackage[explicit]{titlesec}
+% \titleformat{\section}
+%   {\color{eLifeMediumGrey}\Large\bfseries\raggedright}
+%   {\thesection}{}{#1}[]
+% \titleformat{\subsection}
+%   {\large\bfseries\raggedright}
+%   {\thesubsection}{}{#1}[]
+% \titleformat{\subsubsection}
+%   {\large\raggedright}
+%   {\thesubsubsection}{}{#1}[]    
+% \titleformat{\paragraph}
+%   {\color{eLifeMediumGrey}\large\raggedright}
+%   {\theparagraph}{}{#1}[] 
+% \titlespacing*{\section}{0pc}{3ex \@plus4pt \@minus3pt}{0pt}
+% \titlespacing*{\subsection}{0pc}{2.5ex \@plus3pt \@minus2pt}{0pt}
+% \titlespacing*{\subsubsection}{0pc}{2ex \@plus2.5pt \@minus1.5pt}{0pt}
+% \titlespacing*{\paragraph}{0pc}{1.5ex \@plus2pt \@minus1pt}{0pt}
+
+
+% section/subsection/paragraph set-up that preserves section numbers
+% Updated for LiveComs
+%\setcounter{secnumdepth}{0}
 \RequirePackage[explicit]{titlesec}
 \titleformat{\section}
-  {\color{eLifeMediumGrey}\Large\bfseries\raggedright}
-  {\thesection}{}{#1}[]
+  {\LARGE\bfseries}
+  {\thesection}{1em}{#1}[]
 \titleformat{\subsection}
-  {\large\bfseries\raggedright}
-  {\thesubsection}{}{#1}[]
+  {\Large\bfseries\color{eLifeMediumGrey}}
+  {\thesubsection}{1em}{#1}[]
 \titleformat{\subsubsection}
-  {\large\raggedright}
-  {\thesubsubsection}{}{#1}[]    
+  {\large\color{eLifeMediumGrey}}
+  {\thesubsubsection}{1em}{#1}[]
 \titleformat{\paragraph}
-  {\color{eLifeMediumGrey}\large\raggedright}
-  {\theparagraph}{}{#1}[] 
+  {\large\color{eLifeMediumGrey}}
+  {\theparagraph}{1em}{#1}[]
 \titlespacing*{\section}{0pc}{3ex \@plus4pt \@minus3pt}{0pt}
 \titlespacing*{\subsection}{0pc}{2.5ex \@plus3pt \@minus2pt}{0pt}
 \titlespacing*{\subsubsection}{0pc}{2ex \@plus2.5pt \@minus1.5pt}{0pt}
 \titlespacing*{\paragraph}{0pc}{1.5ex \@plus2pt \@minus1pt}{0pt}
+
+
   
 \RequirePackage{enumitem}
 \setlist{noitemsep}
