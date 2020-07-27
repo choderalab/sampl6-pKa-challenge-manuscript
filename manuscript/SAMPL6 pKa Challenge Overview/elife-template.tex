@@ -84,7 +84,7 @@ Irvine, Irvine, California 92697, United States}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{abstract}
 \todo[inline]{Complete abstract.}
-- number of submissions  
+- number of submissions~\cite{Isik:2018:J.Comput.AidedMol.Des.}
 
 - summary of analysis  
 
@@ -161,14 +161,13 @@ Errors is \pKa{} predictions can cause modeling the wrong charge, protonation an
 \todo[inline]{Explain challenge design.}
 
 Experimental macroscopic pKa values were measured using a UV-metric assay performed using a Sirius T3 [cite exp. paper ]  supported by Merck, MRL,  Rahway NJ.  
-\todo[inline]{Figure: }
 
 \begin{figure}
 \begin{center}
-\includegraphics[width=0.65\linewidth]{figures/distribution_of_exp_pKas.pdf}
-\caption{{\bf Distribution of experimental \pKa{} values of 24 compounds in SAMPL6 pKa challenge. } Spectrophotometric \pKa{} measurements were collected with Sirius T3. \todo[inline]{Add reference to pKa experiments manuscript.  [cite: 10.1007/s10822-018-0168-0]} Five compounds have multiple measured \pKa{}s in the range of 2-12.  \todoMI{Maybe I should add mw and clogP distribution of SAMPL molecules to this figure}  
+\includegraphics[width=1.0\linewidth]{figures/distribution_of_molecular_properties.pdf}
+\caption{{\bf Distribution of molecular properties of 24 compounds in SAMPL6 \pKa{} Challenge.} {\bf A} Histogram of spectrophotometric \pKa{} measurements collected with Sirius T3 ~\cite{Isik:2018:J.Comput.AidedMol.Des.}. Overlayed carpet plot indicates the actual values. Five compounds have multiple measured \pKa{}s in the range of 2-12. {\bf B} Histogram of molecular weights of compounds in SAMPL6 set. Molecular weights were calculated by neglecting counter ions. {\bf C} Histogram of the number of non-terminal rotatable bonds in each molecule. {\bf D} The histogram of the ratio of heteroatom (non-carbon heavy atom) count to the number of carbon atoms.
 }
-\label{fig:dist_exp_pKas}
+\label{fig:dist_mol_prop}
 \end{center}
 \end{figure}
 
@@ -649,7 +648,8 @@ DLM is a member of the Scientific Advisory Board of OpenEye Scientific Software.
 
 
 %\nocite{*} % This command displays all refs in the bib file. PLEASE DELETE IT BEFORE YOU SUBMIT YOUR MANUSCRIPT!
-\bibliography{elife-sample,sampl}
+\bibliography{zotero, manual}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Supplementary Information
