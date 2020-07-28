@@ -335,7 +335,7 @@ Reference calculations are labeled as \textit{nb\#\#\#}. The method name column 
 \textbf{\begin{tabular}[c]{@{}l@{}}Method \\ Category\end{tabular}} & \textbf{Method} & \textbf{\begin{tabular}[c]{@{}l@{}}Microscopic \pKa{} \\ (Type I) \\ Submission ID\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Macroscopic \pKa{} \\ (Type III) \\ Submission ID\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Submission \\ Type\end{tabular}} & \textbf{Ref.} \\ \hline
 \rowcolor[HTML]{EFEFEF} 
 DL & Substructure matches to experimental data in pKa OpenEye pKa Prospector Database v1.0 & \textit{} & \textit{5nm4j} & Null & \cite{pKa-prospector-ref} \\
-DL & OpenEye pKa-Prospector 1.0.0.3 with Analog Search ion identification algorithm & \textit{} & \textit{pwn3m} & Blind & \cite{pKa-prospector-ref} \\
+DL & OpenEye pKa-Prospector 1.0.0.3 with Analog Search ion identification algorithm & \textit{} & \textit{pwn3m} & Null & \cite{pKa-prospector-ref} \\
 \rowcolor[HTML]{EFEFEF} 
 LFER & ACD/pKa GALAS (ACD/Percepta Kernel v1.6) & \textit{v8qph} & \textit{37xm8} & Blind & \cite{ACD-pKa-galas} \\
 LFER & ACD/pKa Classic (ACD/Percepta Kernel, v1.6) & \textit{} & \textit{xmyhm} & Blind & \cite{ACD-pKa-classic} \\
@@ -493,7 +493,16 @@ Submissions were ranked according to RMSE, MAE, R\textsuperscript{2}, and $\tau$
 
 \todo[inline]{Check if top few performing methods are consistent between error metrics. }
 
-\todoMI{FIGURE: Predicted vs experimental value correlation plots of 3-6 performing methods and one representative average method.}
+
+\begin{figure}
+\centering
+\includegraphics[width=1.0\linewidth]{figures/typeIII-pred-vs-exp-correlation-fig.pdf}
+\caption{{\bf Predicted vs. experimental value correlation plots of 4 consistently well-performing methods, a representative method with average performance (\textit{2ii2g}), and the null method (\textit{5nm4j})}. 
+Dark and light green shaded areas indicate 0.5 and 1.0 units of error. Error bars indicate standard error of the mean of predicted and experimental values. Experimental \pKa{} SEM values are too small to be seen under the data points. EC-RISM/MP2/cc-pVTZ-P2-q-noThiols-2par method (\textit{2ii2g}) was selected as the representative method with average performance because it is the method with the highest RMSE below the median.
+}
+\label{fig:typeIII_pred_vs_exp_correlation}
+\end{figure}
+
 
 
 \subsubsection{Which chemicals are harder to predict?}
