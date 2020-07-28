@@ -317,12 +317,7 @@ MoKa
 
 \todo[inline]{A paragraph to explain the submission methods. Define method categories: DL, LFER, QSPR/ML, QM, QM+LEC, and QM+MM, Blind predictions, Reference calculations, Null model (pKa prospector lookup)
 }
-\todoMI{TABLE: Table [method-names-and-submission-IDs]. Submissions spanning different method categories were made to the SAMPL6 pKa Challenge: DL, LFER, QSPR/ML, QM, QM+LEC, and QM+MM. Unique submission IDs were assigned to each submission even for different submission types (I, II, or III) when multiple submissions were made for the same method. }
-
-
-
-
-
+ Submissions spanning different method categories were made to the SAMPL6 \pKa{} Challenge: database lookup (DL), linear free energy relationship (LFER), quantitative structure property relationship (QSPR), machine learning (ML), quantum mechanics (QM) models with and without linear empirical correction (LEC), and combined quantum mechanics and molecular mechanics (QM+MM). Unique submission IDs were assigned to each submission. Table~\ref{submission-ID-table} matches method names with submission IDs. Unique IDs were also assigned when multiple submissions exists for different submission types of the same method such as microscopic \pKa{}(type I) and macroscopic \pKa{} (type III). 
 
 
 \begin{table}%[H]%[tb!]
@@ -402,13 +397,25 @@ QM + MM & \begin{tabular}[c]{@{}l@{}}M06-2X/6-31G*(for bases) or 6-31+G*(for aci
 %%%
 \subsection{Analysis of macroscopic \pKa{} predictions (Type III)}
 
-\todoMI{SI TABLE: Error statistics for all participants}
+\begin{figure}
+\centering
+%\makebox[\textwidth][l]{\includegraphics[width=0.5\textwidth]{figures/typeIII-rmse-unmatched-pKa-fig.pdf}}
+\includegraphics[width=0.5\linewidth]{figures/typeIII-rmse-unmatched-pKa-fig.pdf}
+\caption{{\bf RMSE and unmatched \pKa{} counts vs. submission ID plots for macroscopic \pKa{} predictions based on Hungarian matching.} 
+Methods are indicated by submission IDs. 
+RMSE is shown with error bars denoting 95\% confidence intervals obtained by bootstrapping over challenge molecules. Lower bar plots show the number of unmatched experimental \pKa{}s (light grey, missing predictions) and the number of unmatched \pKa{} predictions (dark grey, extra predictions) for each method between pH 2 and 12. Submission IDs are summarized in Table~\ref{submission-ID-table}. Submission IDs of the form \textit{nb\#\#\#} refer to non-blinded reference methods computed after the blind challenge submission deadline. All others refer to blind, prospective predictions. Methods are colored by their method categories. Light blue colored database look up methods are utilized as the null prediction method.
+}
+\label{fig:typeIII-rmse-plot}
+\end{figure}
 
-\todoMI{FIGURE: [typeIII-rmse-plot] Bar plots showing RMSE and unmatched pKa predictions for  macrocopic pKa predictions (type III) based on Hungarian matching. Methods are indicated by submission IDs. Lower bar plots show the number of unmatched experimental pKas (light grey) and the number of extra pKa predictions unmatched predicted pKas (dark grey) for each method.}
+
+\todoMI{FIGURE: [typeIII-rmse-plot] Bar plots showing RMSE and unmatched pKa predictions for  macrocopic pKa predictions (type III) based on Hungarian matching. }
 
 \todoMI{Figure [typeIII-statistics-plots]. Additional performance statistics for macrocopic pKa predictions (type III) based on Hungarian matching. Methods are indicated by submission IDs.}
 Refer to SI TABLE: Error statistics for all participants.  
 Refer to SI FIGURE: Error distribution ridge plots for each method  (exp-pred macroscopic pKa). Which methods tend to overestimate and which methods tend to undestimate?  
+
+\todoMI{SI TABLE: Error statistics for all participants}
 
 Describe number of missing and extra pKa for each method.  
 Report in total for all molecules how many predicted pKas are there and how many experimental pKas.  
