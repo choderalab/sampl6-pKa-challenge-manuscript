@@ -403,17 +403,27 @@ QM + MM & \begin{tabular}[c]{@{}l@{}}M06-2X/6-31G*(for bases) or 6-31+G*(for aci
 \includegraphics[width=0.5\linewidth]{figures/typeIII-rmse-unmatched-pKa-fig.pdf}
 \caption{{\bf RMSE and unmatched \pKa{} counts vs. submission ID plots for macroscopic \pKa{} predictions based on Hungarian matching.} 
 Methods are indicated by submission IDs. 
-RMSE is shown with error bars denoting 95\% confidence intervals obtained by bootstrapping over challenge molecules. Lower bar plots show the number of unmatched experimental \pKa{}s (light grey, missing predictions) and the number of unmatched \pKa{} predictions (dark grey, extra predictions) for each method between pH 2 and 12. Submission IDs are summarized in Table~\ref{submission-ID-table}. Submission IDs of the form \textit{nb\#\#\#} refer to non-blinded reference methods computed after the blind challenge submission deadline. All others refer to blind, prospective predictions. Methods are colored by their method categories. Light blue colored database look up methods are utilized as the null prediction method.
+RMSE is shown with error bars denoting 95\% confidence intervals obtained by bootstrapping over challenge molecules. Lower bar plots show the number of unmatched experimental \pKa{}s (light grey, missing predictions) and the number of unmatched \pKa{} predictions (dark grey, extra predictions) for each method between pH 2 and 12. Submission IDs are summarized in Table~\ref{submission-ID-table}. Submission IDs of the form \textit{nb\#\#\#} refer to non-blinded reference methods computed after the blind challenge submission deadline. All others refer to blind, prospective predictions. Submissions are colored by their method categories. Light blue colored database look up methods are utilized as the null prediction method.
 }
 \label{fig:typeIII-rmse-plot}
 \end{figure}
 
 
-\todoMI{FIGURE: [typeIII-rmse-plot] Bar plots showing RMSE and unmatched pKa predictions for  macrocopic pKa predictions (type III) based on Hungarian matching. }
 
-\todoMI{Figure [typeIII-statistics-plots]. Additional performance statistics for macrocopic pKa predictions (type III) based on Hungarian matching. Methods are indicated by submission IDs.}
+\todoMI{ Methods are indicated by submission IDs.}
 Refer to SI TABLE: Error statistics for all participants.  
 Refer to SI FIGURE: Error distribution ridge plots for each method  (exp-pred macroscopic pKa). Which methods tend to overestimate and which methods tend to undestimate?  
+
+\begin{figure}
+\centering
+\includegraphics[width=0.5\linewidth]{figures/typeIII_statistics.pdf}
+\caption{{\bf Additional performance statistics for macrocopic \pKa{} predictions based on Hungarian matching.} 
+Methods are indicated by submission IDs. 
+Mean absolute error (MAE), mean error (ME), Pearson’s R\textsuperscript{2}, and Kendall’s Rank Correlation Coefficient Tau ($\tau$) are shown, with error bars denoting 95\% confidence intervals obtained by bootstrapping over challenge molecules. Refer to Table~\ref{submission-ID-table} for submission IDs and method names. Submissions are colored by their method categories. Light blue colored database look up methods are utilized as the null prediction method.
+}
+\label{fig:typeIII-statistics}
+\end{figure}
+
 
 \todoMI{SI TABLE: Error statistics for all participants}
 
