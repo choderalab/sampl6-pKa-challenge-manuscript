@@ -10,19 +10,21 @@
 
 % Article specific functions
 \newcommand{\pKa}{p\textit{K}\textsubscript{a}}
-\newcommand{\psKa}{p\textsubscript{s}\textit{K}\textsubscript{a}}
 
 
 \usepackage{lipsum} % Required to insert dummy text
 \usepackage[version=4]{mhchem}
 %\usepackage{siunitx}
 %\DeclareSIUnit\Molar{M}
-\usepackage[colorinlistoftodos]{todonotes}
+%\usepackage[colorinlistoftodos]{todonotes}
+\usepackage[color=green!30, textsize=small]{todonotes}
 \usepackage{gensymb}
 \usepackage{mhchem}
 \usepackage{wrapfig}
 \usepackage{booktabs}
+
 \usepackage[flushleft]{threeparttable}
+%\usepackage[table,xcdraw]{xcolor}
 %\usepackage{longtable} % for tables that are longer than one page
 \usepackage{float}
 
@@ -328,51 +330,73 @@ MoKa
 Reference calculations are labeled as \textit{nb\#\#\#}. The method name column lists the names provided by each participant in the submission file. The ``type'' column indicates if submission was or a post-deadline reference calculation, denoted by ``Blind'' or ``Reference'' respectively. The table is not ordered by performance.  
 } 
 \label{submission-ID-table}
-\begin{tabular}{@{}llllll@{}}
-\toprule
-\textbf{\begin{tabular}[c]{@{}l@{}}Method \\ Category\end{tabular}} & \textbf{Method} & \textbf{\begin{tabular}[c]{@{}l@{}}Microscopic \pKa{} \\ (Type I) \\ Submission ID\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Macroscopic \pKa{} \\ (Type III) \\ Submission ID\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Submission \\ Type\end{tabular}} & \textbf{References} \\ \midrule
+\begin{tabular}{llllll}
+\hline
+\textbf{\begin{tabular}[c]{@{}l@{}}Method \\ Category\end{tabular}} & \textbf{Method} & \textbf{\begin{tabular}[c]{@{}l@{}}Microscopic \pKa{} \\ (Type I) \\ Submission ID\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Macroscopic \pKa{} \\ (Type III) \\ Submission ID\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Submission \\ Type\end{tabular}} & \textbf{Ref.} \\ \hline
+\rowcolor[HTML]{EFEFEF} 
 DL & Substructure matches to experimental data in pKa OpenEye pKa Prospector Database v1.0 & \textit{} & \textit{5nm4j} & Null & \cite{pKa-prospector-ref} \\
 DL & OpenEye pKa-Prospector 1.0.0.3 with Analog Search ion identification algorithm & \textit{} & \textit{pwn3m} & Blind & \cite{pKa-prospector-ref} \\
+\rowcolor[HTML]{EFEFEF} 
 LFER & ACD/pKa GALAS (ACD/Percepta Kernel v1.6) & \textit{v8qph} & \textit{37xm8} & Blind & \cite{ACD-pKa-galas} \\
 LFER & ACD/pKa Classic (ACD/Percepta Kernel, v1.6) & \textit{} & \textit{xmyhm} & Blind & \cite{ACD-pKa-classic} \\
+\rowcolor[HTML]{EFEFEF} 
 LFER & Epik Scan (Schrodinger v2017-4) & \textit{} & \textit{nb007} & Reference & \cite{Shelley:2007:J.Comput.AidedMol.Des.} \\
 LFER & Epik Microscopic (Schrodinger v2017-4) & \textit{nb008} & \textit{nb010} & Reference & \cite{Shelley:2007:J.Comput.AidedMol.Des.} \\
+\rowcolor[HTML]{EFEFEF} 
 QSPR/ML & OpenEye Gaussian Process & \textit{6tvf8} & \textit{hytjn} & Blind & \cite{Bannan:2018:J.Comput.AidedMol.Des.} \\
 QSPR/ML & OpenEye Gaussian Process Resampled & \textit{} & \textit{q3pfp} & Blind & \cite{Bannan:2018:J.Comput.AidedMol.Des.} \\
+\rowcolor[HTML]{EFEFEF} 
 QSPR/ML & S+pKa (ADMET Predictor v8.5, Simulations Plus) & \textit{hdiyq} & \textit{gyuhx} & Blind & \cite{simulation-plus-pKa} \\
 QSPR/ML & Chemicalize v18.23 (ChemAxon MarvinSketch v18.23) & \textit{} & \textit{nb015} & Reference & \cite{chemicalize-pKa} \\
+\rowcolor[HTML]{EFEFEF} 
 QSPR/ML & MoKa v3.1.3 & \textit{nb016} & \textit{nb017} & Reference & \cite{Milletti:2007:J.Chem.Inf.Model., moka-pKa} \\
+\rowcolor[HTML]{EFEFEF} 
 QM & \begin{tabular}[c]{@{}l@{}}Adiabatic scheme with single point correction:  SMD/M06-2X//6-311++G(d,p)//M06-2X/6-31+G(d) \\ for bases and SMD/M06-2X//6-311++G(d,p)//M06-2X/6-31G(d) for acids  + thermal corrections\end{tabular} & \textit{ko8yx} & \textit{ryzue} & Blind & \cite{Zeng:2018:J.Comput.AidedMol.Des.} \\
 QM & \begin{tabular}[c]{@{}l@{}}Direct scheme with single point correction: SMD/M06-2X//6-311++G(d,p)//M06-2X/6-31+G(d) for \\ bases and SMD/M06-2X//6-311++G(d,p)//M06-2X/6-31G(d) for acids  + thermal corrections\end{tabular} & \textit{w4z0e} & \textit{xikp8} & Blind & \cite{Zeng:2018:J.Comput.AidedMol.Des.} \\
+\rowcolor[HTML]{EFEFEF} 
 QM & \begin{tabular}[c]{@{}l@{}}Adiabatic scheme: thermodynamic cycle that uses gas phase optimized structures for gas phase free \\ energy and solution phase geometries for solvent phase free energy. SMD/M06-2X/6-31+G(d) for \\ bases and SMD/M06-2X/6-31G(d) for acids + thermal corrections\end{tabular} & \textit{wcvnu} & \textit{5byn6} & Blind & \cite{Zeng:2018:J.Comput.AidedMol.Des.} \\
 QM & \begin{tabular}[c]{@{}l@{}}Vertical scheme:  thermodynamic cycle that uses only gas phase optimized structures to compute gas \\ hase and solvation free energy. SMD/M06-2X/6-31+G(d) for bases and SMD/M06-2X/6-31G(d) for \\ acids + Thermal corrections\end{tabular} & \textit{arcko} & \textit{w4iyd} & Blind & \cite{Zeng:2018:J.Comput.AidedMol.Des.} \\
+\rowcolor[HTML]{EFEFEF} 
 QM & \begin{tabular}[c]{@{}l@{}}Direct scheme: solution phase free energy is determined by solution phase geometries  without \\ thermodynamic cycle SMD/M06-2X/6-31+G(d) for bases and SMD/M06-2X/6-31G(d) for acids \\ + thermal corrections\end{tabular} & \textit{wexjs} & \textit{y75vj} & Blind & \cite{Zeng:2018:J.Comput.AidedMol.Des.} \\
 QM + LEC & Jaguar (Schrodinger v2017-4) & \textit{nb011} & \textit{nb013} & Reference & \cite{Bochevarov:2013:Int.J.QuantumChem.} \\
+\rowcolor[HTML]{EFEFEF} 
 QM + LEC & CPCM/B3LYP/6–311+G(d,p) and global fitting & \textit{y4wws} & \textit{35bdm} & Blind & \cite{Selwa:2018:J.Comput.AidedMol.Des.} \\
 QM + LEC & \begin{tabular}[c]{@{}l@{}}CPCM/B3LYP/6–311+G(d,p) and separate fitting for neutral to negative and for positive to neutral \\ transformations\end{tabular} & \textit{qsicn} & \textit{p0jba} & Blind & \cite{Selwa:2018:J.Comput.AidedMol.Des.} \\
+\rowcolor[HTML]{EFEFEF} 
 QM + LEC & EC-RISM/MP2/6-311+G(d,p)-P3NI-q-noThiols-2par & \textit{kxztt} & \textit{ds62k} & Blind & \cite{Tielker:2018:J.Comput.AidedMol.Des.} \\
 QM + LEC & EC-RISM/MP2/cc-pVTZ-P2-q-noThiols-2par & \textit{ftc8w} & \textit{2ii2g} & Blind & \cite{Tielker:2018:J.Comput.AidedMol.Des.} \\
+\rowcolor[HTML]{EFEFEF} 
 QM + LEC & EC-RISM/MP2/6-311+G(d,p)-P2-phi-all-2par & \textit{ktpj5} & \textit{nb001} & Blind* & \cite{Tielker:2018:J.Comput.AidedMol.Des.} \\
 QM + LEC & EC-RISM/MP2/6-311+G(d,p)-P2-phi-noThiols-2par & \textit{wuuvc} & \textit{nb002} & Blind* & \cite{Tielker:2018:J.Comput.AidedMol.Des.} \\
+\rowcolor[HTML]{EFEFEF} 
 QM + LEC & EC-RISM/MP2/6-311+G(d,p)-P3NI-phi-all-2par & \textit{2umai} & \textit{nb003} & Blind* & \cite{Tielker:2018:J.Comput.AidedMol.Des.} \\
 QM + LEC & EC-RISM/MP2/6-311+G(d,p)-P3NI-phi-noThiols-2par & \textit{cm2yq} & \textit{nb004} & Blind* & \cite{Tielker:2018:J.Comput.AidedMol.Des.} \\
+\rowcolor[HTML]{EFEFEF} 
 QM + LEC & EC-RISM/MP2/6-311+G(d,p)-P2-phi-all-1par & \textit{z7fhp} & \textit{nb005} & Blind* & \cite{Tielker:2018:J.Comput.AidedMol.Des.} \\
 QM + LEC & EC-RISM/MP2/6-311+G(d,p)-P3NI-phi-all-1par & \textit{8toyp} & \textit{nb006} & Blind* & \cite{Tielker:2018:J.Comput.AidedMol.Des.} \\
+\rowcolor[HTML]{EFEFEF} 
 QM + LEC & EC-RISM/MP2/cc-pVTZ-P2-phi-noThiols-2par & \textit{epvmk} & \textit{ttjd0} & Blind & \cite{Tielker:2018:J.Comput.AidedMol.Des.} \\
 QM + LEC & EC-RISM/MP2/cc-pVTZ-P2-phi-all-2par & \textit{xnoe0} & \textit{mkhqa} & Blind & \cite{Tielker:2018:J.Comput.AidedMol.Des.} \\
+\rowcolor[HTML]{EFEFEF} 
 QM + LEC & EC-RISM/MP2/cc-pVTZ-P3NI-phi-noThiols-2par & \textit{4o0ia} & \textit{mpwiy} & Blind & \cite{Tielker:2018:J.Comput.AidedMol.Des.} \\
 QM + LEC & EC-RISM/B3LYP/6-311+G(d,p)-P3NI-q-noThiols-2par & \textit{nxaaw} & \textit{ad5pu} & Blind & \cite{Tielker:2018:J.Comput.AidedMol.Des.} \\
+\rowcolor[HTML]{EFEFEF} 
 QM + LEC & EC-RISM/B3LYP/6-311+G(d,p)-P3NI-phi-noThiols-2par & \textit{0xi4b} & \textit{f0gew} & Blind & \cite{Tielker:2018:J.Comput.AidedMol.Des.} \\
 QM + LEC & EC-RISM/B3LYP/6-311+G(d,p)-P2-phi-noThiols-2par & \textit{cywyk} & \textit{np6b4} & Blind & \cite{Tielker:2018:J.Comput.AidedMol.Des.} \\
+\rowcolor[HTML]{EFEFEF} 
 QM + LEC & PCM/B3LYP/6-311+G(d,p) & \textit{gdqeg} & \textit{yc70m} & Blind & \cite{Tielker:2018:J.Comput.AidedMol.Des.} \\
 QM + LEC & COSMOtherm\_FINE17 (COSMOtherm C30\_1701, BP/TZVPD/FINE//BP/TZVP/COSMO) & \textit{t8ewk} & \textit{0hxtm} & Blind & \cite{Klamt:2003:J.Phys.Chem.Ab, Eckert:2006:J.Comput.Chem.} \\
+\rowcolor[HTML]{EFEFEF} 
 QM + LEC & \begin{tabular}[c]{@{}l@{}}DSD-BLYP-D3(BJ)/def2-TZVPD//PBEh-3c[DCOSMO-RS] + RRHO(GFN-xTB[GBSA]) \\ + Gsolv(COSMO-RS[TZVPD]) and linear fit\end{tabular} & \textit{} & \textit{xvxzd} & Blind & \cite{Pracht:2018:J.Comput.AidedMol.Des.} \\
 QM + LEC & \begin{tabular}[c]{@{}l@{}}ReSCoSS conformations // DSD-BLYP-D3 reranking // COSMOtherm pKa:  DSD-BLYP-D3(BJ)/\\ def2-TZVPD// PBE-D3(BJ)/def2-TZVP/COSMO + RRHO[GFN-xTB + GBSA-water] \\ + Gsolv[COSMO-RS(FINE17/TZVPD)] level and COSMOtherm pKa applied  at the single conformer \\ pair level  (COSMOthermX17.0.5 release and BP-TZVPD-FINE-C30-1701 parameterization)\end{tabular} & \textit{eyetm} & \textit{8xt50} & Blind & \cite{Pracht:2018:J.Comput.AidedMol.Des.} \\
+\rowcolor[HTML]{EFEFEF} 
 QM + LEC & \begin{tabular}[c]{@{}l@{}}ReSCoSS conformations // COSMOtherm pKa: DSD-BLYP-D3(BJ)/def2-TZVPD// PBE-D3(BJ)/\\ def2-TZVP/COSMO + RRHO[GFN-xTB + GBSA-water] + Gsolv[COSMO-RS(FINE17/TZVPD)] \\ level and COSMOtherm pKa was applied directly on the resulting conformer sets with at least 5\% \\ Boltzmann weights for each microspecies (COSMOthermX17.0.5 release and BP-TZVPD-FINE-\\ C30-1701 parameterization)\end{tabular} & \textit{ccpmw} & \textit{yqkga} & Blind & \cite{Pracht:2018:J.Comput.AidedMol.Des.} \\
 QM + MM & \begin{tabular}[c]{@{}l@{}}M06-2X/6-31G*(for bases) or 6-31+G*(for acids) for gas phase, solvation free energy using TI with \\ explicit solvent and GAFF, solvation free energy of proton -265.6 kcal/mol\end{tabular} & \textit{0wfzo} & \textit{} & Blind & \cite{Prasad:2018:J.Comput.AidedMol.Des.} \\
+\rowcolor[HTML]{EFEFEF} 
 QM + MM & \begin{tabular}[c]{@{}l@{}}M06-2X/6-31G*(for bases) or 6-31+G*(for acids) for gas phase, solvation free energy using TI with \\ explicit solvent and GAFF, solvation free energy of proton -271.88 kcal/mol\end{tabular} & \textit{z3btx} & \textit{} & Blind &  \\
 QM + MM & \begin{tabular}[c]{@{}l@{}}M06-2X/6-31G*(for bases) or 6-31+G*(for acids) + thermal state correction for gas phase,  solvation \\ free energy using TI with explicit solvent and GAFF, solvation free energy of proton -265.6 kcal/mol\end{tabular} & \textit{758j8} & \textit{} & Blind &  \\
-QM + MM & \begin{tabular}[c]{@{}l@{}}M06-2X/6-31G*(for bases) or 6-31+G*(for acids) + thermal state correction for gas phase, solvation \\ free energy using TI with explicit solvent and GAFF, solvation free energy of proton -271.88 kcal/mol\end{tabular} & \textit{hgn83} & \textit{} & Blind &  \\ \bottomrule
+\rowcolor[HTML]{EFEFEF} 
+QM + MM & \begin{tabular}[c]{@{}l@{}}M06-2X/6-31G*(for bases) or 6-31+G*(for acids) + thermal state correction for gas phase, solvation \\ free energy using TI with explicit solvent and GAFF, solvation free energy of proton -271.88 kcal/mol\end{tabular} & \textit{hgn83} & \textit{} & Blind &  \\ \hline
 \end{tabular}
 \begin{tablenotes}
 \item[*] Microscopic \pKa{} submissions were blind, however, participant requested a correction after blind submission deadline for macroscopic \pKa{} submissions. Therefore, these were assigned submission IDs in the form of \textit{nb\#\#\#}.
@@ -441,10 +465,34 @@ Explain the numerical matching methods used. Explain rationale behind how we ana
 Method comparison according to different statistics: RMSE, MAE, ME, R2, m, Kendall's tau.  
 
 
-\subsubsection{Consistently well performing methods}
+\subsubsection{Consistently well performing methods for macroscopic \pKa{} prediction}
+
+
+\begin{table}[h]
+\begin{center}
+\begin{threeparttable}
+\centering\scriptsize
+\caption{{\bf Four consistently well-performing prediction methods for macroscopic \pKa{} prediction based on consistent ranking within the Top~10 according to various statistical metrics.} 
+Submissions were ranked according to RMSE, MAE, R\textsuperscript{2}, and $\tau$. Consistently well-performing methods were selected as the ones that rank in the Top~10 in each of these statistical metrics. These methods also have less than 2 unmatched experimental \pKa{}s and less than 7 unmatched predicted \pKa{}s according to Hungarian matching. Performance statistics are provided as mean and 95\% confidence intervals.
+} 
+\label{well-performing-methods-table}
+\begin{tabular}{@{}llllllll@{}}
+\toprule
+\textbf{Submission ID} & \textbf{Method Name} & \textbf{RMSE} & \textbf{MAE} & \textbf{R\textsuperscript{2}} & \textbf{\begin{tabular}[c]{@{}l@{}}Kendall's Tau \\ ($\tau$)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Unmatched Exp. \\ \pKa{} Count\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Unmatched Pred. \\ \pKa{} Count [2,12]\end{tabular}} \\ \midrule
+\rowcolor[HTML]{EFEFEF} 
+\textit{xvxzd} & \begin{tabular}[c]{@{}l@{}}Full quantum chemical calculation of \\ free energies and fit to experimental pKa\end{tabular} & 0.68 [0.54, 0.81] & 0.58 [0.45, 0.71] & 0.94 [0.88, 0.97] & 0.82 [0.68, 0.92] & 2 & 4 \\
+\textit{gyuhx} & S+pKa & 0.73 [0.55, 0.91] & 0.59 [0.44, 0.74] & 0.93 [0.88, 0.96] & 0.88 [0.8, 0.94] & 0 & 7 \\
+\rowcolor[HTML]{EFEFEF} 
+\textit{xmyhm} & ACD/pKa Classic & 0.79 [0.52, 1.03] & 0.56 [0.38, 0.77] & 0.92 [0.85, 0.97] & 0.81 [0.68, 0.9] & 0 & 3 \\
+\textit{8xt50} & \begin{tabular}[c]{@{}l@{}}ReSCoSS conformations // DSD-BLYP-D3 \\ reranking // COSMOtherm pKa\end{tabular} & 1.07 [0.78, 1.36] & 0.81 [0.58, 1.07] & 0.91 [0.84, 0.95] & 0.80 [0.68, 0.89] & 0 & 0 \\ \bottomrule
+\end{tabular}
+\end{threeparttable}
+\end{center}
+\end{table}
+
 
 \todo[inline]{Check if top few performing methods are consistent between error metrics. }
-\todoMI{TABLE: Consistently well performing methods. Add also unmatched pKa numbers}
+
 \todoMI{FIGURE: Predicted vs experimental value correlation plots of 3-6 performing methods and one representative average method.}
 
 

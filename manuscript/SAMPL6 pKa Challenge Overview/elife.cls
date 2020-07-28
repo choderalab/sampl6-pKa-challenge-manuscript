@@ -73,7 +73,8 @@
 \if@onehalfspacing\linespread{1.5}\fi
 \if@doublespacing\linespread{2.0}\fi
 
-\RequirePackage{graphicx,xcolor}
+\RequirePackage[table]{xcolor}
+\RequirePackage{graphicx}
 \definecolor{eLifeDarkBlue}{HTML}{273B81}
 \definecolor{eLifeLightBlue}{HTML}{0A9DD9}
 \definecolor{eLifeMediumGrey}{HTML}{6D6E70}
@@ -171,26 +172,26 @@
 %
 % section/subsection/paragraph set-up
 %
-% \setcounter{secnumdepth}{0}
-% \RequirePackage[explicit]{titlesec}
-% \titleformat{\section}
-%   {\color{eLifeMediumGrey}\Large\bfseries\raggedright}
-%   {\thesection}{}{#1}[]
-% \titleformat{\subsection}
-%   {\large\bfseries\raggedright}
-%   {\thesubsection}{}{#1}[]
-% \titleformat{\subsubsection}
-%   {\large\raggedright}
-%   {\thesubsubsection}{}{#1}[]    
-% \titleformat{\paragraph}
-%   {\color{eLifeMediumGrey}\large\raggedright}
-%   {\theparagraph}{}{#1}[] 
-% \titlespacing*{\section}{0pc}{3ex \@plus4pt \@minus3pt}{0pt}
-% \titlespacing*{\subsection}{0pc}{2.5ex \@plus3pt \@minus2pt}{0pt}
-% \titlespacing*{\subsubsection}{0pc}{2ex \@plus2.5pt \@minus1.5pt}{0pt}
-% \titlespacing*{\paragraph}{0pc}{1.5ex \@plus2pt \@minus1pt}{0pt}
-
-
+%\setcounter{secnumdepth}{0}
+%\RequirePackage[explicit]{titlesec}
+%\titleformat{\section}
+%  {\color{eLifeMediumGrey}\Large\bfseries\raggedright}
+%  {\thesection}{}{#1}[]
+%\titleformat{\subsection}
+%  {\large\bfseries\raggedright}
+%  {\thesubsection}{}{#1}[]
+%\titleformat{\subsubsection}
+%  {\large\raggedright}
+%  {\thesubsubsection}{}{#1}[]    
+%\titleformat{\paragraph}
+%  {\color{eLifeMediumGrey}\large\raggedright}
+%  {\theparagraph}{}{#1}[] 
+%\titlespacing*{\section}{0pc}{3ex \@plus4pt \@minus3pt}{0pt}
+%\titlespacing*{\subsection}{0pc}{2.5ex \@plus3pt \@minus2pt}{0pt}
+%\titlespacing*{\subsubsection}{0pc}{2ex \@plus2.5pt \@minus1.5pt}{0pt}
+%\titlespacing*{\paragraph}{0pc}{1.5ex \@plus2pt \@minus1pt}{0pt}
+ 
+%
 % section/subsection/paragraph set-up that preserves section numbers
 % Updated for LiveComs
 %\setcounter{secnumdepth}{0}
@@ -211,8 +212,6 @@
 \titlespacing*{\subsection}{0pc}{2.5ex \@plus3pt \@minus2pt}{0pt}
 \titlespacing*{\subsubsection}{0pc}{2ex \@plus2.5pt \@minus1.5pt}{0pt}
 \titlespacing*{\paragraph}{0pc}{1.5ex \@plus2pt \@minus1pt}{0pt}
-
-
   
 \RequirePackage{enumitem}
 \setlist{noitemsep}
@@ -273,7 +272,7 @@
     \bigskip\@contribution\par\fi
     \ifx\empty\@presentaddress\else
     \bigskip\textbf{Present address: }\@presentaddress\par\fi
-    %\bigskip
+    \bigskip
     \ifx\empty\@deceased\else\@deceased\par\fi
 }
 
@@ -281,8 +280,7 @@
   %\marginpar{\raggedright\footnotesize
   %\par}
   \AB@affillist\par
-  %\bigskip
-  \vspace{0.1cm}
+  \bigskip
   {\small \themetadata}}{}{}
   
 \RequirePackage{environ}
