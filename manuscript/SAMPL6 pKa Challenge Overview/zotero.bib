@@ -1,3 +1,52 @@
+
+@article{Bannan:2018:J.Comput.AidedMol.Des.,
+  title = {{{SAMPL6}} Challenge Results from \$\${{pK}}\_a\$\$ Predictions Based on a General {{Gaussian}} Process Model},
+  author = {Bannan, Caitlin C. and Mobley, David L. and Skillman, A. Geoffrey},
+  year = {2018},
+  month = oct,
+  volume = {32},
+  pages = {1165--1177},
+  issn = {0920-654X, 1573-4951},
+  doi = {10.1007/s10822-018-0169-z},
+  abstract = {A variety of fields would benefit from accurate pKa predictions, especially drug design due to the effect a change in ionization state can have on a molecule's physiochemical properties. Participants in the recent SAMPL6 blind challenge were asked to submit predictions for microscopic and macroscopic pKa{$\mkern1mu$}s of 24 drug like small molecules. We recently built a general model for predicting pKa{$\mkern1mu$}s using a Gaussian process regression trained using physical and chemical features of each ionizable group. Our pipeline takes a molecular graph and uses the OpenEye Toolkits to calculate features describing the removal of a proton. These features are fed into a Scikit-learn Gaussian process to predict microscopic pKa{$\mkern1mu$}s which are then used to analytically determine macroscopic pKa{$\mkern1mu$}s. Our Gaussian process is trained on a set of 2700 macroscopic pKa{$\mkern1mu$}s from monoprotic and select diprotic molecules. Here, we share our results for microscopic and macroscopic predictions in the SAMPL6 challenge. Overall, we ranked in the middle of the pack compared to other participants, but our fairly good agreement with experiment is still promising considering the challenge molecules are chemically diverse and often polyprotic while our training set is predominately monoprotic. Of particular importance to us when building this model was to include an uncertainty estimate based on the chemistry of the molecule that would reflect the likely accuracy of our prediction. Our model reports large uncertainties for the molecules that appear to have chemistry outside our domain of applicability, along with good agreement in quantile\textendash quantile plots, indicating it can predict its own accuracy. The challenge highlighted a variety of means to improve our model, including adding more polyprotic molecules to our training set and more carefully considering what functional groups we do or do not identify as ionizable.},
+  file = {/Users/isikm/Zotero/storage/B445KQG9/Bannan et al. - 2018 - SAMPL6 challenge results from $$pK_a$$ predictions.pdf},
+  journal = {Journal of Computer-Aided Molecular Design},
+  language = {en},
+  number = {10}
+}
+
+@article{Bochevarov:2013:Int.J.QuantumChem.,
+  title = {Jaguar: {{A}} High-Performance Quantum Chemistry Software Program with Strengths in Life and Materials Sciences},
+  shorttitle = {Jaguar},
+  author = {Bochevarov, Art D. and Harder, Edward and Hughes, Thomas F. and Greenwood, Jeremy R. and Braden, Dale A. and Philipp, Dean M. and Rinaldo, David and Halls, Mathew D. and Zhang, Jing and Friesner, Richard A.},
+  year = {2013},
+  month = sep,
+  volume = {113},
+  pages = {2110--2142},
+  issn = {00207608},
+  doi = {10.1002/qua.24481},
+  file = {/Users/isikm/Zotero/storage/LXE73ZBU/Bochevarov et al. - 2013 - Jaguar A high-performance quantum chemistry softw.pdf},
+  journal = {International Journal of Quantum Chemistry},
+  language = {en},
+  number = {18}
+}
+
+@article{Eckert:2006:J.Comput.Chem.,
+  title = {Accurate Prediction of Basicity in Aqueous Solution with {{COSMO}}-{{RS}}},
+  author = {Eckert, Frank and Klamt, Andreas},
+  year = {2006},
+  month = jan,
+  volume = {27},
+  pages = {11--19},
+  issn = {0192-8651, 1096-987X},
+  doi = {10.1002/jcc.20309},
+  abstract = {The COSMO-RS method, a combination of the quantum chemical dielectric continuum solvation model COSMO with a statistical thermodynamics treatment for realistic solvation simulations, has been used for the prediction of base pKa constants. For a variety of 43 organic bases the directly calculated values of the free energies of dissociation in water showed a very good correlation with experimental base pKa values (r2 ϭ 0.98), corresponding to a standard deviation of 0.56 pKa units. Thus, we have an a priori prediction method for base pKa with the regression constant and the slope as only adjusted parameters. In accord with recent findings for pKa acidity predictions, the slope of pKa vs. {$\varhexagonlrbonds$}Gdiss was significantly smaller than the theoretically expected value of 1/RTln(10). The predictivity of the presented method is general and not restricted to certain compound classes, but systematic corrections of 1 and 2 pKa units for secondary and tertiary aliphatic amines are required, respectively. The pKa prediction method was validated on a set of 58 complex multifunctional drug-like compounds, yielding an RMS accuracy of 0.66 pKa units.},
+  file = {/Users/isikm/Zotero/storage/JUZZANJI/Eckert and Klamt - 2006 - Accurate prediction of basicity in aqueous solutio.pdf},
+  journal = {Journal of Computational Chemistry},
+  language = {en},
+  number = {1}
+}
+
 @article{Isik:2018:J.Comput.AidedMol.Des.,
   title = {{{pKa}} Measurements for the {{SAMPL6}} Prediction Challenge for a Set of Kinase Inhibitor-like Fragments},
   author = {I{\c s}{\i}k, Mehtap and Levorse, Dorothy and Rustenburg, Ari{\"e}n S. and Ndukwe, Ikenna E. and Wang, Heather and Wang, Xiao and Reibarkh, Mikhail and Martin, Gary E. and Makarov, Alexey A. and Mobley, David L. and Rhodes, Timothy and Chodera, John D.},
@@ -9,6 +58,133 @@
   doi = {10.1007/s10822-018-0168-0},
   abstract = {Determining the net charge and protonation states populated by a small molecule in an environment of interest or the cost of altering those protonation states upon transfer to another environment is a prerequisite for predicting its physicochemical and pharmaceutical properties. The environment of interest can be aqueous, an organic solvent, a protein binding site, or a lipid bilayer. Predicting the protonation state of a small molecule is essential to predicting its interactions with biological macromolecules using computational models. Incorrectly modeling the dominant protonation state, shifts in dominant protonation state, or the population of significant mixtures of protonation states can lead to large modeling errors that degrade the accuracy of physical modeling. Low accuracy hinders the use of physical modeling approaches for molecular design. For small molecules, the acid dissociation constant (pKa) is the primary quantity needed to determine the ionic states populated by a molecule in an aqueous solution at a given pH. As a part of SAMPL6 community challenge, we organized a blind pKa prediction component to assess the accuracy with which contemporary pKa prediction methods can predict this quantity, with the ultimate aim of assessing the expected impact on modeling errors this would induce. While a multitude of approaches for predicting pKa values currently exist, predicting the pKas of drug-like molecules can be difficult due to challenging properties such as multiple titratable sites, heterocycles, and tautomerization. For this challenge, we focused on set of 24 small molecules selected to resemble selective kinase inhibitors\textemdash an important class of therapeutics replete with titratable moieties. Using a Sirius T3 instrument that performs automated acid\textendash base titrations, we used UV absorbancebased pKa measurements to construct a high-quality experimental reference dataset of macroscopic pKas for the evaluation of computational pKa prediction methodologies that was utilized in the SAMPL6 pKa challenge. For several compounds in which the microscopic protonation states associated with macroscopic pKas were ambiguous, we performed follow-up NMR experiments to disambiguate the microstates involved in the transition. This dataset provides a useful standard benchmark dataset for the evaluation of pKa prediction methodologies on kinase inhibitor-like compounds.},
   file = {/Users/isikm/Zotero/storage/5Z3AJKTH/Işık et al. - 2018 - pKa measurements for the SAMPL6 prediction challen.pdf},
+  journal = {Journal of Computer-Aided Molecular Design},
+  language = {en},
+  number = {10}
+}
+
+@article{Klamt:2003:J.Phys.Chem.Ab,
+  title = {First {{Principles Calculations}} of {{Aqueous}} p {{{\emph{K}}}} {\textsubscript{a}} {{Values}} for {{Organic}} and {{Inorganic Acids Using COSMO}}-{{RS Reveal}} an {{Inconsistency}} in the {{Slope}} of the p {{{\emph{K}}}} {\textsubscript{a}} {{Scale}}},
+  author = {Klamt, Andreas and Eckert, Frank and Diedenhofen, Michael and Beck, Michael E.},
+  year = {2003},
+  month = nov,
+  volume = {107},
+  pages = {9380--9386},
+  issn = {1089-5639, 1520-5215},
+  doi = {10.1021/jp034688o},
+  file = {/Users/isikm/Zotero/storage/NIT5V6ES/Klamt et al. - 2003 - First Principles Calculations of Aqueous p Ki.pdf},
+  journal = {The Journal of Physical Chemistry A},
+  language = {en},
+  number = {44}
+}
+
+@article{Milletti:2007:J.Chem.Inf.Model.,
+  title = {New and {{Original}} p {{{\emph{K}}}} {\textsubscript{a}} {{Prediction Method Using Grid Molecular Interaction Fields}}},
+  author = {Milletti, Francesca and Storchi, Loriano and Sforna, Gianluca and Cruciani, Gabriele},
+  year = {2007},
+  month = nov,
+  volume = {47},
+  pages = {2172--2181},
+  issn = {1549-9596, 1549-960X},
+  doi = {10.1021/ci700018y},
+  file = {/Users/isikm/Zotero/storage/PIX5GY4T/Milletti et al. - 2007 - New and Original p K a Predictio.pdf},
+  journal = {Journal of Chemical Information and Modeling},
+  language = {en},
+  number = {6}
+}
+
+@article{Pracht:2018:J.Comput.AidedMol.Des.,
+  title = {High Accuracy Quantum-Chemistry-Based Calculation and Blind Prediction of Macroscopic {{pKa}} Values in the Context of the {{SAMPL6}} Challenge},
+  author = {Pracht, Philipp and Wilcken, Rainer and Udvarhelyi, Anik{\'o} and Rodde, Stephane and Grimme, Stefan},
+  year = {2018},
+  month = oct,
+  volume = {32},
+  pages = {1139--1149},
+  issn = {0920-654X, 1573-4951},
+  doi = {10.1007/s10822-018-0145-7},
+  abstract = {Recent advances in the development of low-cost quantum chemical methods have made the prediction of conformational preferences and physicochemical properties of medium-sized drug-like molecules routinely feasible, with significant potential to advance drug discovery. In the context of the SAMPL6 challenge, macroscopic pKa values were blindly predicted for a set of 24 of such molecules. In this paper we present two similar quantum chemical based approaches based on the high accuracy calculation of standard reaction free energies and the subsequent determination of those pKa values via a linear free energy relationship. Both approaches use extensive conformational sampling and apply hybrid and double-hybrid density functional theory with continuum solvation to calculate free energies. The blindly calculated macroscopic pKa values were in excellent agreement with the experiment.},
+  file = {/Users/isikm/Zotero/storage/FXK4C6QA/Pracht et al. - 2018 - High accuracy quantum-chemistry-based calculation .pdf},
+  journal = {Journal of Computer-Aided Molecular Design},
+  language = {en},
+  number = {10}
+}
+
+@article{Prasad:2018:J.Comput.AidedMol.Des.,
+  title = {An Explicit-Solvent Hybrid {{QM}} and {{MM}} Approach for Predicting {{pKa}} of Small Molecules in {{SAMPL6}} Challenge},
+  author = {Prasad, Samarjeet and Huang, Jing and Zeng, Qiao and Brooks, Bernard R.},
+  year = {2018},
+  month = oct,
+  volume = {32},
+  pages = {1191--1201},
+  issn = {0920-654X, 1573-4951},
+  doi = {10.1007/s10822-018-0167-1},
+  abstract = {In this work we have developed a hybrid QM and MM approach to predict pKa of small drug-like molecules in explicit solvent. The gas phase free energy of deprotonation is calculated using the M06-2X density functional theory level with Pople basis sets. The solvation free energy difference of the acid and its conjugate base is calculated at MD level using thermodynamic integration. We applied this method to the 24 drug-like molecules in the SAMPL6 blind pKa prediction challenge. We achieved an overall RMSE of 2.4 pKa units in our prediction. Our results show that further optimization of the protocol needs to be done before this method can be used as an alternative approach to the well established approaches of a full quantum level or empirical pKa prediction methods.},
+  file = {/Users/isikm/Zotero/storage/PX6BZ3QL/Prasad et al. - 2018 - An explicit-solvent hybrid QM and MM approach for .pdf},
+  journal = {Journal of Computer-Aided Molecular Design},
+  language = {en},
+  number = {10}
+}
+
+@article{Selwa:2018:J.Comput.AidedMol.Des.,
+  title = {{{SAMPL6}}: Calculation of Macroscopic {{pKa}} Values from Ab Initio Quantum Mechanical Free Energies},
+  shorttitle = {{{SAMPL6}}},
+  author = {Selwa, Edithe and Kenney, Ian M. and Beckstein, Oliver and Iorga, Bogdan I.},
+  year = {2018},
+  month = oct,
+  volume = {32},
+  pages = {1203--1216},
+  issn = {0920-654X, 1573-4951},
+  doi = {10.1007/s10822-018-0138-6},
+  abstract = {Macroscopic pKa values were calculated for all compounds in the SAMPL6 blind prediction challenge, based on quantum chemical calculations with a continuum solvation model and a linear correction derived from a small training set. Microscopic pKa values were derived from the gas-phase free energy difference between protonated and deprotonated forms together with the Conductor-like Polarizable Continuum Solvation Model and the experimental solvation free energy of the proton. pH-dependent microstate free energies were obtained from the microscopic pKas with a maximum likelihood estimator and appropriately summed to yield macroscopic pKa values or microstate populations as function of pH. We assessed the accuracy of three approaches to calculate the microscopic pKas: direct use of the quantum mechanical free energy differences and correction of the direct values for short-comings in the QM solvation model with two different linear models that we independently derived from a small training set of 38 compounds with known pKa. The predictions that were corrected with the linear models had much better accuracy [root-mean-square error (RMSE) 2.04 and 1.95 pKa units] than the direct calculation (RMSE 3.74). Statistical measures indicate that some systematic errors remain, likely due to differences in the SAMPL6 data set and the small training set with respect to their interactions with water. Overall, the current approach provides a viable physics-based route to estimate macroscopic pKa values for novel compounds with reasonable accuracy.},
+  file = {/Users/isikm/Zotero/storage/IABK7LYT/Selwa et al. - 2018 - SAMPL6 calculation of macroscopic pKa values from.pdf},
+  journal = {Journal of Computer-Aided Molecular Design},
+  language = {en},
+  number = {10}
+}
+
+@article{Shelley:2007:J.Comput.AidedMol.Des.,
+  title = {Epik: A Software Program for {{pK}} a Prediction and Protonation State Generation for Drug-like Molecules},
+  shorttitle = {Epik},
+  author = {Shelley, John C. and Cholleti, Anuradha and Frye, Leah L. and Greenwood, Jeremy R. and Timlin, Mathew R. and Uchimaya, Makoto},
+  year = {2007},
+  month = dec,
+  volume = {21},
+  pages = {681--691},
+  issn = {0920-654X, 1573-4951},
+  doi = {10.1007/s10822-007-9133-z},
+  file = {/Users/isikm/Zotero/storage/5VQ7DELH/Shelley et al. - 2007 - Epik a software program for pK a prediction and p.pdf},
+  journal = {Journal of Computer-Aided Molecular Design},
+  language = {en},
+  number = {12}
+}
+
+@article{Tielker:2018:J.Comput.AidedMol.Des.,
+  title = {The {{SAMPL6}} Challenge on Predicting Aqueous {{pKa}} Values from {{EC}}-{{RISM}} Theory},
+  author = {Tielker, Nicolas and Eberlein, Lukas and G{\"u}ssregen, Stefan and Kast, Stefan M.},
+  year = {2018},
+  month = oct,
+  volume = {32},
+  pages = {1151--1163},
+  issn = {0920-654X, 1573-4951},
+  doi = {10.1007/s10822-018-0140-z},
+  abstract = {The ``embedded cluster reference interaction site model'' (EC-RISM) integral equation theory is applied to the problem of predicting aqueous pKa values for drug-like molecules based on an ensemble of tautomers. EC-RISM is based on selfconsistent calculations of a solute's electronic structure and the distribution function of surrounding water. Following-up on the workflow developed after the SAMPL5 challenge on cyclohexane-water distribution coefficients we extended and improved the methodology by taking into account exact electrostatic solute\textendash solvent interactions taken from the wave function in solution. As before, the model is calibrated against Gibbs energies of hydration from the ``Minnesota Solvation Database'' and a public dataset of acidity constants of organic acids and bases by adjusting in total 4 parameters, among which only 3 are relevant for predicting pKa values. While the best-performing training model yields a root-mean-square error (RMSE) of 1 pK unit, the corresponding test set prediction on the full SAMPL6 dataset of macroscopic pKa values using the same level of theory exhibits slightly larger error (1.7 pK units) than the best test set model submitted (1.7 pK units for corresponding training set vs. test set performance of 1.6). Post-submission analysis revealed a number of physical optimization options regarding the numerical treatment of electrostatic interactions and conformational sampling. While the experimental test set data revealed after submission was not used for reparametrizing the methodology, the best physically optimized models consequentially result in RMSEs of 1.5 if only improved electrostatic interactions are considered and of 1.1 if, in addition, conformational sampling accounts for quantum-chemically derived rankings. We conclude that these numbers are probably near the ultimate accuracy achievable with the simple 3-parameter model using a single or the two best-ranking conformations per tautomer or microstate. Finally, relations of the present macrostate approach to microstate pKa results are discussed and some illustrative results for microstate populations are presented.},
+  file = {/Users/isikm/Zotero/storage/UTJG5LF5/Tielker et al. - 2018 - The SAMPL6 challenge on predicting aqueous pKa val.pdf},
+  journal = {Journal of Computer-Aided Molecular Design},
+  language = {en},
+  number = {10}
+}
+
+@article{Zeng:2018:J.Comput.AidedMol.Des.,
+  title = {Absolute and Relative {{pKa}} Predictions via a {{DFT}} Approach Applied to the {{SAMPL6}} Blind Challenge},
+  author = {Zeng, Qiao and Jones, Michael R. and Brooks, Bernard R.},
+  year = {2018},
+  month = oct,
+  volume = {32},
+  pages = {1179--1189},
+  issn = {0920-654X, 1573-4951},
+  doi = {10.1007/s10822-018-0150-x},
+  abstract = {In this work, quantum mechanical methods were used to predict the microscopic and macroscopic pKa values for a set of 24 molecules as a part of the SAMPL6 blind challenge. The SMD solvation model was employed with M06-2X and different basis sets to evaluate three pKa calculation schemes (direct, vertical, and adiabatic). The adiabatic scheme is the most accurate approach (RMSE\,=\,1.40 pKa units) and has high correlation \-(R2\,=\,0.93), with respect to experiment. This approach can be improved by applying a linear correction to yield an RMSE of 0.73 pKa units. Additionally, we consider including explicit solvent representation and multiple lower-energy conformations to improve the predictions for outliers. Adding three water molecules explicitly can reduce the error by 2\textendash 4 pKa units, with respect to experiment, whereas including multiple local minima conformations does not necessarily improve the pKa prediction.},
+  file = {/Users/isikm/Zotero/storage/4MNRI6K4/Zeng et al. - 2018 - Absolute and relative pKa predictions via a DFT ap.pdf},
   journal = {Journal of Computer-Aided Molecular Design},
   language = {en},
   number = {10}
