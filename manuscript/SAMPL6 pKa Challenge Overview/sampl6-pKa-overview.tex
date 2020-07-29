@@ -507,14 +507,12 @@ Dark and light green shaded areas indicate 0.5 and 1.0 units of error. Error bar
 
 \subsubsection{Which chemicals are harder to predict?}
 
-\todo[inline]{check amide next to aromatic heterocycles case}
 For physical prediction methods sulfur containing heterocycles, amide next to aromatic heterocycles, compounds with iodo and bromo domains have lower pKa prediction accuracy.
 
 \begin{figure}
 \begin{center}
 \includegraphics[width=0.95\linewidth]{figures/molecules_with_MAE_of_all_methods.pdf}
-\caption{{\bf Molecules of SAMPL6 pKa challenge with MAE calculated for all macroscopic (type III) predictions.} MAE calculated considering all prediction methods indicate which molecules had the lowest prediction accuracy in SAMPL6 challenge. MAE values calculated for each molecule include all the matched pKa values, which could be more than one per method for multiprotic molecules (SM06, SM14, SM15, SM16, SM18, SM22). "C:" and "H:" indicate results based on Closest and Hungarian matching algorithms employed for pairing experimental and predicted pKa values. Calculated MAE values were observed to differ for molecules with multiple experimental pKas. MAE values are reported with 95\% confidence intervals.
-\todo[inline]{Add sequencial analysis results to this figure.}
+\caption{{\bf Molecules of SAMPL6 Challenge with MAE calculated for all macroscopic \pKa{} predictions.} MAE calculated considering all prediction methods indicate which molecules had the lowest prediction accuracy in SAMPL6 Challenge. MAE values calculated for each molecule include all the matched \pKa{} values, which could be more than one per method for multiprotic molecules (SM06, SM14, SM15, SM16, SM18, SM22). Hungarian matching algorithm wasemployed for pairing experimental and predicted \pKa{} values. MAE values are reported with 95\% confidence intervals.
 }
 \label{fig:molecules_with_MAE_of_all_methods}
 \end{center}
@@ -533,6 +531,22 @@ SAMPL6 pKa set consisted of only 24 small molecules which limits our ability to 
 
 
 \todoMI{FIGURE:  Molecular MAE comparison across methods.}
+
+
+
+\begin{figure}
+\centering
+\includegraphics[width=1.0\linewidth]{figures/typeIII_molecular_MAE_fig.pdf}
+\caption{{\bf Average prediction accuracy calculated over all prediction methods was lower for molecules with sulfur-containing heterocycles, bromo, and iodo groups.}
+{\bf(A)} MAE calculated for each molecule as an average of all methods. {\bf(B)} MAE of each molecule broken out by method category. QM-based methods (blue) include QM predictions with or without linear empirical correction. Empirical methods (green) include QSAR, ML, DL, and LFER approaches. {\bf(C)} Depiction of SAMPL6 molecules with sulfur-containing heterocycles. {\bf(D)} Depiction of SAMPL6 molecules with iodo and bromo groups .
+}
+\label{fig:typeIII_molecular_MAE}
+\end{figure}
+
+
+
+
+
 
 Does molecular descriptors explain errors/performance ?
 We looked for correlation with descriptors, and potential explanation for errors. Keep spurious correlations in mind if we have many descriptors. No correlation observed. Reference the SI Figure of correlations.
