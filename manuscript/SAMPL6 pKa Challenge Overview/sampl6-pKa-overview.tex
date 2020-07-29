@@ -530,7 +530,7 @@ SAMPL6 pKa set consisted of only 24 small molecules which limits our ability to 
 
 
 
-\todoMI{FIGURE:  Molecular MAE comparison across methods.}
+
 
 
 
@@ -568,12 +568,36 @@ Are pKa predictions better in middle region?
 No correlation between pKa value and error was seen.
 Reference the SI Figure.
 
-\todoMI{Figure: Ridge plots of Delta pKa error to identify compounds that were frequently mispredicted }
+Refer to Ridge plots of Delta pKa error to identify compounds that were frequently mispredicted.
 
 Compare ME of molecules across methods.
 Are there molecules often overestimated or underestimated?
 
 No correlation of macroscopic pKa number to the errors? But we have low representation of multiprotic compounds
+
+
+
+
+
+
+
+
+%%%
+\subsection{Analysis of microscopic \pKa{} predictions using microstates determined by NMR (8 molecules)}
+
+
+\todoMI{FIGURE: Assign experimental pKa to microscopic transitions observed by NMR. }
+
+\begin{figure}
+\centering
+\includegraphics[width=1.0\linewidth]{figures/typeI_8_mol_matching_comparison.pdf}
+\caption{{\bf NMR determination of dominant microstates allowed in depth evaluation of microscopic \pKa{} predictions of 8 compounds.} 
+{\bf A} Dominant microstate sequence of two compounds (SM07 and SM14) were determined by NMR~\cite{Isik:2018:J.Comput.AidedMol.Des.}. Based on these reference compounds dominant microstates of 6 other derivative compounds were infered and experimental \pKa{} values were assigned to titratable groups with the assumption that only the dominant microstates have significant contributions to the experimentally observed \pKa{}.
+{\bf B} RMSE vs. submission ID and unmatched \pKa{} vs. submission ID plots for the evaluation of microscopic \pKa{} predictions of 8 molecules by Hungarian matching to experimental macroscopic \pKa{}s. {\bf C} RMSE vs. submission ID and unmatched \pKa{} vs. submission ID plots showing the evaluation of microscopic \pKa{} predictions of 8 molecules by microstate-based matching between predicted microscopic \pKa{}s and experimental macroscopic \pKa{} values. 
+RMSE is shown with error bars denoting 95\% confidence intervals obtained by bootstrapping over challenge molecules. Lower bar plots show the number of unmatched experimental \pKa{}s (light grey, missing predictions) and the number of unmatched \pKa{} predictions (dark grey, extra predictions) for each method between pH 2 and 12. Submission IDs are summarized in Table~\ref{submission-ID-table}. 
+}
+\label{fig:typeI-matching-algorithm-comparison}
+\end{figure}
 
 
 
@@ -589,14 +613,9 @@ Molecules with only 1 pKa or well separated multiple pKas (more than 3 pKa units
 Errors computed by microstate-based matching are larger compared to numerical matching algorithms.
 Microscopic pKa analysis with numerical matching algorithms may mask errors due to higher number of guesses made.
 
-\todoMI{FIGURE Type I analysis, comparing analysis of 22 molecules (Hungarian vs Microstate matching)}
 
 
 
-%%%
-\subsection{Analysis of microscopic \pKa{} predictions using microstates determined by NMR (8 molecules)}
-
-\todoMI{FIGURE: Assign experimental pKa to microscopic transitions observed by NMR. }
 Conclusions will only be about 4-aminoquinazoline series and benzimidazole (8 molecules, 10 pKas)
 Refer to SI figure of dominant microstates.
 
