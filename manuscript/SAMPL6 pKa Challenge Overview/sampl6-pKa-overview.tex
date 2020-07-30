@@ -631,7 +631,7 @@ Do people predict the correct sequence of dominant microstates?
 \todo[inline]{Assessment of individual methods by each of our analysis methods}
 \todo[inline]{Performance comparison of different methods, grouped by methods class}
 
-\todo[inline]{Comment on the ranking of microscopic pKa prediction error statistsics for all participants (8 mol, microstate match). Refer to Fig.~\ref(fig:typeI-statistics)}
+\todo[inline]{Comment on the ranking of microscopic pKa prediction error statistsics for all participants (8 mol, microstate match). Refer to Fig.~\ref{fig:typeI-statistics}}
 
 \begin{figure}
 \centering
@@ -646,8 +646,6 @@ Mean absolute error (MAE), mean error (ME), Pearson’s R\textsuperscript{2}, an
 
 
 
-\todoMI{FIGURE: Violin plots of Delta pKa error to identify compounds that were frequently mispredicted (microstate match)}
-
 
 
 \subsubsection{Dominant microstate prediction accuracy of methods}
@@ -656,6 +654,16 @@ Calculate relative free energy of microstates to determine dominant microstate o
 Compare predicted and experimental dominant microstates and calculate accuracy of each method
 
 \todoMI{FIGURE: Dominant microstate accuracy vs method plot. Charges together and separate.}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.5\linewidth]{figures/typeI_dominant_microstate_accuracy.pdf}
+\caption{{\bf Some methods predicted the sequence of dominant tautomers inaccurately.} Prediction accuracy of dominant microstate of each charged state was calculated using the dominant microstate sequence determined by NMR for 8 molecules as reference. 
+{\bf(A)} Dominant microstate accuracy vs. submission ID plot was calculated considering all the dominant microstates seen in the 8 molecule experimental microstate dataset. {\bf(B)} Dominant microstate accuracy vs. submission ID plot was generating considering only the dominant microstates of charge 0 and +1 seen in the 8 molecule experimental microstate dataset. Accuracy of each molecule is broken out by total charge of the microstate. {\bf(C)} Dominant microstate prediction accuracy calculated for each molecule averaged over all methods. In {\bf(B)} and {\bf(C)}, the accuracy of predicting the dominant neutral tautomer is showed in blue and the accuracy of predicting the dominant +1 charged tautomer is showed in green. Error bars denoting 95\% confidence intervals obtained by bootstrapping.
+}
+\label{fig:typeI_dominant_microstate_accuracy}
+\end{figure}
+
 
 What percent of the time predictions capture the dominant protonation state correctly? 
 Match by microstate and calculate RMSE and MAE. If you know the microstates, can you predict the value of the pKa right? 
