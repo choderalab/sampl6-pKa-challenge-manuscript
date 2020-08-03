@@ -721,8 +721,34 @@ When cycles are not closed it may be used as an indicator of prediction uncertai
 \todo[inline]{Illustrate the ways in which the pKa errors can influence prediction errors for binding affinities}
 \todo[inline]{How do accuracy limitations in small molecule pKa prediction translate into modeling errors in ligand affinity prediction?}
 
-\todoMI{FIGURE: a diagram illustrating the ways in which the pKa errors can influence prediction errors for binding affinities (A) When minor aqueous protonation state binds (B) When multiple protonation states can bind the complex
+
+
+$$ \Delta G_{bind} =\Delta G_{bind}^{C} + \Delta G_{prot}$$  
+
+$$ \Delta G_{bind} =\Delta G_{bind}^{C} + RT(pH - pK_a) \ln{(10)}$$
+
+$$ \Delta G_{bind} =\Delta G_{bind}^{N} + \Delta G_{corr}$$  
+
+$$ \Delta G_{bind} =\Delta G_{bind}^{N} - RT\ln{\frac{1 + e^{-\frac{\Delta G_{bind}^{C} - \Delta G_{bind}^{N}}{RT}}10^{pK_a - pH}}{1 + 10^{pK_a - pH}}} $$  
+
+
+\begin{figure}
+\centering
+\includegraphics[width=1.0\linewidth]{figures/pKa-effects-on-protein-ligand-binding.pdf}
+\caption{ {\bf Aqueous \pKa{} of the ligand can influence overall protein-ligand binding affinity.} {\bf A} When only the minor aqueous protonation state contributes to protein-ligand complex formation, overall binding free energy ($\Delta G_{bind}$) needs to be calculated as the sum of binding affinity of the minor state and the protonation penalty of that state. {\bf B} When multiple charge states contribute to complex formation, overall free energy of binding includes a multiple protonation states correction (MPSC) term ($\Delta G_{corr}$). MPSC is a function of pH, aqueous \pKa{} of the ligand, and the difference between the binding free energy of charged and neutral species ($\Delta G_{bind}^{C} - \Delta G_{bind}^{N}$).
 }
+\label{fig:pKa-effects-on-protein-ligand-binding}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.8\linewidth]{figures/pKa-inaccuracy-and-MPSC.pdf}
+\caption{ {\bf Inaccuracy of \pKa{} prediction ($\pm$ 1 unit) affects the the accuracy of MPSC and overall protein-ligand binding free energy calculation in varying amounts based on aqueous \pKa{} value and relative binding affinity of individual protonation states ($\Delta\Delta G = \Delta G_{bind}^{C} - \Delta G_{bind}^{N}$).} 
+All calculations are made for 25\degree C, and for a ligand with single basic titratable group. {\bf A, C, E, and G} show MPSC ($\Delta G_{corr}$) calculated with true vs. inaccurate \pKa{}. {\bf B, D, F, and H} show comparison of the absolute error to $\Delta G_{bind}$ caused by ignoring the MPSC completely (solid lines) vs. calculating MPSC based in inaccurate \pKa{} value (dashed lines). These plots provide guidence on when it is beneficial to include MPSC correction based on \pKa{} error, pH - \pKa{}, and $\Delta\Delta G$. 
+}
+\label{fig:pKa-inaccuracy-and-MPSC}
+\end{figure}
+
 
 
 %%%
