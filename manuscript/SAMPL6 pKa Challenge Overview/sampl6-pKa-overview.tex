@@ -449,12 +449,9 @@ Mean absolute error (MAE), mean error (ME), Pearson’s R\textsuperscript{2}, an
 \end{figure}
 
 
-\todoMI{SI TABLE: Error statistics for all participants}
-
 Describe number of missing and extra pKa for each method.  
 Report in total for all molecules how many predicted pKas are there and how many experimental pKas.  
 Refer to FIGURE: missing and extra pKa counts.  
-\todoMI{SI TABLE: Missing and extra pKa counts}
 
 Describe overall performance comparison of different methods, grouped by methods class.
 
@@ -562,9 +559,9 @@ We looked for correlation with descriptors, and potential explanation for errors
 
 \todo[inline]{Comparison of errors/performance against molecular descriptors. Look for correlation with descriptors, and potential explanation for errors. Keep spurious correlations in mind if we have many descriptors.}
 
-\todoMI{Figure SI: correlation between prediction error and molecular descriptors}
+Refer to Figure SI: correlation between prediction error and molecular descriptors. There is no clear correlation between molecular descriptors and mean absolute error for each molecule when calculated for all methods.  
 
-Are pKa predictions better in middle region?
+Are pKa predictions better in middle region? Error in pKa predictions does not correlate with the true value of pKa.
 No correlation between pKa value and error was seen.
 Reference the SI Figure.
 
@@ -840,16 +837,30 @@ Suggestions about challenge analysis
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Overview of supplementary information}
 
-\paragraph{Organized in SI document:}
+\paragraph{Contents of the Supplementary Information:}
 
 \begin{itemize}
-\item TABLE SI 1: SMILES and InChI identifiers of SAMPL6 \pKa{}  Challenge molecules.
+\item TABLE~\ref{pKa_chemical_identifiers_table}: SMILES and InChI identifiers of SAMPL6 \pKa{}  Challenge molecules.
+\item TABLE~\ref{SI_statistics_table_macro_pKa}: Evaluation statistics calculated for all macroscopic \pKa{} prediction submissions based on Hungarian match for 24 molecules.
+\item TABLE~\ref{SI-statistics-table-micro-pKa-8mol-hungarian}: Evaluation statistics calculated for all microscopic \pKa{} prediction submissions based on Hungarian match for 8 molecules with NMR data.
+\item TABLE~\ref{SI-statistics-table-micro-pKa-8mol-microstate}: Evaluation statistics calculated for all microscopic \pKa{} prediction submissions based on microstate match for 8 molecules with NMR data.
+\item FIGURE~\ref{fig:experimental-microstate-IDs-SI-table}: Dominant microstates of 8 molecules were determined based on NMR measurements.
+\item FIGURE~\ref{fig:molecular_properties_vs_MAE_correlation}: MAE of macroscopic \pKa{} predictions of each molecule did not show any significant correlation with any molecular descriptor.
+\item FIGURE~\ref{fig:macroscopic-pKa-error-vs-pKa-value}: The value of macroscopic \pKa{} was not a factor affecting prediction error seen in SAMPL6 Challenge according to the analysis with Hungarian matching.
+ 
+
+
+
 
 \end{itemize}
 
-\paragraph{Extra files:}  
+\paragraph{Extra files included in \textit{SAMPL6-supplementary-documents.tar.gz}:}  
 \begin{itemize}
 \item SAMPL6-pKa-chemical-identifiers-table.csv 
+\item macroscopic-pKa-statistics-24mol-hungarian-match.csv
+\item microscopic-pKa-statistics-8mol-hungarian-match-table.csv
+\item microscopic-pKa-statistics-8mol-microstate-match-table.csv
+\item experimental-microstates-of-8mol-based-on-NMR.csv  
 \end{itemize}
 
 
@@ -906,24 +917,12 @@ trial: [], +, -, *, \#, \textbackslash{}m
 \section{Supplementary Information}
 
 
-\todoMI{Figure [typeIII-error-dist-by-method] Distribution of prediction errors for each method in SAMPL6 Challenge. Analyses was performed based on Hungarian matching algorithm. Y-axis labels indicate submission IDs of each method.}
-
-\todoMI{[pKa-error-vs-pKa-value]. Error in pKa predictions does not correlate with the true value of pKa. Left figure was constructed using closest match between experimental and predicted pKas. Y-axis is absolute residuals of the pKa prediction.}
-
-\todoMI{FIGURE [desc-vs-MAE-correlation]. There is no clear correlation between molecular descriptors and mean absolute error for each molecule when calculated for all methods.
-}
 
 
-\todoMI{ SI Table: Type I collection}
-\todoMI{ SI Table: Type III collection}
-\todoMI{ SI Figure: type I correlation plots of each method}
-\todoMI{ SI Figure: type III correlation plots of each method}
 
-\todoMI{TABLE: Statistics based on hungarian matching}
 
-\todoMI{TABLE: Statistics based on microstate matching}
 
-\todoMI{TABLE: NMR determined microstates of 8 molecules}
+
 
 
 
@@ -978,6 +977,194 @@ SM24 & COc1ccc(cc1)c2c3c(ncnc3oc2c4ccc(cc4)OC)NCCO & \begin{tabular}[c]{@{}l@{}}
 \end{threeparttable}
 \end{center}
 \end{table}
+
+
+
+\begin{table}[tb!]
+\begin{center}
+\begin{threeparttable}
+\centering\scriptsize
+\caption{{\bf Evaluation statistics calculated for all macroscopic \pKa{} prediction submissions based on Hungarian match for 24 molecules.} Methods are represented via their SAMPL6 submission IDs which can be cross referenced with Table~\ref{submission-ID-table} for method details. There are eight error metrics reported: the root-mean-squared error (RMSE), mean absolute error (MAE), mean (signed) error (ME), coefficient of determination (R\textsuperscript{2}), linear regression slope (m), Kendall’s Rank Correlation Coefficient ($\tau$), unmatched experimental \pKa{}s (number of missing \pKa{} predictions) and unmatched predicted \pKa{}s (number of extra \pKa{} predictions between 2 and 12. This table is ranked by increasing RMSE. A CSV version of this table can be found in \textit{SAMPL6-supplementary-documents.tar.gz}. } 
+\centering\scriptsize
+\label{SI_statistics_table_macro_pKa}
+\begin{tabular}{@{}lllllllll@{}}
+\toprule
+\textbf{\begin{tabular}[c]{@{}l@{}}Submission \\ ID\end{tabular}} & \textbf{RMSE} & \textbf{MAE} & \textbf{ME} & \textbf{R\textsuperscript{2}} & \textbf{m} & \textbf{Kendall's Tau} & \textbf{\begin{tabular}[c]{@{}l@{}}Unmatched \\ exp. \pKa{}s\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Unmatched \\ pred. \pKa{}s [2,12]\end{tabular}} \\ \midrule
+\textit{xvxzd} & 0.68 [0.54, 0.81] & 0.58 [0.45, 0.71] & 0.24 [-0.01, 0.45] & 0.94 [0.88, 0.97] & 0.92 [0.84, 1.02] & 0.82 [0.68, 0.92] & 2 & 4 \\
+\textit{gyuhx} & 0.73 [0.55, 0.91] & 0.59 [0.44, 0.74] & 0.03 [-0.23, 0.28] & 0.93 [0.88, 0.96] & 0.98 [0.90, 1.08] & 0.88 [0.80, 0.94] & 0 & 7 \\
+\textit{xmyhm} & 0.79 [0.52, 1.03] & 0.56 [0.38, 0.77] & 0.13 [-0.14, 0.41] & 0.92 [0.85, 0.97] & 0.96 [0.86, 1.08] & 0.81 [0.68, 0.90] & 0 & 3 \\
+\textit{nb017} & 0.94 [0.72, 1.16] & 0.77 [0.58, 0.97] & -0.16 [-0.49, 0.16] & 0.88 [0.81, 0.94] & 0.94 [0.82, 1.08] & 0.73 [0.60, 0.84] & 0 & 6 \\
+\textit{nb007} & 0.95 [0.73, 1.15] & 0.78 [0.60, 0.97] & 0.05 [-0.29, 0.37] & 0.88 [0.77, 0.95] & 0.84 [0.77, 0.92] & 0.79 [0.65, 0.89] & 0 & 13 \\
+\textit{yqkga} & 1.01 [0.78, 1.23] & 0.80 [0.59, 1.03] & -0.17 [-0.51, 0.19] & 0.87 [0.78, 0.93] & 0.93 [0.77, 1.08] & 0.83 [0.72, 0.91] & 0 & 1 \\
+\textit{nb010} & 1.03 [0.77, 1.26] & 0.81 [0.61, 1.04] & 0.24 [-0.11, 0.59] & 0.87 [0.77, 0.94] & 0.95 [0.83, 1.08] & 0.80 [0.67, 0.90] & 0 & 4 \\
+\textit{8xt50} & 1.07 [0.78, 1.36] & 0.81 [0.58, 1.07] & -0.47 [-0.82, -0.14] & 0.91 [0.84, 0.95] & 1.08 [0.94, 1.22] & 0.80 [0.68, 0.89] & 0 & 0 \\
+\textit{nb013} & 1.10 [0.72, 1.47] & 0.80 [0.56, 1.09] & -0.15 [-0.55, 0.22] & 0.88 [0.78, 0.95] & 1.09 [0.90, 1.25] & 0.79 [0.64, 0.90] & 0 & 6 \\
+\textit{nb015} & 1.27 [0.98, 1.56] & 1.04 [0.80, 1.31] & 0.13 [-0.32, 0.56] & 0.87 [0.80, 0.93] & 1.16 [0.94, 1.34] & 0.78 [0.66, 0.86] & 0 & 0 \\
+\textit{p0jba} & 1.31 [0.69, 1.73] & 1.08 [0.43, 1.72] & -0.92 [-1.72, -0.11] & 0.91 [0.51, 1.00] & 1.18 [0.36, 1.72] & 0.80 [0.00, 1.00] & 0 & 0 \\
+\textit{37xm8} & 1.41 [0.93, 1.84] & 1.01 [0.68, 1.38] & -0.18 [-0.69, 0.32] & 0.83 [0.70, 0.93] & 1.16 [0.98, 1.33] & 0.70 [0.56, 0.83] & 1 & 1 \\
+\textit{mkhqa} & 1.60 [1.13, 2.05] & 1.24 [0.90, 1.62] & -0.32 [-0.89, 0.21] & 0.80 [0.67, 0.91] & 1.14 [0.98, 1.34] & 0.64 [0.44, 0.79] & 0 & 6 \\
+\textit{ttjd0} & 1.64 [1.20, 2.06] & 1.30 [0.96, 1.67] & -0.12 [-0.70, 0.45] & 0.81 [0.69, 0.91] & 1.2 [1.03, 1.40] & 0.65 [0.47, 0.80] & 0 & 5 \\
+\textit{nb001} & 1.68 [1.05, 2.37] & 1.21 [0.84, 1.68] & 0.44 [-0.10, 1.03] & 0.80 [0.70, 0.90] & 1.16 [0.95, 1.42] & 0.72 [0.55, 0.85] & 0 & 7 \\
+\textit{nb002} & 1.70 [1.08, 2.38] & 1.25 [0.89, 1.70] & 0.51 [-0.04, 1.10] & 0.80 [0.70, 0.90] & 1.15 [0.95, 1.42] & 0.72 [0.56, 0.84] & 0 & 7 \\
+\textit{35bdm} & 1.72 [0.66, 2.34] & 1.44 [0.62, 2.26] & -1.01 [-2.18, 0.13] & 0.92 [0.46, 1.00] & 1.45 [0.73, 2.15] & 0.80 [0.00, 1.00] & 0 & 0 \\
+\textit{ryzue} & 1.77 [1.42, 2.12] & 1.50 [1.17, 1.84] & 1.30 [0.86, 1.72] & 0.91 [0.86, 0.95] & 1.23 [1.06, 1.41] & 0.82 [0.71, 0.91] & 0 & 0 \\
+\textit{2ii2g} & 1.80 [1.31, 2.24] & 1.39 [1.01, 1.82] & -0.74 [-1.29, -0.15] & 0.79 [0.65, 0.89] & 1.15 [0.96, 1.37] & 0.68 [0.59, 0.82] & 0 & 2 \\
+\textit{mpwiy} & 1.82 [1.39, 2.23] & 1.48 [1.14, 1.88] & 0.10 [-0.54, 0.73] & 0.82 [0.70, 0.91] & 1.29 [1.12, 1.51] & 0.66 [0.49, 0.80] & 0 & 5 \\
+\textit{5byn6} & 1.89 [1.50, 2.27] & 1.59 [1.24, 1.97] & 1.32 [0.84, 1.80] & 0.91 [0.85, 0.95] & 1.28 [1.10, 1.48] & 0.83 [0.72, 0.92] & 0 & 0 \\
+\textit{y75vj} & 1.90 [1.50, 2.26] & 1.58 [1.21, 1.97] & 1.04 [0.46, 1.60] & 0.89 [0.79, 0.95] & 1.34 [1.16, 1.53] & 0.75 [0.57, 0.88] & 1 & 0 \\
+\textit{w4iyd} & 1.93 [1.53, 2.28] & 1.58 [1.20, 1.98] & 1.26 [0.72, 1.76] & 0.85 [0.74, 0.92] & 1.21 [1.00, 1.4.0] & 0.73 [0.57, 0.85] & 0 & 1 \\
+\textit{np6b4} & 1.94 [1.21, 2.71] & 1.44 [1.04, 1.94] & -0.47 [-1.08, 0.24] & 0.71 [0.60, 0.87] & 1.08 [0.81, 1.43] & 0.75 [0.62, 0.86] & 0 & 8 \\
+\textit{nb004} & 2.01 [1.38, 2.63] & 1.57 [1.16, 2.04] & 0.56 [-0.10, 1.27] & 0.82 [0.72, 0.90] & 1.35 [1.15, 1.60] & 0.71 [0.54, 0.84] & 0 & 5 \\
+\textit{nb003} & 2.01 [1.39, 2.64] & 1.58 [1.18, 2.04] & 0.52 [-0.14, 1.22] & 0.82 [0.73, 0.91] & 1.36 [1.16, 1.61] & 0.71 [0.54, 0.84] & 0 & 5 \\
+\textit{yc70m} & 2.03 [1.73, 2.33] & 1.80 [1.48, 2.13] & -0.41 [-1.09, 0.31] & 0.47 [0.28, 0.64] & 0.56 [0.35, 0.83] & 0.53 [0.35, 0.68] & 0 & 27 \\
+\textit{hytjn} & 2.16 [1.24, 3.06] & 1.39 [0.86, 2.04] & 0.71 [0.03, 1.48] & 0.45 [0.13, 0.78] & 0.62 [0.26, 1.00] & 0.47 [0.16, 0.73] & 1 & 27 \\
+\textit{f0gew} & 2.18 [1.38, 2.95] & 1.58 [1.09, 2.16] & -0.73 [-1.42, 0.04] & 0.77 [0.67, 0.89] & 1.29 [1.01, 1.63] & 0.76 [0.63, 0.86] & 0 & 0 \\
+\textit{q3pfp} & 2.19 [1.33, 3.09] & 1.51 [0.99, 2.13] & 0.59 [-0.10, 1.37] & 0.44 [0.13, 0.77] & 0.66 [0.27, 1.07] & 0.50 [0.20, 0.75] & 1 & 22 \\
+\textit{ds62k} & 2.22 [1.62, 2.81] & 1.78 [1.34, 2.27] & 0.78 [0.06, 1.52] & 0.82 [0.70, 0.90] & 1.41 [1.20, 1.63] & 0.72 [0.55, 0.85] & 0 & 4 \\
+\textit{xikp8} & 2.35 [1.94, 2.73] & 2.06 [1.66, 2.47] & 0.77 [-0.02, 1.58] & 0.89 [0.80, 0.95] & 1.59 [1.40, 1.81] & 0.76 [0.59, 0.89] & 1 & 0 \\
+\textit{nb005} & 2.38 [1.79, 2.95] & 1.91 [1.44, 2.43] & 0.31 [-0.49, 1.15] & 0.84 [0.74, 0.91] & 1.56 [1.34, 1.82] & 0.71 [0.54, 0.83] & 0 & 0 \\
+\textit{5nm4j} & 2.45 [1.42, 3.34] & 1.58 [0.94, 2.34] & 0.05 [-0.80, 1.07] & 0.19 [0.00, 0.70] & 0.40 [-0.06, 0.81] & 0.34 [-0.04, 0.67] & 4 & 1 \\
+\textit{ad5pu} & 2.54 [1.68, 3.30] & 1.83 [1.24, 2.49] & -0.65 [-1.48, 0.25] & 0.76 [0.64, 0.88] & 1.43 [1.12, 1.78] & 0.77 [0.63, 0.88] & 0 & 0 \\
+\textit{pwn3m} & 2.60 [1.45, 3.53] & 1.54 [0.83, 2.37] & 0.79 [-0.06, 1.77] & 0.21 [0.00, 0.63] & 0.37 [0.01, 0.78] & 0.34 [0.04, 0.63] & 1 & 3 \\
+\textit{nb006} & 2.98 [2.37, 3.56] & 2.53 [2.00, 3.10] & 0.42 [-0.60, 1.47] & 0.84 [0.74, 0.92] & 1.78 [1.55, 2.06] & 0.71 [0.54, 0.84] & 0 & 0 \\
+\textit{0hxtm} & 3.26 [1.81, 4.39] & 1.92 [1.03, 2.98] & 1.38 [0.37, 2.56] & 0.08 [0.00, 0.48] & 0.28 [-0.17, 0.83] & 0.29 [-0.04, 0.61] & 3 & 7 \\ \bottomrule
+\end{tabular}
+\end{threeparttable}
+\end{center}
+\end{table}
+
+
+
+\begin{table}[tb!]
+\begin{center}
+\begin{threeparttable}
+\centering\scriptsize
+\caption{{\bf Evaluation statistics calculated for all microscopic \pKa{} prediction submissions based on Hungarian match for 8 molecules with NMR data.} Methods are represented via their SAMPL6 submission IDs which can be cross referenced with Table~\ref{submission-ID-table} for method details. There are eight error metrics reported: the root-mean-squared error (RMSE), mean absolute error (MAE), mean (signed) error (ME), coefficient of determination (R\textsuperscript{2}), linear regression slope (m), Kendall’s Rank Correlation Coefficient ($\tau$), unmatched experimental \pKa{}s (number of missing \pKa{} predictions) and unmatched predicted \pKa{}s (number of extra \pKa{} predictions between 2 and 12. This table is ranked by increasing RMSE. A CSV version of this table can be found in \textit{SAMPL6-supplementary-documents.tar.gz}. } 
+\centering\scriptsize
+\label{SI-statistics-table-micro-pKa-8mol-hungarian}
+\begin{tabular}{@{}lllllllll@{}}
+\toprule
+\textbf{\begin{tabular}[c]{@{}l@{}}Submission \\ ID\end{tabular}} & \textbf{RMSE} & \textbf{MAE} & \textbf{ME} & \textbf{R\textsuperscript{2}} & \textbf{m} & \textbf{Kendall's Tau} & \textbf{\begin{tabular}[c]{@{}l@{}}Unmatched \\ exp. \pKa{}s\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Unmatched \\ pred. \pKa{}s [2,12]\end{tabular}} \\ \midrule
+\textit{nb011} & 0.47 [0.30, 0.64] & 0.33 [0.22, 0.46] & -0.02 [-0.18, 0.14] & 0.97 [0.94, 0.99] & 1.01 [0.97, 1.06] & 0.90 [0.78, 0.96] & 0 & 36 \\
+\textit{hdiyq} & 0.62 [0.47, 0.76] & 0.47 [0.33, 0.62] & 0.13 [-0.09, 0.34] & 0.95 [0.92, 0.97] & 0.34 [0.92, 1.09] & 0.87 [0.79, 0.93] & 0 & 16 \\
+\textit{epvmk} & 0.63 [0.43, 0.81] & 0.47 [0.32, 0.63] & -0.02 [-0.25, 0.21] & 0.95 [0.89, 0.98] & 0.21 [0.91, 1.04] & 0.81 [0.68, 0.91] & 0 & 37 \\
+\textit{xnoe0} & 0.65 [0.47, 0.82] & 0.50 [0.36, 0.66] & -0.1 [-0.32, 0.13] & 0.95 [0.89, 0.98] & 0.13 [0.92, 1.05] & 0.82 [0.69, 0.91] & 0 & 36 \\
+\textit{gdqeg} & 0.65 [0.41, 0.89] & 0.43 [0.27, 0.62] & 0.11 [-0.10, 0.35] & 0.94 [0.88, 0.98] & 0.35 [0.87, 1.02] & 0.83 [0.67, 0.95] & 0 & 53 \\
+\textit{4o0ia} & 0.66 [0.44, 0.86] & 0.47 [0.31, 0.64] & 0.00 [-0.22, 0.24] & 0.94 [0.88, 0.98] & 0.24 [0.87, 1.05] & 0.85 [0.73, 0.94] & 0 & 35 \\
+\textit{nb008} & 0.76 [0.48, 1.02] & 0.52 [0.34, 0.73] & -0.08 [-0.37, 0.17] & 0.93 [0.85, 0.98] & 0.17 [0.79, 0.93] & 0.84 [0.73, 0.92] & 0 & 35 \\
+\textit{ccpmw} & 0.79 [0.62, 0.94] & 0.62 [0.46, 0.80] & -0.17 [-0.44, 0.11] & 0.92 [0.86, 0.96] & 0.11 [0.82, 1.05] & 0.80 [0.67, 0.89] & 0 & 7 \\
+\textit{0xi4b} & 0.84 [0.58, 1.07] & 0.61 [0.42, 0.83] & 0.22 [-0.07, 0.51] & 0.92 [0.84, 0.97] & 0.51 [0.91, 1.09] & 0.81 [0.65, 0.92] & 0 & 32 \\
+\textit{cywyk} & 0.86 [0.60, 1.10] & 0.62 [0.42, 0.84] & 0.13 [-0.16, 0.44] & 0.90 [0.82, 0.96] & 0.44 [0.86, 1.08] & 0.81 [0.64, 0.92] & 0 & 35 \\
+\textit{ftc8w} & 0.86 [0.51, 1.17] & 0.59 [0.39, 0.83] & 0.10 [-0.19, 0.41] & 0.90 [0.77, 0.97] & 0.41 [0.84, 0.98] & 0.75 [0.57, 0.88] & 0 & 35 \\
+\textit{nxaaw} & 0.89 [0.56, 1.25] & 0.61 [0.41, 0.87] & -0.02 [-0.35, 0.28] & 0.89 [0.75, 0.97] & 0.28 [0.85, 1.00] & 0.79 [0.63, 0.91] & 0 & 29 \\
+\textit{nb016} & 0.95 [0.71, 1.18] & 0.77 [0.57, 0.98] & -0.23 [-0.56, 0.12] & 0.89 [0.83, 0.95] & 0.12 [0.82, 1.07] & 0.75 [0.62, 0.85] & 0 & 3 \\
+\textit{kxztt} & 0.96 [0.56, 1.33] & 0.64 [0.41, 0.92] & 0.00 [-0.32, 0.36] & 0.90 [0.76, 0.97] & 0.36 [0.96, 1.13] & 0.79 [0.63, 0.91] & 0 & 37 \\
+\textit{eyetm} & 0.98 [0.69, 1.27] & 0.72 [0.50, 0.97] & -0.32 [-0.65, 0.00] & 0.91 [0.86, 0.96] & 0.00 [0.94, 1.22] & 0.78 [0.64, 0.88] & 0 & 7 \\
+\textit{cm2yq} & 0.99 [0.44, 1.54] & 0.56 [0.31, 0.90] & 0.10 [-0.21, 0.50] & 0.91 [0.83, 0.98] & 0.50 [0.96, 1.25] & 0.89 [0.80, 0.96] & 0 & 36 \\
+\textit{2umai} & 1.00 [0.46, 1.54] & 0.57 [0.33, 0.91] & 0.07 [-0.25, 0.46] & 0.91 [0.82, 0.98] & 0.46 [0.96, 1.26] & 0.87 [0.76, 0.95] & 0 & 36 \\
+\textit{ko8yx} & 1.01 [0.76, 1.25] & 0.78 [0.56, 1.01] & 0.35 [0.01, 0.67] & 0.91 [0.82, 0.96] & 0.67 [0.96, 1.19] & 0.78 [0.64, 0.89] & 0 & 26 \\
+\textit{wuuvc} & 1.02 [0.51, 1.53] & 0.62 [0.38, 0.93] & 0.19 [-0.13, 0.58] & 0.88 [0.80, 0.96] & 0.58 [0.85, 1.19] & 0.90 [0.81, 0.96] & 0 & 36 \\
+\textit{ktpj5} & 1.02 [0.51, 1.56] & 0.61 [0.37, 0.95] & 0.17 [-0.16, 0.57] & 0.88 [0.80, 0.96] & 0.57 [0.87, 1.22] & 0.89 [0.80, 0.96] & 0 & 36 \\
+\textit{z7fhp} & 1.02 [0.49, 1.55] & 0.61 [0.36, 0.94] & 0.08 [-0.24, 0.48] & 0.90 [0.82, 0.97] & 0.48 [0.97, 1.26] & 0.88 [0.80, 0.95] & 0 & 28 \\
+\textit{arcko} & 1.04 [0.73, 1.32] & 0.77 [0.53, 1.02] & 0.37 [0.05, 0.72] & 0.89 [0.80, 0.94] & 0.72 [0.90, 1.14] & 0.78 [0.62, 0.90] & 0 & 24 \\
+\textit{y4wws} & 1.04 [0.70, 1.33] & 0.74 [0.49, 1.00] & -0.31 [-0.66, 0.05] & 0.91 [0.85, 0.96] & 0.05 [1.02, 1.26] & 0.79 [0.68, 0.88] & 0 & 30 \\
+\textit{wcvnu} & 1.11 [0.80, 1.39] & 0.84 [0.59, 1.11] & 0.28 [-0.10, 0.66] & 0.89 [0.77, 0.95] & 0.66 [0.98, 1.22] & 0.73 [0.54, 0.88] & 1 & 27 \\
+\textit{8toyp} & 1.13 [0.61, 1.65] & 0.70 [0.42, 1.05] & 0.13 [-0.25, 0.56] & 0.88 [0.81, 0.96] & 0.56 [0.98, 1.29] & 0.83 [0.72, 0.92] & 0 & 27 \\
+\textit{qsicn} & 1.17 [0.30, 1.65] & 0.88 [0.23, 1.54] & -0.76 [-1.54, 0.01] & 0.91 [0.46, 1.00] & 0.01 [0.52, 1.59] & 0.80 [0.00, 1.00] & 0 & 2 \\
+\textit{wexjs} & 1.30 [0.95, 1.62] & 0.98 [0.68, 1.29] & 0.27 [-0.17, 0.74] & 0.86 [0.74, 0.93] & 0.74 [1.00, 1.29] & 0.73 [0.55, 0.86] & 0 & 25 \\
+\textit{v8qph} & 1.37 [0.92, 1.79] & 0.98 [0.66, 1.34] & -0.15 [-0.64, 0.34] & 0.84 [0.70, 0.93] & 0.34 [0.97, 1.32] & 0.70 [0.55, 0.82] & 0 & 6 \\
+\textit{w4z0e} & 1.57 [1.18, 1.94] & 1.23 [0.90, 1.58] & 0.09 [-0.48, 0.62] & 0.85 [0.76, 0.91] & 0.62 [1.08, 1.46] & 0.72 [0.60, 0.82] & 0 & 19 \\
+\textit{6tvf8} & 1.88 [0.87, 2.85] & 1.02 [0.54, 1.66] & 0.45 [-0.14, 1.18] & 0.51 [0.16, 0.87] & 1.18 [0.26, 0.89] & 0.61 [0.34, 0.82] & 0 & 55 \\
+\textit{0wfzo} & 2.89 [1.73, 3.89] & 1.88 [1.17, 2.68] & 0.76 [-0.15, 1.77] & 0.48 [0.21, 0.75] & 1.77 [0.60, 1.37] & 0.51 [0.30, 0.70] & 0 & 4 \\
+\textit{t8ewk} & 3.30 [1.89, 4.39] & 1.98 [1.06, 3.00] & 1.32 [0.27, 2.49] & 0.07 [0.00, 0.45] & 2.49 [-0.17, 0.79] & 0.28 [-0.03, 0.6] & 0 & 6 \\
+\textit{z3btx} & 4.00 [2.30, 5.45] & 2.49 [1.47, 3.65] & 1.48 [0.26, 2.86] & 0.29 [0.04, 0.60] & 2.86 [0.31, 1.44] & 0.43 [0.19, 0.63] & 0 & 1 \\
+\textit{758j8} & 4.52 [2.64, 6.18] & 2.95 [1.85, 4.25] & 1.85 [0.48, 3.38] & 0.24 [0.02, 0.58] & 3.38 [0.20, 1.51] & 0.34 [0.08, 0.57] & 0 & 2 \\
+\textit{hgn83} & 6.38 [4.04, 8.47] & 4.11 [2.52, 5.93] & 2.13 [0.07, 4.28] & 0.08 [0.00, 0.39] & 4.28 [-0.18, 1.43] & 0.32 [0.07, 0.56] & 0 & 0 \\ \bottomrule
+\end{tabular}
+\end{threeparttable}
+\end{center}
+\end{table}
+
+
+
+\begin{table}[tb!]
+\begin{center}
+\begin{threeparttable}
+\centering\scriptsize
+\caption{{\bf Evaluation statistics calculated for all microscopic \pKa{} prediction submissions based on microstate pair match for 8 molecules with NMR data.} Methods are represented via their SAMPL6 submission IDs which can be cross referenced with Table~\ref{submission-ID-table} for method details. There are eight error metrics reported: the root-mean-squared error (RMSE), mean absolute error (MAE), mean (signed) error (ME), coefficient of determination (R\textsuperscript{2}), linear regression slope (m), Kendall’s Rank Correlation Coefficient ($\tau$), unmatched experimental \pKa{}s (number of missing \pKa{} predictions) and unmatched predicted \pKa{}s (number of extra \pKa{} predictions between 2 and 12. This table is ranked by increasing RMSE. A CSV version of this table can be found in \textit{SAMPL6-supplementary-documents.tar.gz}. } 
+\centering\scriptsize
+\label{SI-statistics-table-micro-pKa-8mol-microstate}
+\begin{tabular}{@{}lllllllll@{}}
+\toprule
+\textbf{\begin{tabular}[c]{@{}l@{}}Submission \\ ID\end{tabular}} & \textbf{RMSE} & \textbf{MAE} & \textbf{ME} & \textbf{R\textsuperscript{2}} & \textbf{m} & \textbf{Kendall's Tau} & \textbf{\begin{tabular}[c]{@{}l@{}}Unmatched \\ exp. \pKa{}s\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Unmatched \\ pred. \pKa{}s [2,12]\end{tabular}} \\ \midrule
+\textit{nb016} & 0.52 [0.25, 0.71] & 0.43 [0.23, 0.65] & -0.09 [-0.45, 0.30] & 0.92 [0.05, 0.99] & 0.99 [0.14, 1.16] & 0.62 [-0.14, 1.00] & 0 & 3 \\
+\textit{hdiyq} & 0.68 [0.49, 0.83] & 0.60 [0.39, 0.80] & 0.38 [0.02, 0.70] & 0.86 [0.47, 0.98] & 0.91 [0.45, 1.26] & 0.78 [0.4, 1.00] & 0 & 16 \\
+\textit{nb011} & 0.72 [0.35, 1.07] & 0.54 [0.28, 0.86] & 0.45 [0.14, 0.83] & 0.86 [0.18, 0.98] & 0.93 [0.50, 1.21] & 0.64 [0.26, 0.95] & 0 & 36 \\
+\textit{ftc8w} & 0.75 [0.52, 0.96] & 0.68 [0.50, 0.89] & -0.31 [-0.68, 0.16] & 0.87 [0.02, 0.99] & 1.12 [-0.11, 1.39] & 0.56 [-0.10, 1.00] & 0 & 35 \\
+\textit{6tvf8} & 0.76 [0.55, 0.95] & 0.68 [0.46, 0.90] & -0.63 [-0.89, -0.35] & 0.92 [0.78, 0.99] & 0.94 [0.69, 1.41] & 0.87 [0.6, 1.00] & 0 & 55 \\
+\textit{t8ewk} & 0.96 [0.65, 1.19] & 0.81 [0.46, 1.13] & -0.77 [-1.12, -0.38] & 0.80 [0.53, 0.96] & 0.96 [0.76, 2.26] & 0.78 [0.31, 1.00] & 1 & 7 \\
+\textit{v8qph} & 0.99 [0.40, 1.52] & 0.67 [0.29, 1.17] & -0.09 [-0.75, 0.45] & 0.68 [0.11, 0.97] & 0.96 [-1.26, 1.16] & 0.38 [-0.3, 1.00] & 0 & 6 \\
+\textit{ccpmw} & 1.07 [0.78, 1.27] & 0.95 [0.60, 1.25] & -0.83 [-1.25, -0.37] & 0.74 [0.43, 0.99] & 0.95 [0.70, 2.32] & 0.89 [0.52, 1.00] & 1 & 8 \\
+\textit{0xi4b} & 1.15 [0.75, 1.50] & 0.98 [0.63, 1.36] & -0.30 [-0.94, 0.44] & 0.77 [0.02, 0.98] & 1.26 [0.09, 2.10] & 0.51 [-0.14, 1.00] & 0 & 33 \\
+\textit{cywyk} & 1.17 [0.88, 1.41] & 1.06 [0.74, 1.35] & -0.47 [-1.09, 0.24] & 0.73 [0.02, 0.98] & 1.15 [-0.04, 2.00] & 0.56 [-0.08, 1.00] & 0 & 36 \\
+\textit{eyetm} & 1.17 [0.77, 1.52] & 1.00 [0.61, 1.41] & -0.89 [-1.38, -0.38] & 0.67 [0.30, 0.94] & 0.93 [0.65, 2.59] & 0.72 [0.29, 1.00] & 1 & 8 \\
+\textit{nb008} & 1.26 [0.74, 1.71] & 1.09 [0.63, 1.57] & 0.47 [-0.40, 1.32] & 0.79 [0.01, 0.99] & 1.21 [-0.59, 1.85] & 0.52 [-0.2, 1.00] & 0 & 38 \\
+\textit{y4wws} & 1.41 [0.95, 1.80] & 1.22 [0.78, 1.66] & -0.71 [-1.44, 0.06] & 0.87 [0.05, 0.98] & 1.55 [0.41, 2.02] & 0.56 [-0.11, 1.00] & 0 & 31 \\
+\textit{ktpj5} & 1.46 [0.83, 2.10] & 1.15 [0.67, 1.77] & 0.94 [0.29, 1.68] & 0.77 [0.01, 0.98] & 1.28 [-0.26, 1.60] & 0.42 [-0.27, 0.95] & 0 & 37 \\
+\textit{wuuvc} & 1.47 [0.84, 2.09] & 1.18 [0.70, 1.77] & 0.99 [0.36, 1.68] & 0.78 [0.01, 0.98] & 1.27 [-0.24, 1.58] & 0.47 [-0.20, 1.00] & 0 & 37 \\
+\textit{xnoe0} & 1.54 [1.09, 2.00] & 1.39 [1.02, 1.83] & 0.91 [0.11, 1.64] & 0.82 [0.01, 0.98] & 1.47 [-0.30, 1.79] & 0.42 [-0.27, 0.95] & 0 & 37 \\
+\textit{qsicn} & 1.58 [1.44, 1.70] & 1.57 [1.44, 1.70] & -1.57 [-1.7, -1.44] & 1.00 [0.00, 1.00] & 1.06 &  & 0 & 2 \\
+\textit{epvmk} & 1.66 [1.20, 2.15] & 1.50 [1.07, 1.96] & 1.12 [0.31, 1.82] & 0.82 [0.02, 0.98] & 1.47 [-0.21, 1.8] & 0.42 [-0.25, 0.95] & 0 & 37 \\
+\textit{4o0ia} & 1.73 [1.33, 2.17] & 1.62 [1.29, 2.02] & 1.31 [0.53, 1.93] & 0.87 [0.03, 0.99] & 1.50 [0.07, 1.84] & 0.56 [-0.07, 1.00] & 0 & 36 \\
+\textit{ko8yx} & 1.75 [1.08, 2.45] & 1.44 [0.87, 2.12] & 1.38 [0.74, 2.10] & 0.97 [0.88, 1.00] & 1.66 [1.46, 2.28] & 0.91 [0.69, 1.00] & 0 & 27 \\
+\textit{2umai} & 1.76 [1.21, 2.35] & 1.54 [1.04, 2.11] & 1.31 [0.55, 2.03] & 0.82 [0.02, 0.98] & 1.43 [-0.02, 1.77] & 0.47 [-0.17, 0.95] & 0 & 37 \\
+\textit{cm2yq} & 1.77 [1.22, 2.36] & 1.55 [1.06, 2.12] & 1.33 [0.57, 2.04] & 0.82 [0.02, 0.98] & 1.43 [-0.02, 1.76] & 0.47 [-0.17, 0.95] & 0 & 37 \\
+\textit{nxaaw} & 1.80 [0.84, 2.80] & 1.34 [0.80, 2.18] & 0.16 [-0.77, 1.41] & 0.59 [0.02, 0.97] & 1.37 [-0.08, 2.92] & 0.6 [-0.05, 1.00] & 0 & 30 \\
+\textit{wcvnu} & 1.90 [1.14, 2.64] & 1.57 [0.97, 2.27] & 1.44 [0.70, 2.24] & 0.97 [0.91, 1.00] & 1.78 [1.58, 2.48] & 0.91 [0.69, 1.00] & 0 & 27 \\
+\textit{kxztt} & 2.00 [1.13, 2.73] & 1.64 [1.00, 2.39] & 1.64 [1.00, 2.39] & 0.83 [0.01, 0.98] & 1.42 [-0.21, 1.99] & 0.56 [-0.10, 1.00] & 0 & 38 \\
+\textit{wexjs} & 2.05 [1.18, 2.93] & 1.66 [1.01, 2.47] & 1.48 [0.63, 2.39] & 0.96 [0.55, 0.99] & 1.87 [1.54, 2.29] & 0.73 [0.20, 1.00] & 0 & 26 \\
+\textit{z7fhp} & 2.14 [1.38, 2.87] & 1.80 [1.12, 2.58] & 1.28 [0.18, 2.34] & 0.78 [0.02, 0.98] & 1.71 [-0.41, 2.13] & 0.42 [-0.25, 0.95] & 0 & 30 \\
+\textit{gdqeg} & 2.38 [1.97, 2.71] & 2.25 [1.74, 2.68] & -1.61 [-2.46, -0.37] & 0.10 [0.00, 0.98] & 0.31 [-0.60, 1.63] & 0.29 [-0.45, 1.00] & 0 & 53 \\
+\textit{8toyp} & 2.63 [1.89, 3.29] & 2.34 [1.59, 3.07] & 1.78 [0.47, 2.89] & 0.82 [0.02, 0.98] & 1.94 [-0.06, 2.39] & 0.47 [-0.17, 0.95] & 0 & 29 \\
+\textit{w4z0e} & 2.63 [1.81, 3.53] & 2.34 [1.67, 3.18] & 1.74 [0.46, 2.92] & 0.98 [0.55, 1.00] & 2.28 [1.52, 2.41] & 0.73 [0.20, 1.00] & 0 & 20 \\
+\textit{arcko} & 2.64 [1.23, 3.78] & 2.08 [1.10, 3.24] & 1.71 [0.44, 3.10] & 0.57 [0.04, 0.95] & 1.42 [0.56, 2.93] & 0.56 [-0.06, 1.00] & 0 & 28 \\
+\textit{0wfzo} & 18.72 [11.21, 25.03] & 15.80 [9.9, 22.35] & 15.09 [8.28, 22.12] & 0.09 [0.01, 0.73] & 2.35 [-10.18, 8.12] & 0.02 [-0.65, 0.66] & 0 & 12 \\
+\textit{z3btx} & 22.60 [15.03, 29.00] & 19.70 [12.97, 26.69] & 19.70 [12.97, 26.69] & 0.09 [0.01, 0.72] & 2.35 [-10.00, 8.28] & 0.02 [-0.66, 0.66] & 0 & 7 \\
+\textit{758j8} & 23.76 [16.33, 30.24] & 21.00 [14.26, 28.00] & 21.00 [14.26, 28.00] & 0.09 [0.01, 0.71] & 2.35 [-10.34, 8.12] & 0.02 [-0.65, 0.65] & 0 & 8 \\
+\textit{hgn83} & 27.91 [20.54, 34.52] & 25.60 [18.9, 32.64] & 25.60 [18.9, 32.64] & 0.09 [0.01, 0.72] & 2.35 [-10.21, 8.00] & 0.02 [-0.65, 0.65] & 0 & 5 \\ \bottomrule
+\end{tabular}
+\end{threeparttable}
+\end{center}
+\end{table}
+
+
+
+\begin{figure}
+\centering
+\includegraphics[width=0.5\linewidth]{figures/experimental-microstates-of-8mol-based-on-NMR.png}
+\caption{ {\bf Dominant microstates of 8 molecules were determined based on NMR measurements.} Dominant microstate sequence of 6 derivatives were determined taking SM07 and SM14 as reference. Matched experimental \pKa{} values were determined by spectrophotometric \pKa{} measurements~\citep{Isik:2018:J.Comput.AidedMol.Des.}. A CSV version of this table can be found in \textit{SAMPL6-supplementary-documents.tar.gz}.
+}
+\label{fig:experimental-microstate-IDs-SI-table}
+\end{figure}
+
+
+\begin{figure}
+\centering
+\includegraphics[width=0.5\linewidth]{figures/molecular_properties_vs_MAE_correlation_fig.pdf}
+\caption{ {\bf MAE of macroscopic \pKa{} predictions of each molecule did not show any significant correlation with any molecular descriptor.} Plots show regression lines, 96\% confidence intervals of the regression lines, and R\textsubscript{2}. The following molecular descriptors were calculated using OpenEye OEMolProp Toolkit~\citep{oemolprop_openeye_2017}.
+}
+\label{fig:molecular_properties_vs_MAE_correlation}
+\end{figure}
+
+
+\begin{figure}
+\centering
+\includegraphics[width=1.0\linewidth]{figures/typeIII_error_vs_exp_pKa.pdf}
+\caption{ {\bf The value of macroscopic \pKa{}s was not a factor affecting prediction error seen in SAMPL6 Challenge according to the analysis with Hungarian matching.} There was not clear trend between \pKa{} prediction error and the true \pKa{} error. Very high and very low \pKa{} values have similar inaccuracy compared to \pKa{} values close to 7. {\bf A} Scatter plot of macroscopic \pKa{} prediction error calculated with Hungarian matching vs. experimental \pKa{} value {\bf B} Box plot of absolute error of macroscopic \pKa{} predictions binned into 2 \pKa{} unit intervals of experimental \pKa{}.
+}
+\label{fig:macroscopic-pKa-error-vs-pKa-value}
+\end{figure}
+
 
 
 
