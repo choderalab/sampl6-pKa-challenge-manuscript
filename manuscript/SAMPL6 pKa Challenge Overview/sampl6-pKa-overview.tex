@@ -10,6 +10,9 @@
 
 % Article specific functions
 \newcommand{\pKa}{p\textit{K}\textsubscript{a}}
+\newcommand{\poKa}{p\textsubscript{o}\textit{K}\textsubscript{a}}
+\newcommand{\logD}{log~\textit{D}}
+\newcommand{\logP}{log~\textit{P}}
 
 
 \usepackage{lipsum} % Required to insert dummy text
@@ -85,13 +88,8 @@ Irvine, Irvine, California 92697, United States}
 % Abstract
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{abstract}
-\todo[inline]{Complete abstract.}
-- number of submissions~\cite{Isik:2018:J.Comput.AidedMol.Des.}
 
-- summary of analysis  
-
-- difficulties observed  
-
+Acid dissociation constant (\pKa{}) predictions is a prerequisite for predicting many other properties of small molecules such as protein-ligand binding affinity, distribution coefficient (\logD{}), and solubility due to the necessity of predicting relevant protonation states and the free energy penalty of each state. SAMPL6 \pKa{} Challenge was the first time that a separate challenge was conducted for evaluating \pKa{} predictions as a part of SAMPL. It was motivated by the inaccuracies observed in prior physical property prediction challenges, such as SAMPL5 \logD{} Challenge, caused by protonation state and \pKa{} prediction issues. The goal of the \pKa{} challenge was to elucidate the performance of contemporary \pKa{} prediction methods for drug-like molecules. The challenge set was composed of 24 kinase inhibitor fragment-like small molecules and some of them were multiprotic. 11 research groups contributed blind prediction sets of 37 \pKa{} prediction methods. Four widely used \pKa{} prediction methods that were missing from blind predictions were added as reference methods to challenge analysis. Collecting both microscopic and macroscopic \pKa{} predictions allowed in-depth evaluation of \pKa{} prediction performance. This article highlights deficiencies of typical \pKa{} prediction evaluation approaches when the difference between microscopic and macroscopic \pKa{}s is ignored and suggests more stringent evaluation criteria for microscopic and macroscopic \pKa{} predictions guided by the available experimental data. Top-performing submissions for macroscopic \pKa{} predictions achieved RMSE of 0.7-1.0 units and included both quantum-mechanical and empirical approaches. These predictions included less than 8 extra/missing macroscopic \pKa{}s for the set of 24 molecules. A large number of submissions had RMSE spanning 1-3 \pKa{} units. Molecules with sulfur-containing heterocycles, iodo, and bromo groups suffered from less accurate \pKa{} predictions on average considering all methods evaluated. For a subset of molecules, the available NMR-based dominant microstate sequence data was utilized to elucidate dominant tautomer prediction errors of microscopic \pKa{} predictions which was prominent for charged tautomers. SAMPL6 \pKa{} Challenge demonstrated the need for improving \pKa{} prediction methods for drug-like molecules, especially for challenging moeities and multiprotic molecules. The level of \pKa{} prediction inaccuracy observed in this challenge has potential to be detrimental to the performance of protein-ligand binding affinity predictions in two ways: (1) errors in predicted dominant charge and tautomeric state and (2) errors in the calculation of free energy correction for minor and multiple protonation states of the ligand.
 \end{abstract}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -130,6 +128,10 @@ FIGURE: linear plot of free energy vs pH
 \todo[inline]{Importance of small molecule pKa prediction for pharmaceutical efforts.}
 
 \todo[inline]{Explain why we are doing a pKa challenge and connect to past and previous challenges}
+
+Acid dissociation constant (\pKa{}) predictions is a prerequisite for predicting many other properties of small molecules such as protein-ligand binding affinity, distribution coefficient (\logD{}), and solubility due to the necessity of predicting relevant protonation states and their free energy penalty of such states. Therefore, accurate computational \pKa{} prediction methods are required for computer-aided drug design.
+
+
 SAMPL (Statistical Assessment of the Modeling of Proteins and Ligands). About SAMPL challenges: Collectively, these challenges have assessed the effects of force field accuracy, solvation models, pKa and tautomer predictions.  
 
 During the SAMPL5 challenge, log D predictions experienced difficulties predicting log D values accurately, unless protonation states and tautomers were taken into account.
