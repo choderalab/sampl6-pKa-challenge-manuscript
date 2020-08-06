@@ -89,7 +89,7 @@ Irvine, Irvine, California 92697, United States}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{abstract}
 
-Acid dissociation constant (\pKa{}) predictions is a prerequisite for predicting many other properties of small molecules such as protein-ligand binding affinity, distribution coefficient (\logD{}), and solubility due to the necessity of predicting relevant protonation states and the free energy penalty of each state. SAMPL6 \pKa{} Challenge was the first time that a separate challenge was conducted for evaluating \pKa{} predictions as a part of SAMPL. It was motivated by the inaccuracies observed in prior physical property prediction challenges, such as SAMPL5 \logD{} Challenge, caused by protonation state and \pKa{} prediction issues. The goal of the \pKa{} challenge was to elucidate the performance of contemporary \pKa{} prediction methods for drug-like molecules. The challenge set was composed of 24 kinase inhibitor fragment-like small molecules and some of them were multiprotic. 11 research groups contributed blind prediction sets of 37 \pKa{} prediction methods. Four widely used \pKa{} prediction methods that were missing from blind predictions were added as reference methods to challenge analysis. Collecting both microscopic and macroscopic \pKa{} predictions allowed in-depth evaluation of \pKa{} prediction performance. This article highlights deficiencies of typical \pKa{} prediction evaluation approaches when the difference between microscopic and macroscopic \pKa{}s is ignored and suggests more stringent evaluation criteria for microscopic and macroscopic \pKa{} predictions guided by the available experimental data. Top-performing submissions for macroscopic \pKa{} predictions achieved RMSE of 0.7-1.0 units and included both quantum-mechanical and empirical approaches. These predictions included less than 8 extra/missing macroscopic \pKa{}s for the set of 24 molecules. A large number of submissions had RMSE spanning 1-3 \pKa{} units. Molecules with sulfur-containing heterocycles, iodo, and bromo groups suffered from less accurate \pKa{} predictions on average considering all methods evaluated. For a subset of molecules, the available NMR-based dominant microstate sequence data was utilized to elucidate dominant tautomer prediction errors of microscopic \pKa{} predictions which was prominent for charged tautomers. SAMPL6 \pKa{} Challenge demonstrated the need for improving \pKa{} prediction methods for drug-like molecules, especially for challenging moeities and multiprotic molecules. The level of \pKa{} prediction inaccuracy observed in this challenge has potential to be detrimental to the performance of protein-ligand binding affinity predictions in two ways: (1) errors in predicted dominant charge and tautomeric state and (2) errors in the calculation of free energy correction for minor and multiple protonation states of the ligand.
+Acid dissociation constant (\pKa{}) prediction is a prerequisite for predicting many other properties of small molecules such as protein-ligand binding affinity, distribution coefficient (\logD{}), and solubility due to the necessity of predicting relevant protonation states and the free energy penalty of each state. SAMPL6 \pKa{} Challenge was the first time that a separate challenge was conducted for evaluating \pKa{} predictions as a part of SAMPL. It was motivated by the inaccuracies observed in prior physical property prediction challenges, such as SAMPL5 \logD{} Challenge, caused by protonation state and \pKa{} prediction issues. The goal of the \pKa{} challenge was to elucidate the performance of contemporary \pKa{} prediction methods for drug-like molecules. The challenge set was composed of 24 kinase inhibitor fragment-like small molecules and some of them were multiprotic. 11 research groups contributed blind prediction sets of 37 \pKa{} prediction methods. Four widely used \pKa{} prediction methods that were missing from blind predictions were added as reference methods to challenge analysis. Collecting both microscopic and macroscopic \pKa{} predictions allowed in-depth evaluation of \pKa{} prediction performance. This article highlights deficiencies of typical \pKa{} prediction evaluation approaches when the difference between microscopic and macroscopic \pKa{}s is ignored and suggests more stringent evaluation criteria for microscopic and macroscopic \pKa{} predictions guided by the available experimental data. Top-performing submissions for macroscopic \pKa{} predictions achieved RMSE of 0.7-1.0 units and included both quantum-mechanical and empirical approaches. These predictions included less than 8 extra/missing macroscopic \pKa{}s for the set of 24 molecules. A large number of submissions had RMSE spanning 1-3 \pKa{} units. Molecules with sulfur-containing heterocycles, iodo, and bromo groups suffered from less accurate \pKa{} predictions on average considering all methods evaluated. For a subset of molecules, the available NMR-based dominant microstate sequence data was utilized to elucidate dominant tautomer prediction errors of microscopic \pKa{} predictions which was prominent for charged tautomers. SAMPL6 \pKa{} Challenge demonstrated the need for improving \pKa{} prediction methods for drug-like molecules, especially for challenging moeities and multiprotic molecules. The level of \pKa{} prediction inaccuracy observed in this challenge has potential to be detrimental to the performance of protein-ligand binding affinity predictions in two ways: (1) errors in predicted dominant charge and tautomeric state and (2) errors in the calculation of free energy correction for minor and multiple protonation states of the ligand.
 \end{abstract}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -114,29 +114,60 @@ SAMPL $\cdot$ blind prediction challenge $\cdot$ acid dissociation constant $\cd
 % Introduction
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Introduction}
-\todo[inline]{Complete introduction section:
-- Importance of small molecule pKa prediction for pharmaceutical efforts. 
-- Definition of pKa  
-- Acid dissociation equilibrium constant  
-- Add pKa equation  
-- Add free energy of protonation state equation  
+
+The acid dissociation constant (\pKa{}) describes the protonation state equilibrium of a molecule given pH. Predicting \pKa{} is a prerequisite for predicting many other properties of small molecules such as protein-ligand binding affinity, distribution coefficient (\logD{}), and solubility. 
+Computer-aided drug design efforts include assessing properties of virtual molecules to guide synthesis and prioritization decisions. In such cases an experimental \pKa{} measurement is not possible. Therefore, accurate computational \pKa{} prediction methods are required.
+
+For a monoprotic weak acid (HA) or base (B), the acid dissociation constant is expressed as in Equations 2 or its common negative logarithmic form as in Equation 3. The ratio of ionization states can be calculate with HHenderson-Hasselbalch equations shown in Equation 4. 
+
+\begin{equation}
+HA \rightleftharpoons A^- + H^+ \;\;\;\;\; BH^+ \rightleftharpoons B + H^+
+\end{equation}
+
+\begin{equation}
+K_a = \frac{[A^-][H^+]}{[HA]}\;\;\;\;\;K_a = \frac{[B][H^+]}{[B^+]} 
+\end{equation}
+
+
+\begin{equation}
+pK_a = -\log_{10}{K_a}
+\end{equation}
+
+
+\begin{equation}
+pH = pK_a + \log_{10}{\frac{[A^-]}{[HA]}}\;\;\;\;\;pH = pK_a + \log_{10}{\frac{[B]}{[BH^+]}}
+\end{equation}
+
+
+Ionizable sites are found often in drug molecules and influence their pharmaceutical properties including target affinity, ADME/Tox, and formulation properties~\citep{Manallack:2013:ChemSocRev}. 
+Drug molecules with titratable groups can exist in many different charge and protonation states based on the pH of the environment. 
+We rely on \pKa{} values to determine in which charge and protonation states the molecules exists and relative populations of these states. 
+The pH of the human gut ranges between 1-8 and 74\% of approved drugs can change ionization states withing this physiological pH range~\citep{Manallack:2013:ChemMedChema}. A large range of \pKa{} values, from 0 to 12,  have been observed in approved drugs.
+
+Small molecule \pKa{} predictions influence computational protein-ligand binding affinities in multiple ways: 
+\todo[inline]{Explain more}.
+In addition, determining the free energy penalty of such states~\citep{deOliveira:2019:J.Chem.TheoryComput.} also requires knowing the \pKa{} value. 
+
+\todo[inline]{EQUATION: free energy of protonation state equation}
+
+\pKa{} prediction of druglike molecules are more difficult than simple monoprotic molecules. Frequently drug-like molecules are multiprotic. The definition of \pKa{} diverges into two for multiprotic molecules.
+\todo[inline]{ Define micro and macro pKa. List other difficulties}
+
+SAMPL (Statistical Assessment of the Modeling of Proteins and Ligands). About SAMPL challenges: Collectively, these challenges have assessed the effects of force field accuracy, solvation models, pKa and tautomer predictions.  
+During the SAMPL5 challenge, log D predictions experienced difficulties predicting log D values accurately, unless protonation states and tautomers were taken into account.
+For this iteration of the SAMPL challenge, we have taken one step back and isolated just the problem of predicting aqueous protonation states.
+
+\todo[inline]{
 - Definition of microscopic and macroscopic pKas  
 - Introduce linear protonation state free energy diagram [Cite Gunner et al 2019 paper]  
 FIGURE: linear plot of free energy vs pH  
 }
 
-\todo[inline]{Importance of small molecule pKa prediction for pharmaceutical efforts.}
-
 \todo[inline]{Explain why we are doing a pKa challenge and connect to past and previous challenges}
 
-Acid dissociation constant (\pKa{}) predictions is a prerequisite for predicting many other properties of small molecules such as protein-ligand binding affinity, distribution coefficient (\logD{}), and solubility due to the necessity of predicting relevant protonation states and their free energy penalty of such states. Therefore, accurate computational \pKa{} prediction methods are required for computer-aided drug design.
 
 
-SAMPL (Statistical Assessment of the Modeling of Proteins and Ligands). About SAMPL challenges: Collectively, these challenges have assessed the effects of force field accuracy, solvation models, pKa and tautomer predictions.  
 
-During the SAMPL5 challenge, log D predictions experienced difficulties predicting log D values accurately, unless protonation states and tautomers were taken into account.
-
-For this iteration of the SAMPL challenge, we have taken one step back and isolated just the problem of predicting solvent protonation states.
 
 This is the first time a blind pKa prediction challenge has been fielded as part of SAMPL. 
 In this first iteration of the challenge, we aimed to assess the performance of current pKa prediction methods and isolate potential causes of inaccurate pKa estimates, with the aim of determining how pKa prediction inaccuracies might impact predicted affinities for drug-like molecules. 
@@ -153,8 +184,7 @@ Protonation state effects were a dominant accuracy-limiting factor for logD from
 Errors is \pKa{} predictions can cause modeling the wrong charge, protonation and tautomerization states which affect hydrogen bonding opportunities and overall dipole moment of the ligand.
 
 \todo[inline]{Explain the physics of the predicted property}
-\todo[inline]{EQUATION: pKa equation}
-\todo[inline]{EQUATION: free energy of protonation state equation}
+
 \todo[inline]{Introducing linear protonation state free energy diagram}
 
 \todoMI{FIGURE: linear plot of free energy vs pH }
@@ -608,7 +638,9 @@ Demonstrate how numerical matching often masks the error
 Match by Hungarian and calculate accuracy of microstate prediction overall.
 When matched by pKa value, do people come with the same transition pairs?
 
-\todoMI{SI FIGURE: [accuracy-of-microstates-based-on-numeric-matching] For most methods the microstate pair of Hungarian predicted pKa does not match experimentally determined microstate pair.}
+Reference Figure~\ref{fig:microstate-pairs-with-Hungarian-match-vs-experiments}  For most methods the microstate pair of Hungarian predicted pKa does not match experimentally determined microstate pair.
+
+
 
 Discussion of matching experimental and predicted values
 \todo[inline]{Difficulty of assessing predicted pKas using experimental data: matching problem}
@@ -849,7 +881,7 @@ Suggestions about challenge analysis
 \item FIGURE~\ref{fig:experimental-microstate-IDs-SI-table}: Dominant microstates of 8 molecules were determined based on NMR measurements.
 \item FIGURE~\ref{fig:molecular_properties_vs_MAE_correlation}: MAE of macroscopic \pKa{} predictions of each molecule did not show any significant correlation with any molecular descriptor.
 \item FIGURE~\ref{fig:macroscopic-pKa-error-vs-pKa-value}: The value of macroscopic \pKa{} was not a factor affecting prediction error seen in SAMPL6 Challenge according to the analysis with Hungarian matching.
- 
+\item FIGURE~\ref{fig:microstate-pairs-with-Hungarian-match-vs-experiments}: There was low agreement between experimental dominant microstate pairs and the predicted microstate pairs selected by Hungarian algorithm for microscopic \pKa{} predictions. 
 
 
 
@@ -1167,6 +1199,14 @@ SM24 & COc1ccc(cc1)c2c3c(ncnc3oc2c4ccc(cc4)OC)NCCO & \begin{tabular}[c]{@{}l@{}}
 \label{fig:macroscopic-pKa-error-vs-pKa-value}
 \end{figure}
 
+
+\begin{figure}
+\centering
+\includegraphics[width=0.75\linewidth]{figures/TypeI_Hungarian_match_microstate_pair_accuracy.pdf}
+\caption{ {\bf There was low agreement between experimental dominant microstate pairs and the predicted microstate pairs selected by Hungarian algorithm for microscopic \pKa{} predictions.} This analysis could only be performed for 8 molecules with NMR data. Hungarian matching algorithm which matches predicted and experimental values considering only the closeness of the numerical value of \pKa{} and it often leds to predicted \pKa{} matches that described a different microstates pair than the experimentally observed dominant microstates..
+}
+\label{fig:microstate-pairs-with-Hungarian-match-vs-experiments}
+\end{figure}
 
 
 
