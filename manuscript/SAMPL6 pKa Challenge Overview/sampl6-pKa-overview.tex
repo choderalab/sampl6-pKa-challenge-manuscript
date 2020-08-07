@@ -271,20 +271,37 @@ Submission ID for both macroscopic (type III) and microscopic (type I) \pKa{} pr
 %%%
 \subsection{Enumeration of microstates} \label{section-enumeration-of-microstates}
 
-A working \pKa{} microstate definition for this challenge was provided for clarity as follows. 
+To capture both the \pKa{} value and titration position of microscopic \pKa{} predictions, we needed microscopic \pKa{} predictions to be reported together with the pair of deprotonated and protonated microstates that describes the transition. 
+String representations of molecules such as canonical SMILES with explicit hydrogens can be written, however, there can be inconsistencies between the interpretation of canonical SMILES written by different softwares and algorithms.
+In order to avoid complications while reading microstate structure files from different sources, we have decided that the safest route was pre-enumerating all possible microstates of challenge compounds, assigning the microstates IDs to each in the form of SM\#\#\_micro\#\#\#, and require participants to report microstate pairs using the provided microstates IDs.   
+
+We enumerated an initial list of microstates with Epik and OpenEye QUACPAC and took the union of results. 
+Microstates with Epik were generated using Schrodinger Suite v2016-4, and running Epik to enumerate all tautomers within 20 \pKa{} units of pH 7.
+For enumerating microstates with OpenEye QUACPAC, we had to first enumerate formal charges and for each charge enumerate all possible tautomers using the settings of maximum tautomer count 200, level 5, and carbonyl hybridizization False.
+Then we created an union of all enumerated states written as canonical isomeric SMILES.
+Even though resonance structures correspond to different canonical isomeric SMILES they are not different microstates, therefore it was necessary to remove resonance structures that were replicates of the same tautomer. To detect resonance structures we converted canonical isomeric SMILES to InChI hashes with explicit and fixed hydrogen layer. Structures that describe the same tautomer but different resonance states lead to explicit hydrogen InChI hashes that are identical allowing replicates to be removed. The Jupyter Notebook used for the enumeration of microstates is provided in supplementary documents. Because resonance and geometric isomerism should be ignored when matching predicted structures microstate IDs (except SM20 which should be modelled as E-isomer), we provided microstate ID tables with canonical SMILES and 2D-depictions. 
+
+Despite pooling together enumerated charge states and tautomers with Epik and OpenEye QUACPAC to our surprise the microstate lists were still incomplete.
+A better algorithm that can enumerate all possible microstates would be very beneficial. 
+In SAMPL6 Challenge participants came up with new microstates that were not present in the initial list that we provided. 
+Based on participant requests we iteratively had to update the list of microstates and assign new microstate IDs.
+Every time we received a request, we shared the updated microstate ID lists with all the challenge participants.
+
+A working \pKa{} microstate definition for this challenge was provided in challenge instructions for clarity. 
 Physically meaningful microscopic \pKa{}s are defined between microstate pairs that can interconvert by single protonation/deprotonation event of only one titrable group. 
 So, microstate pairs should have total charge difference of |1| and only one heavy atom that differs in the number of bound hydrogens, regardless of resonance state or geometric isomerism. 
 All geometric isomer and resonance structure pairs that have the same number of hydrogens bound to equivalent heavy atoms are related to the same microstate. 
 Pairs of resonance structures and geometric isomers (cis/trans, stereo) won't be considered as different microstates, as long as there is no change in the number of hydrogens bound to each heavy atom in these structures.
+Since we wanted to participants to report only microscopic \pKa{}s that are describe single deprotonation events (in contrast to transitions between microstates that are different in terms of two or more titratable protons), we have also provided a pre-enumerated list of allowed microstate pairs.
 
-Explain why we pre-enumerated microstates  
+Provided microstate ID and microstate pair lists were intended to be used for reporting microstate IDs and to aid parsing of submissions. 
+The enumerated lists of microstates were not created with the intent to guide computational predictions. 
+This was clearly stated in the challenge instructions. 
+However, we noticed that some participants still used the microstate lists as an input for their \pKa{} predictions as we received complaints from participants that due to our updates to microstate lists they needed to repeat their calculations. 
+This would not have been an issue, if participants used \pKa{} prediction protocols that did not rely on an external pre-enumerated list of microstates as an input.
+None of the participants have reported this dependency in their method descriptions explicitly, therefore we can not identify which submissions have used the enumerated microstate lists as input and which ones has followed the instructions.
 
-1. OpenEye (filter out resonance structures), Epik  
 
-2. Participant supplied structures  
-
-Microstate pairs: Only +/-1 charge change transitions are allowed.
-List of allowed transitions. +2 transitions are not considered.
 
 
 %%%
@@ -891,7 +908,9 @@ Suggestions about challenge analysis
 \item macroscopic-pKa-statistics-24mol-hungarian-match.csv
 \item microscopic-pKa-statistics-8mol-hungarian-match-table.csv
 \item microscopic-pKa-statistics-8mol-microstate-match-table.csv
-\item experimental-microstates-of-8mol-based-on-NMR.csv  
+\item experimental-microstates-of-8mol-based-on-NMR.csv
+\item enumerate-microstates-with-Epik-and-OpenEye-Quakpac.ipynb
+\item molecule\_ID\_and\_SMILES.csv
 \end{itemize}
 
 
