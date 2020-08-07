@@ -169,12 +169,13 @@ The relative free energy of different protonation states in the aqueous state is
 Drug-like molecules present difficulties for \pKa{} prediction compared to simple monoprotic molecules. 
 Drug-like molecules are frequently multiprotic, have large conjugated systems, heterocycles, tautomerization. In addition that larger molecules with conformational flexibility can have intramolecular hydrogen bonding which shifts \pKa{} values. These shifts could be real or modeling artifacts due to collapsed conformations caused by deficiencies in solvation models. Yet predicting \pKa{}s of drug-like molecules accurately is a prerequisite for computational drug discovery and design.
 
-The definition of \pKa{} diverges into two for multiprotic molecules: macroscopic \pKa{} and microscopic \pKa{}. 
+The definition of \pKa{} diverges into two for multiprotic molecules: macroscopic \pKa{} and microscopic \pKa{}~\citep{Darvey:1995:Biochem.Educ., Bodner:1986:J.Chem.Educ., Murray:1995:Anal.Chem.}. 
 Macroscopic \pKa{} describes the equilibrium dissociation constant between different charged states of the molecule. 
 Each charge state can be composed of multiple tautomers. Macroscopic \pKa{} is about the deprotonation of the molecule, not a particular titratable group. 
 Microscopic \pKa{} describes the acid dissociation equilibrium between individual tautomeric states of different charges. 
 We refer to collection of all tautomeric states of different macroscopic states (charge states) as microscopic states. 
-Microscopic \pKa{} value defined between two microstates captures the deprotonation of a single titrable group with a fixed background protonation state of other titratable groups.
+Microscopic \pKa{} value defined between two microstates captures the deprotonation of a single titrable group with a fixed background protonation state of other titratable groups. 
+In molecules with multiple titratable groups, the protonation state of one group can affect the proton dissociation propensity of another functional group, therefore the same titratable group may have different microscopic \pKa{} values based on the protonation state of the rest of the molecule.
 Different experimental methods capture different definitions of \pKa{}s as explained in more detail in this prior publication~\citep{Isik:2018:J.Comput.AidedMol.Des.}. 
 Most common \pKa{} measurement techniques such as potentiometric and spectrophotometric methods measure macroscopic \pKa{}s while NMR measurements can determine microscopic \pKa{}s and microstate populations. 
 Therefore, it is important to pay attention to the source and definition of \pKa{} values to interpret their meaning correctly. 
@@ -211,7 +212,7 @@ Similarly for \logD{} predictions, inaccurate prediction aqueous protonation sta
 \section{Methods}
 
 %%%
-\subsection{Structure and logistics of the SAMPL6 \pKa{} Challenge}
+\subsection{Design and logistics of the SAMPL6 \pKa{} Challenge}
 
 \begin{figure}
 \begin{center}
@@ -222,46 +223,62 @@ Similarly for \logD{} predictions, inaccurate prediction aqueous protonation sta
 \end{center}
 \end{figure}
 
-The SAMPL6 \pKa{} Challenge was conducted as a blind prediction challenge focus on predicting aqueous \pKa{} valueof 24 small molecules that resemble fragments of kinase inhibitors.
+The SAMPL6 \pKa{} Challenge was conducted as a blind prediction challenge focus on predicting aqueous \pKa{} value of 24 small molecules that resemble fragments of kinase inhibitors. 
+The compound selection process was described in depth in the prior publication reporting SAMPL6 \pKa{} Challenge experimental data collection~\citep{Isik:2018:J.Comput.AidedMol.Des.}.
+The distribution of molecular weights, experimental \pKa{} values, number of rotatable bonds, and heteroatom to carbon ratio are depicted in Fig.~\ref{fig:dist_mol_prop}. The challenge molecule set was composed of 17 small molecules with limited flexibility (less than 5 non-terminal rotatable bonds) and 7 molecules with 5-10 non-terminal rotatable bonds. 
+The distribution of experimental \pKa{} values ranged between 2-12 and roughly uniform. 
+2D representations of all compounds were provided in Fig.~\ref{fig:molecules_with_MAE_of_all_methods}. 
+Drug-like molecules are often larger and more complex than the ones used in this study, however, aimed for the
 
-The challenge molecule set was composed of small molecules with limited flexibility (less than 5 non-terminal rotatable bonds) and covers limited chemical diversity. There are six 4-aminoquinazolines, two benzimidazoles, one pyrazolo[3,4-d]pyrimidine, one pyridine, one 2-oxoquinoline substructure containing compounds with \logP{} values in the range of 1.95–4.09. Information on experimental data collection is presented elsewhere~\citep{Isik:2019:J.Comput.AidedMol.Des.}.
+The dataset composition and details of the \pKa{} measurement technique, except the identity of the small molecules, were announced about a month before the challenge start time. 
+Experimental macroscopic \pKa{} measurements were collected with spectrophotometric method of Sirius T3, at room temperature in ionic strength-adjusted water with 0.15 M KCl~\citep{Isik:2018:J.Comput.AidedMol.Des.}. 
+The instructions for participation and the identity of the challenge molecules were released at the challenge start date (October 25, 2017). 
+A table of molecule IDs (in the form of SM\#\#) and	their canonical isomeric SMILES was provided as input.
+Blind prediction submissions were accepted until January 22, 2018. 
+
+Following the conclusion of the blind challenge, the experimental data was made public on January 23, 2018. The SAMPL organizers and participants gathered at the Second Joint D3R/SAMPL Workshop, at UC San Diego, La Jolla, CA on February 22-23, 2018 to share results.
+The workshop aimed to create an opportunity for participants to have discussions, evaluate the results and lessons of the challenge together. 
+The participants reported their results and their own evaluations in the special issue of the Journal of Computer-Aided Molecular Design~\citep{JCAMD_special_issue_pKa}. 
+
+In this first iteration of \pKa{} prediction challenge we were not sure what was the best way to capture all necessary information related to \pKa{} predictions. Our aim was to directly evaluate macroscopic \pKa{} predictions comparing them to experimental macroscopic \pKa{} values and to use collected microscopic \pKa{} prediction data for more in-depth diagnostics of method performance.
+Therefore, we asked participants to submit their predictions in three different submission types: 
+\begin{itemize}
+\item {\bf Type I:} microscopic \pKa{} values and related microstate pairs
+\item {\bf Type II:} fractional microstate populations as a function of pH in 0.1 pH increments
+\item {\bf Type III:} macroscopic \pKa{} values
+\end{itemize}
+
+For each submission type, a machine-readable submission file template was specified. 
+For type I submissions, participants were asked to report microstate ID of protonated state, microstate ID of deprotonated state, microscopic \pKa{}, microscopic \pKa{} SEM.  The reason and method of microstate enumeration is discussed further in Section~\ref{section-enumeration-of-microstates} "Enumeration of Microstates".
+The SEM captures the statistical uncertainty of the predicted method. 
+Microstate IDs were preassigned identifiers for each microstates in the form of SM\#\#\_micro\#\#\#. 
+For type II submission, submission format included a table that started with microstate ID and consecutive columns reporting natural logarithm of fractional microstate population values of each predicted microstate for 0.1 pH increments between pH 2 and 12.
+For type III submissions participants were asked to report molecule ID, macroscopic \pKa{}, macroscopic \pKa{} SEM.  
+It was mandatory to submit predictions for all fields for each prediction, but it was not mandatory to submit predictions for all the molecules or all the submission types. 
+Although we have accepted submissions with partial sets of molecules, it would have been a better choice to require predictions for all the  molecules for better comparison of method performance. 
+The submission files also included fields for naming the method, listing the software utilized, and a free text method section for the detailed documentation of each method. 
+
+Participants were allowed to submit predictions with multiple methods as long as they create separate submissions files. Anonymous participation to the challenge was allowed, however all participant opted to make their submissions public.
+All blind submissions were assigned a 5-digit alphanumeric submission ID, which will be used throughout this paper. These submission IDs were also reported in the evaluation papers of participants and allow cross-referencing. Submission IDs, participant provided method names, and method categories are presented in Table~\ref{submission-ID-table}. 
+There were many instances that multiple types of submissions of the same method were provided by participants as challenge instructions requested. 
+Although each prediction set was assigned a separate submission ID we have matched the submissions that originated from the same method according to the reports of the participant.
+Submission ID for both macroscopic (type III) and microscopic (type I) \pKa{} predictions of each method (when exists) are shown in Table~\ref{submission-ID-table}. 
 
 
 
-
-\todo[inline]{Describe the structure of SAMPL6 pKa challenge}
-
-Experimental macroscopic pKa values were measured using a UV-metric assay performed using a Sirius T3 [cite exp. paper ]  supported by Merck, MRL,  Rahway NJ.
-
-
-Communicate concepts behind challenge design and why we made specific choices:  
-1. Explain why we have types I, II, III  
-2. Explain why we pre-enumerated microstates  
-
-
-Participants had the option to submit predictions in one of 3 categories: Microscopic pKa values (type I), microscopic state populations (type II), or macroscopic pKa values (type III).
-
-The comparison between macroscopic and microscopic pKa values is not always a straightforward one. 
-
-- When instructions and input files were made available
-
-- Challenge dates
-
-- Input files
-
-- What to predict? Three type of submissions.
-
-- Multiple submissions allowed
-
-- Predicting the pKa values of the whole set wasn't a requirement. 
-
-- 2nd D3R/SAMPL Workshop took place in La Jolla, San Diego on Feb 22-23, 2018.
-
-Referece Figure \ref{fig:dist_exp_pKas}. Drug-like molecules are often larger and more complex than the ones used in this study.
 
 
 %%%
-\subsection{Enumeration of requested prediction microscopic protonation states}
+\subsection{Enumeration of microstates} \label{section-enumeration-of-microstates}
+
+A working \pKa{} microstate definition for this challenge was provided for clarity as follows. 
+Physically meaningful microscopic \pKa{}s are defined between microstate pairs that can interconvert by single protonation/deprotonation event of only one titrable group. 
+So, microstate pairs should have total charge difference of |1| and only one heavy atom that differs in the number of bound hydrogens, regardless of resonance state or geometric isomerism. 
+All geometric isomer and resonance structure pairs that have the same number of hydrogens bound to equivalent heavy atoms are related to the same microstate. 
+Pairs of resonance structures and geometric isomers (cis/trans, stereo) won't be considered as different microstates, as long as there is no change in the number of hydrogens bound to each heavy atom in these structures.
+
+Explain why we pre-enumerated microstates  
+
 1. OpenEye (filter out resonance structures), Epik  
 
 2. Participant supplied structures  
@@ -272,6 +289,9 @@ List of allowed transitions. +2 transitions are not considered.
 
 %%%
 \subsection{Evaluation approaches}
+
+The experimental data collected composed of spectrophotometric \pKa{} measurements of both monoprotic and multiprotic compounds, therefore comparison . 
+The comparison between macroscopic and microscopic pKa values is not always a straightforward one. 
 
 \subsubsection{Statistical metrics for submission performance}
 
@@ -777,6 +797,9 @@ Cycle closure errors
 
 %%%
 \subsection{Suggestions for future challenges}
+In the SAMPL6 \pKa{} Challenge there wasn't a requirement that prediction sets should report predictions for all compounds. 
+Some participants reported predictions for only a subset of compounds which may lead these methods to look more accurate than others, due to missing predictions.
+It would have been a better choice to require submissions for whole sets for better comparison of method performance. 
 
 \todo[inline]{Discuss what can be done to further improve future challenges}
 How can we maximize what we learn?
