@@ -307,40 +307,73 @@ None of the participants have reported this dependency in their method descripti
 %%%
 \subsection{Evaluation approaches}
 
-The experimental data collected composed of spectrophotometric \pKa{} measurements of both monoprotic and multiprotic compounds, therefore comparison . 
-The comparison between macroscopic and microscopic pKa values is not always a straightforward one. 
+Since the experimental data for the challenge was mainly composed of macroscopic \pKa{} values of both monoprotic and multiprotic compounds, evaluation of macroscopic and microscopic \pKa{} predictions was not straightforward. For only a subset of 8 molecules, dominant microstate sequence could be inferred from NMR. For the rest of the molecules the only experimental information available was the macroscopic \pKa{} value, while experimental data did not provide any information on which group(s) are being titrated, microcopic \pKa{} values, identity of associated macrostates (which charge) or  microstates (which tautomers). In this comparative performance evaluation of we let the experimental data lead the challenge analysis towards various evaluation routes.
+
+
+\subsubsection{Matching algorithms for pairing predicted and experimental \pKa{}s}
+
+Macroscopic \pKa{} predictions can be calculated from microscopic \pKa{}s for direct comparison to experimental macroscopic \pKa{} values, although there is still a remaining issue. 
+How to match predicted macroscopic \pKa{}s to experimental macroscopic \pKa{}s when there could multiple numbers of each reported for each molecule? 
+Experimental data in this case did not provide any information that would indicate the titration site, the overall charge or the tautomer composition of macrostate pairs that are associated with each measured macroscopic \pKa{} that can guide the matching.
+
+For evaluating predictions taking the experimental data as reference Fraczkiewicz et al. deliniated recommendations for fair comparative analysis of computational \pKa{} predictions~\citep{Fraczkiewicz:2013:ReferenceModuleinChemistryMolecularSciencesandChemicalEngineering}. 
+In the absence any experimental information that would aid the match, experimental and computational \pKa{}s should be matched preserving the order of \pKa{} values and minimizing sum of absolute errors.
+
+We picked Hungarian matching algorithm~\citep{Kuhn:1955:Nav.Res.Logist.Q., Munkres:1957:JSIAM} to assign experimental and predicted macroscopic \pKa{}s with squared error cost function  as suggested by Kiril Lanevskij. The algorithm is available in SciPy package (\textit{scipy.optimize.linear\_sum\_assignment})~\citep{SciPy-linear-sum-assignment}.
+This matching algorithm provides optimum global assignment that minimizes linear sum of squared errors of all pairwise matches.
+The reason to select squared error cost function instead of absolute error cost function is to avoid misordered matches,
+For instance, for a molecule with experimental \pKa{} values of 4 and 6, and predicted \pKa{}s of 7 and 8, Hungarian matching with absolute error cost function would match 6 to 7 and 4 to 9.
+Hungarian matching with squared error cost would match 4 to 7 and 6 to 9, preserving the increasing \pKa{} value order between experimental and predicted values.
+A weakness of this approach would be failing to match experimental value of 6 to predicted value of 7, if that was the correct match based on underlying macrostates. But underlying pair of states were unknown to us both because experimental data of the challenge did not contain information about what charge states the transitions were happening between and also because we have not collected the pair of macrostates associated with each \pKa{} predictions in submissions. 
+There is no perfect solution to numerical \pKa{} assignment problem, but we tried to determine the most fair way to penalize predictions based on their numerical deviation from the experimental values.
+
+For the analysis of microscopic \pKa{} predictions we adopted a different matching approach. 
+Only for the 8 molecules, we utilized the dominant microstate sequence infered from NMR experiments to match computational predictions and experimental \pKa{}s. 
+We will refer to this assignment method as microstate matching, where experimental \pKa{} value is matched to the computational microscopic \pKa{} value which was reported for the dominant microstate pair observed for each transition. 
+We have compared the results of Hungarian matching and microstate matching. 
+
+
 
 \subsubsection{Statistical metrics for submission performance}
 
-- Root mean squared error (RMSE)
+A variety of accuracy and correlation statistics were considered for analyzing and comparing performance of predictions methods submitted to the SAMPL6 \pKa{} Challenge. 
+Calculated performance statistics of predictions were provided to participants before the workshop. 
+Details of the analysis and scripts are maintained on the SAMPL6 Github Repository (described in Section \ref{Code-and-Data-Availability}).
 
-- Mean absolute error (MAE)
+There are six error metrics reported for the numerical error of the \pKa{} values: the root-mean-squared error (RMSE), mean absolute error (MAE), mean error (ME), coefficient of determination (R\textsuperscript{2}), linear regression slope (m), and Kendall’s Rank Correlation Coefficient ($\tau$).
+Uncertainty in each performance statistic was calculated as 95\% confidence intervals estimated by bootstrapping over predictions with 10000 bootstrap samples. 
+Calculated errors statistics of all methods can be found in Table~\ref{SI_statistics_table_macro_pKa} for macroscopic \pKa{} predictions and Tables~\ref{SI-statistics-table-micro-pKa-8mol-microstate} and \ref{SI-statistics-table-micro-pKa-8mol-microstate} for microscopic \pKa{} predictions. 
 
-- Mean Error (ME)
+In addition to the numerical error aspect of the \pKa{} values, we have also evaluated predictions in terms of their ability to capture the correct macrostates (ionization states) and microstates (tautomers of each ionization state) to the extend possible from the available experimental data. 
+For macroscopic \pKa{}s experiments did not provide any evidence of the identity of the ionization states. 
+However, the number of ionization states indicates the number of macroscopic \pKa{}s that exists between experimental range of 2.0-12.0. 
+For instance, SM14 has two experimental \pKa{}s and therefore 3 different charge states were observed between the pH range of 2.0-12.0. 
+If a prediction reported 4 macroscopic \pKa{}s, it is clear that this method predicted an extra ionization state. 
+With this perspective we reported the number of unmatched experimental \pKa{}s (the number of missing \pKa{} predictions, i.e. missing ionization states) and the number of unmatched predicted \pKa{}s (the number of extra \pKa{} predictions, i.e. extra ionization states) after Hungarian matching. 
+The later count was restricted to only predictions with \pKa{} values between 2 and 12, because that was the range of the experimental method. 
+Errors in extra or missing \pKa{} prediction errors highlight failure to predict the correct number of ionization states within a pH range.
 
-- Square of Pearson Correlation Coefficient (R\textsuperscript{2})
+For the evaluation of microscopic \pKa{} predictions, taking advantage of the available dominant microstate sequence data for a subset of 8 compounds, we calculated the dominant microstate prediction accuracy. Dominant microstate prediction accuracy is the ratio of correct dominant tautomer predictions for each charge state divided by, calculated over all ionization states of each molecule. 
 
-- Slope of prediction vs. experimental value linear fit
+We created a shortlist of top-performing methods for macroscopic \pKa{} predictions based on the following criteria: ranking in the top 10 consistently according to two error (RMSE, MAE) and two correlation metrics (R-Squared, and Kendall’s Tau), and also havin a combined count of less than 8 missing or extra macroscopic \pKa{}s for the entire molecule set (a third of the number of compounds). 
+These methods are presented in Table~\ref{well-performing-methods-table}.
 
-Uncertainty in each performance statistic was calculated by bootstapping (10,000) to estimate 95\% confidence intervals.
-
-\subsubsection{Matching algorithms for pairing predicted and experimental pKas}
-
-Explain why it is necessary due to lacking structural information. Cite recommendations from article such as preserving sequence.
-Experimental data doesn't inform protonation site and overall charge of species.
- Experimental data doesn't capture the whole picture. We don't know charge and we don't know tautomers.
- We don't know the charge state of macrostates, this causes a matching problem
-
-
-Explain Hungarian method for matching experimental and predicted pKas
-
-Explain Closest method for matching experimental and predicted pKas
-
-Explain microstate based matching.
+In addition to comparing the performance comparison of methods, we also wanted to compare \pKa{} prediction performance on the level of molecules to determine \pKa{}s of which molecules in the challenge set were harder to predict considering all the methods in the challenge. 
+For this purpose, we plotted prediction error distributions of each molecule considering all prediction methods. 
+We also calculated MAE for each molecule’s over all predictions as well as for predictions from each method category. 
 
 
 %%%
 \subsection{Reference calculations}
+
+We included null and reference method prediction sets in the analysis to provide perspective for performance evaluations of blind predictions.
+Null models or null predictions employ a model which is not expected to be useful and can provide a simple point of comparison for more sophisticated methods, as ideally, such methods should improve on predictions from a null model.
+We created a null prediction set (submission ID \textit{NULL0}) by predicting a constant \logP{} value for every compound, based on a plausible \logP{} value for drug-like compounds. 
+We also provide reference calculations using several physical (alchemical) and empirical approaches as a point of comparison. 
+The analysis is presented with and without the inclusion of reference calculations in the SAMPL6 GitHub repository. 
+All figures and statistics tables in this manuscript include reference calculations. 
+As the reference calculations were not formal submissions, these were omitted from formal ranking in the challenge, but we present plots in this article which show them for easy comparison. These are labeled with submission IDs of the form \textit{REF\#\#} to allow easy recognition of non-blind reference calculations.
+
 
 Schrodinger Epik
 Schrodinger Jaguar
@@ -355,7 +388,10 @@ MoKa
 
 \todo[inline]{A paragraph to explain the submission methods. Define method categories: DL, LFER, QSPR/ML, QM, QM+LEC, and QM+MM, Blind predictions, Reference calculations, Null model (pKa prospector lookup)
 }
+
  Submissions spanning different method categories were made to the SAMPL6 \pKa{} Challenge: database lookup (DL), linear free energy relationship (LFER), quantitative structure property relationship (QSPR), machine learning (ML), quantum mechanics (QM) models with and without linear empirical correction (LEC), and combined quantum mechanics and molecular mechanics (QM+MM). Unique submission IDs were assigned to each submission. Table~\ref{submission-ID-table} matches method names with submission IDs. Unique IDs were also assigned when multiple submissions exists for different submission types of the same method such as microscopic \pKa{}(type I) and macroscopic \pKa{} (type III). 
+ 
+ Integral equation-based approaches (e.g.EC-RISM) were also evaluated under the Physical (QM) category. Table~\ref{submission-ID-table} indicates the final category assignments in the ``Category'' column. 
 
 
 \begin{table}%[H]%[tb!]
@@ -870,7 +906,7 @@ Suggestions about challenge analysis
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Code and Data Availability
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Code and data availability}
+\section{Code and data availability} \label{Code-and-Data-Availability}
 \begin{minipage}{15cm}
 \begin{itemize}
 
@@ -909,7 +945,7 @@ Suggestions about challenge analysis
 \item microscopic-pKa-statistics-8mol-hungarian-match-table.csv
 \item microscopic-pKa-statistics-8mol-microstate-match-table.csv
 \item experimental-microstates-of-8mol-based-on-NMR.csv
-\item enumerate-microstates-with-Epik-and-OpenEye-Quakpac.ipynb
+\item enumerate-microstates-with-Epik-and-OpenEye-QUACPAC.ipynb
 \item molecule\_ID\_and\_SMILES.csv
 \end{itemize}
 
@@ -928,7 +964,7 @@ Conceptualization, MI, JDC, CB, DLM ; Methodology, MI, JDC ; Software, MI, AR, A
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Acknowledgments}
 
-\todo[inline]{Complete acknowledgments section. Caitlin Bannan, Thomas Fox}
+\todo[inline]{Complete acknowledgments section. Caitlin Bannan for guidance on working microstate definition for the challenge, Thomas Fox for MoKa reference calculations, Kiril Lanevskij for hungarian algorithm}
 MI, ASR, and JDC acknowledge support from the Sloan Kettering Institute.
 JDC acknowledges support from NIH grant P30 CA008748. 
 MI acknowledges Doris J.\ Hutchinson Fellowship. 
