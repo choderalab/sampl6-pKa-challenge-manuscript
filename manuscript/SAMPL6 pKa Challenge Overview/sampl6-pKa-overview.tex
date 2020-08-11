@@ -354,6 +354,16 @@ The later count was restricted to only predictions with \pKa{} values between 2 
 Errors in extra or missing \pKa{} prediction errors highlight failure to predict the correct number of ionization states within a pH range.
 
 For the evaluation of microscopic \pKa{} predictions, taking advantage of the available dominant microstate sequence data for a subset of 8 compounds, we calculated the dominant microstate prediction accuracy. Dominant microstate prediction accuracy is the ratio of correct dominant tautomer predictions for each charge state divided by, calculated over all ionization states of each molecule. 
+In order to extract the sequence of dominant microstates from the microscopic \pKa{} predictions sets, we calculated the relative free energy of microstates selecting a neutral tautomer and pH 0 as reference following the Equation 5. Calculation of relative free energy of microstates was explained in more detail in a previous publication~\citep{Gunner:2020:J.Comput.AidedMol.Des.}. 
+
+Relative free energy of state with respect to reference state B at pH 0.0 (arbitrary pH value selected as reference) can be calculated as follows: 
+\begin{equation}
+\Delta G_{AB} = \Delta m_{AB} \:RT\ln{10}\:(pH - pK_{a})
+\end{equation}
+$\Delta m_{AB}$ is equal to the number protons in stae A minus state B. R and T indicate molar gas constant and temperature, respectively. 
+By calculating relative free energies of all predicted microstates with respect to the same reference state and pH, we were able to determine the sequence of predicted dominant microstates. 
+The dominant tautomer of each charge state was determined as the the microstate with the lowest free energy in the subset of predicted microstates of each ionization state. 
+This approach is feasible because the relative free energy of tautomers of the same ionization state is independent of pH and therefore the choice of reference pH is arbitrary.
 
 We created a shortlist of top-performing methods for macroscopic \pKa{} predictions based on the following criteria: ranking in the top 10 consistently according to two error (RMSE, MAE) and two correlation metrics (R-Squared, and Kendall’s Tau), and also havin a combined count of less than 8 missing or extra macroscopic \pKa{}s for the entire molecule set (a third of the number of compounds). 
 These methods are presented in Table~\ref{well-performing-methods-table}.
@@ -366,19 +376,19 @@ We also calculated MAE for each molecule’s over all predictions as well as for
 %%%
 \subsection{Reference calculations}
 
-We included null and reference method prediction sets in the analysis to provide perspective for performance evaluations of blind predictions.
-Null models or null predictions employ a model which is not expected to be useful and can provide a simple point of comparison for more sophisticated methods, as ideally, such methods should improve on predictions from a null model.
-We created a null prediction set (submission ID \textit{NULL0}) by predicting a constant \logP{} value for every compound, based on a plausible \logP{} value for drug-like compounds. 
-We also provide reference calculations using several physical (alchemical) and empirical approaches as a point of comparison. 
-The analysis is presented with and without the inclusion of reference calculations in the SAMPL6 GitHub repository. 
+Including null model as helpful in comparative performance analysis of predictive methods to establish what the performance statistics look like for a baseline method for the specific dataset. 
+Null models or null predictions employ a simple prediction model which is not expected to be particularly successful, but it is useful for providing a simple point of comparison for more sophisticated methods. The expectation is for more sophisticated or costly prediction methods to outperform the predictions from a null model, otherwise the simpler null model would be preferable. In SAMPL6 \pKa{} Challenge there were two blind submissions that database lookup methods that were suitable to be considered as null predictions. These methods, with submission IDs \textit{5nm4j} and \textit{5nm4j} both used OpenEye pKa-Porspector database to find the most similar molecule to query molecule and report its \pKa{} as predicted value. 
+
+We have also included additional reference calculations in the comparative analysis to provide more perspective. 
+The methods we chose to include as reference calculations were missing from the blind predictions sets although they are widely used methods by academia and industry.
+representing different methodological approaches: Schrodinger/Epik (\textit{nb???}), Schrodinger/ Jaguar (\textit{nb???}), Chemaxon/Chemicalize(\textit{nb???}), and Molecular Discovery/MoKa (\textit{nb???}). Epik and Jaguar \pKa{} predictions were collected by Bas Rustenburg, Chemicalize predictions by Mehtap Isik, and MoKa predictions by Thomas Fox, after the challenge deadline avoiding any alterations to the respective standard procedures of the methods and guidance of the experimental date.. 
+Reference calculations were not formally blind, as experimental data of the challenge has been made publically available before their collection. 
+
 All figures and statistics tables in this manuscript include reference calculations. 
 As the reference calculations were not formal submissions, these were omitted from formal ranking in the challenge, but we present plots in this article which show them for easy comparison. These are labeled with submission IDs of the form \textit{REF\#\#} to allow easy recognition of non-blind reference calculations.
 
 
-Schrodinger Epik
-Schrodinger Jaguar
-Chemicalize
-MoKa
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
