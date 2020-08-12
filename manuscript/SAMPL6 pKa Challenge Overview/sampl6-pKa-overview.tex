@@ -203,7 +203,7 @@ Similarly for \logD{} predictions, inaccurate prediction aqueous protonation sta
 %%%
 \subsection{Approaches to predict small molecule \pKa{}s}
 
-\todo[inline]{Overview of kinds of pKa prediction methods available  (ML, QM, empirical methods ... }
+\todo[inline]{Overview of kinds of pKa prediction methods available. Define method categories: DL, LFER, QSPR/ML, QM, QM+LEC, and QM+MM}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -259,7 +259,8 @@ Although we have accepted submissions with partial sets of molecules, it would h
 The submission files also included fields for naming the method, listing the software utilized, and a free text method section for the detailed documentation of each method. 
 
 Participants were allowed to submit predictions with multiple methods as long as they create separate submissions files. Anonymous participation to the challenge was allowed, however all participant opted to make their submissions public.
-All blind submissions were assigned a 5-digit alphanumeric submission ID, which will be used throughout this paper. These submission IDs were also reported in the evaluation papers of participants and allow cross-referencing. Submission IDs, participant provided method names, and method categories are presented in Table~\ref{submission-ID-table}. 
+All blind submissions were assigned a unique 5-digit alphanumeric submission ID, which will be used throughout this paper. Unique IDs were also assigned when multiple submissions exists for different submission types of the same method such as microscopic \pKa{}(type I) and macroscopic \pKa{} (type III). 
+These submission IDs were also reported in the evaluation papers of participants and allow cross-referencing. Submission IDs, participant provided method names, and method categories are presented in Table~\ref{submission-ID-table}. 
 There were many instances that multiple types of submissions of the same method were provided by participants as challenge instructions requested. 
 Although each prediction set was assigned a separate submission ID we have matched the submissions that originated from the same method according to the reports of the participant.
 Submission ID for both macroscopic (type III) and microscopic (type I) \pKa{} predictions of each method (when exists) are shown in Table~\ref{submission-ID-table}. 
@@ -307,7 +308,9 @@ None of the participants have reported this dependency in their method descripti
 %%%
 \subsection{Evaluation approaches}
 
-Since the experimental data for the challenge was mainly composed of macroscopic \pKa{} values of both monoprotic and multiprotic compounds, evaluation of macroscopic and microscopic \pKa{} predictions was not straightforward. For only a subset of 8 molecules, dominant microstate sequence could be inferred from NMR. For the rest of the molecules the only experimental information available was the macroscopic \pKa{} value, while experimental data did not provide any information on which group(s) are being titrated, microcopic \pKa{} values, identity of associated macrostates (which charge) or  microstates (which tautomers). In this comparative performance evaluation of we let the experimental data lead the challenge analysis towards various evaluation routes.
+Since the experimental data for the challenge was mainly composed of macroscopic \pKa{} values of both monoprotic and multiprotic compounds, evaluation of macroscopic and microscopic \pKa{} predictions was not straightforward. For only a subset of 8 molecules, dominant microstate sequence could be inferred from NMR. For the rest of the molecules the only experimental information available was the macroscopic \pKa{} value, while experimental data did not provide any information on which group(s) are being titrated, microcopic \pKa{} values, identity of associated macrostates (which charge) or  microstates (which tautomers). In this comparative performance evaluation of we let the experimental data lead the challenge analysis towards various evaluation routes. To compare macroscopic \pKa{} predictions to experimental values we had to utilize numerical matching algorithms before we could calculate performance statistics. For the subset of molecules with experimental data about microstates, we used microstate  based matching. These matching methods were described further in the next section.
+
+Three types of submissions were collected during the SAMPL6 \pKa{} Challenge. We have only utilized type I (microscopic \pKa{} value and microstate IDs) and type III (macroscopic \pKa{} value) predictions in this article. Type I submissions contained the same prediction information as the the type II submissions which reported fractional population of microstates with respect to pH.
 
 
 \subsubsection{Matching algorithms for pairing predicted and experimental \pKa{}s}
@@ -332,7 +335,7 @@ Only for the 8 molecules, we utilized the dominant microstate sequence infered f
 We will refer to this assignment method as microstate matching, where experimental \pKa{} value is matched to the computational microscopic \pKa{} value which was reported for the dominant microstate pair observed for each transition. 
 We have compared the results of Hungarian matching and microstate matching. 
 
-
+Inevitably the choice of matching algorithms to assign experimental and predicted values has an impact on the calculation of performance statistics. We believe the Hungarian algorithm for numerical matching and microstate-based were the best choices, providing the most unbiased matching without introducing assumptions outside of the experimental data.
 
 \subsubsection{Statistical metrics for submission performance}
 
@@ -365,8 +368,8 @@ By calculating relative free energies of all predicted microstates with respect 
 The dominant tautomer of each charge state was determined as the the microstate with the lowest free energy in the subset of predicted microstates of each ionization state. 
 This approach is feasible because the relative free energy of tautomers of the same ionization state is independent of pH and therefore the choice of reference pH is arbitrary.
 
-We created a shortlist of top-performing methods for macroscopic \pKa{} predictions based on the following criteria: ranking in the top 10 consistently according to two error (RMSE, MAE) and two correlation metrics (R-Squared, and Kendall’s Tau), and also havin a combined count of less than 8 missing or extra macroscopic \pKa{}s for the entire molecule set (a third of the number of compounds). 
-These methods are presented in Table~\ref{well-performing-methods-table}.
+We created a shortlist of top-performing methods for macroscopic and microscopic \pKa{} predictions. Top macroscopic \pKa{} predictions were selected based on the following criteria of consistance performance among different metrics: ranking in the top 10 consistently according to two error (RMSE, MAE) and two correlation metrics (R-Squared, and Kendall’s Tau), and also havin a combined count of less than 8 missing or extra macroscopic \pKa{}s for the entire molecule set (a third of the number of compounds). 
+These methods are presented in Table~\ref{tableIII-well-performing-methods-table}. A separate list of top performing methods were selected for microscopic \pKa{} with the following criteria: ranking in the top 10 methods when ranked by accuracy statistics (RMSE and MAE) and perfect dominant microstate prediction accuracy. These methods are presented in Table~\ref{tableI-well-performing-methods-table}.
 
 In addition to comparing the performance comparison of methods, we also wanted to compare \pKa{} prediction performance on the level of molecules to determine \pKa{}s of which molecules in the challenge set were harder to predict considering all the methods in the challenge. 
 For this purpose, we plotted prediction error distributions of each molecule considering all prediction methods. 
@@ -378,30 +381,32 @@ We also calculated MAE for each molecule’s over all predictions as well as for
 
 Including null model as helpful in comparative performance analysis of predictive methods to establish what the performance statistics look like for a baseline method for the specific dataset. 
 Null models or null predictions employ a simple prediction model which is not expected to be particularly successful, but it is useful for providing a simple point of comparison for more sophisticated methods. The expectation is for more sophisticated or costly prediction methods to outperform the predictions from a null model, otherwise the simpler null model would be preferable. In SAMPL6 \pKa{} Challenge there were two blind submissions that database lookup methods that were suitable to be considered as null predictions. These methods, with submission IDs \textit{5nm4j} and \textit{5nm4j} both used OpenEye pKa-Porspector database to find the most similar molecule to query molecule and report its \pKa{} as predicted value. 
+We acknowledge that database lookup methods with a rich experimental database presents a challenging null model to beat, however, due to the accuracy level needed from \pKa{} predictions for computer-aided drug design we believe it is an appropriate performance baseline that physical and empirical \pKa{} prediction methods should strive to perform better than.
 
 We have also included additional reference calculations in the comparative analysis to provide more perspective. 
 The methods we chose to include as reference calculations were missing from the blind predictions sets although they are widely used methods by academia and industry.
-representing different methodological approaches: Schrodinger/Epik (\textit{nb???}), Schrodinger/ Jaguar (\textit{nb???}), Chemaxon/Chemicalize(\textit{nb???}), and Molecular Discovery/MoKa (\textit{nb???}). Epik and Jaguar \pKa{} predictions were collected by Bas Rustenburg, Chemicalize predictions by Mehtap Isik, and MoKa predictions by Thomas Fox, after the challenge deadline avoiding any alterations to the respective standard procedures of the methods and guidance of the experimental date.. 
+representing different methodological approaches: Schrodinger/Epik (\textit{nb007, nb008, nb010}), Schrodinger/Jaguar (\textit{nb011, nb013}), Chemaxon/Chemicalize (\textit{nb015}), and Molecular Discovery/MoKa (\textit{nb016, nb017}). Epik and Jaguar \pKa{} predictions were collected by Bas Rustenburg, Chemicalize predictions by Mehtap Isik, and MoKa predictions by Thomas Fox, after the challenge deadline avoiding any alterations to the respective standard procedures of the methods and guidance of the experimental date. 
 Reference calculations were not formally blind, as experimental data of the challenge has been made publically available before their collection. 
 
 All figures and statistics tables in this manuscript include reference calculations. 
-As the reference calculations were not formal submissions, these were omitted from formal ranking in the challenge, but we present plots in this article which show them for easy comparison. These are labeled with submission IDs of the form \textit{REF\#\#} to allow easy recognition of non-blind reference calculations.
-
-
-
-
+As the reference calculations were not formal submissions, these were omitted from formal ranking in the challenge, but we present plots in this article which show them for easy comparison. These are labeled with submission IDs of the form \textit{nb\#\#\#} to allow easy recognition of non-blind reference calculations.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Results and Discussion
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Results and Discussion}
 
-\todo[inline]{A paragraph to explain the submission methods. Define method categories: DL, LFER, QSPR/ML, QM, QM+LEC, and QM+MM, Blind predictions, Reference calculations, Null model (pKa prospector lookup)
-}
 
- Submissions spanning different method categories were made to the SAMPL6 \pKa{} Challenge: database lookup (DL), linear free energy relationship (LFER), quantitative structure property relationship (QSPR), machine learning (ML), quantum mechanics (QM) models with and without linear empirical correction (LEC), and combined quantum mechanics and molecular mechanics (QM+MM). Unique submission IDs were assigned to each submission. Table~\ref{submission-ID-table} matches method names with submission IDs. Unique IDs were also assigned when multiple submissions exists for different submission types of the same method such as microscopic \pKa{}(type I) and macroscopic \pKa{} (type III). 
- 
- Integral equation-based approaches (e.g.EC-RISM) were also evaluated under the Physical (QM) category. Table~\ref{submission-ID-table} indicates the final category assignments in the ``Category'' column. 
+Participation to SAMPL6 \pKa{} Challenge was high with 11 research groups contributing \pKa{} prediction sets of 37 methods.  
+A large variety of \pKa{} prediction methods were represented in SAMPL6 Challenge. 
+We categorized these submissions into four method categories: database lookup (DL), linear free energy relationship (LFER), quantitative structure property relationship or machine learning (QSPR/ML), and quantum mechanics (QM). 
+Quantum mechanics models were subcategorized into QM methods with and without linear empirical correction (LEC), and combined quantum mechanics and molecular mechanics (QM + MM). 
+Table~\ref{submission-ID-table} presents, method names, submission IDs, method categories, and also references of each approach. 
+Integral equation-based approaches (e.g.EC-RISM) were also evaluated under the Physical (QM) category. There were 2 DL, 4 LFER, and 5 QSPR/ML methods represented in the challenge, including the reference calculations. 
+Majority of QM calculations include linear empricial corrections (22 methods in QM + LEC category), and only 5 QM methods were submitted without any empirical corrections. 
+There were 4 methods that used a mixed physical modeling approach of QM + MM. 
+
+The following sections present detailed performance evaluation of blind submissions and reference prediction methods for macroscopic and microscopic \pKa{} predictions. Performance statistics of all the methods can be found in Tables \ref{SI_statistics_table_macro_pKa} and \ref{SI-statistics-table-micro-pKa-8mol-microstate}. Methods are referred to by their submission ID's which are provided in Table \ref{submission-ID-table}.
 
 
 \begin{table}%[H]%[tb!]
@@ -409,7 +414,7 @@ As the reference calculations were not formal submissions, these were omitted fr
 \begin{threeparttable}
 \centering\scriptsize
 \caption{{\bf Submission IDs, names, category, and type for all the \pKa{} prediction sets.} 
-Reference calculations are labeled as \textit{nb\#\#\#}. The method name column lists the names provided by each participant in the submission file. The ``type'' column indicates if submission was or a post-deadline reference calculation, denoted by ``Blind'' or ``Reference'' respectively. The table is not ordered by performance.  
+Reference calculations are labeled as \textit{nb\#\#\#}. The method name column lists the names provided by each participant in the submission file. The ``type'' column indicates if submission was or a post-deadline reference calculation, denoted by ``Blind'' or ``Reference'' respectively. The methods in the table are grouped by method category and not ordered by performance.  
 } 
 \label{submission-ID-table}
 \begin{tabular}{llllll}
@@ -489,21 +494,10 @@ QM + MM & \begin{tabular}[c]{@{}l@{}}M06-2X/6-31G*(for bases) or 6-31+G*(for aci
 
 
 
-
-
-
-
-
-
-
-
-
-
-
 %%%
-\subsection{Analysis of macroscopic \pKa{} predictions (Type III)}
+\subsection{Analysis of macroscopic \pKa{} predictions}
 
-\begin{figure}
+\begin{figure}[h]
 \centering
 %\makebox[\textwidth][l]{\includegraphics[width=0.5\textwidth]{figures/typeIII-rmse-unmatched-pKa-fig.pdf}}
 \includegraphics[width=0.5\linewidth]{figures/typeIII-rmse-unmatched-pKa-fig.pdf}
@@ -514,12 +508,35 @@ RMSE is shown with error bars denoting 95\% confidence intervals obtained by boo
 \label{fig:typeIII-rmse-plot}
 \end{figure}
 
+The performance of macroscopic \pKa{} predictions were analyzed by comparison to experimental \pKa{} values collected by the spectrophotometric method via numerical matching following the Hungarian method.  
+Overall \pKa{} prediction performance was lower than we have hoped for. 
+Fig.~\ref{fig:typeIII-rmse-plot} shows RMSE calculated for each prediction method represented by their submission IDs. 
+Other performance statistics are depicted in Fig.~\ref{fig:typeIII-statistics}.
+In both figures method categories were indicated by the color of the error bars.  
+Prediction error ranged between 0.7 to 3 \pKa{} units in terms of RMSE, while an RMSE between 2-3 log units was observed for the majority of methods (20 out of 38 methods). 
+Only five methods achieved RMSE less than 1 \pKa{} unit. One is QM method with COSMO-RS approach for solvation and linear empirical correction (\textit{xvxzd} (DSD-BLYP-D3(BJ)/def2-TZVPD//PBEh-3c[DCOSMO-RS] + RRHO(GFN-xTB[GBSA]) + Gsolv(COSMO-RS[TZVPD]) and linear fit)), and the remaining four are empirical prediction methods of LFER (\textit{xmyhm} (ACD/pKa Classsic), \textit{nb007} (Schrodinger/Epik Scan)) and QSPR/ML categories (\textit{gyuhx} (Simulations Plus), \textit{nb017} (MoKa)). 
+These five methods with RMSE less than 1 \pKa{} unit also are the methods that have the lowest MAE.
+\textit{xmyhm} and \textit{xvxzd} were the only two methods for which the upper 95\% confidence interval of RMSE was lower than 1 \pKa{} unit. 
 
+In terms of correlation statistics performance of many methods have good performance, although the ranking of methods change R\textsuperscript{2} and Kendall's Tau and many methods are indistinguishable from one another considering uncertainty of the correlation statistics. 
+32 out of 38 methods have R\textsuperscript{} higher than and Kendall's Tau higher than 0.7 and 0.6, respectively.
+8 methods have R\textsuperscript{2} higher than 0.9 and 6 methods have Kendall's Tau higher than 0.8.
+The overlap of these two sets are the following:
+\textit{gyuhx} (Simulations Plus), \textit{xvxzd} (DSD-BLYP-D3(BJ)/def2-TZVPD//PBEh-3c[DCOSMO-RS] + RRHO(GFN-xTB[GBSA]) + Gsolv(COSMO-RS[TZVPD]) and linear fit), \textit{xmyhm} (ACD/pKa Classic), \textit{ryzue} (Adiabatic scheme with single point correction: MD/M06-2X//6-311++G(d,p)//M06-2X/6-31+G(d) for bases and SMD/M06-2X//6-311++G(d,p)//M06-2X/6-31G(d) for acids + thermal corrections), and \textit{5byn6} 
+(Adiabatic scheme: thermodynamic cycle that uses gas phase optimized structures for gas phase free energy and solution phase geometries for solvent phase free energy. SMD/M06-2X/6-31+G(d) for bases and SMD/M06-2X/6-31G(d) for acids + thermal corrections).
+It is worth noting that the \textit{ryzue} and \textit{5byn6} are QM predictions without any empirical correction. Their high correlation and rank correlation coefficient scores signal that with an empirical correction their accuracy based performance could improve. Indeeed, the participants have showed that this is the case in their individual challenge analysis paper and achieved RMSE of 0.73 \pKa{} units after the challenge~\citep{Zeng:2018:J.Comput.AidedMol.Des.}.
+
+Null prediction methods based on database lookup (\textit{5nm4j} and \textit{pwn3m}) had similar performance, roughly RMSE of 2.5 \pKa{} units, MAE of 1.5 \pKa{} units, R\textsuperscript{2} of 0.2 and Kendall's Tau of 0.3.
+Many methods were observed to have prediction performance advantage over the Null predictions shown in light blue in Fig.~\ref{fig:typeIII-rmse-plot} and Fig.~\ref{fig:typeIII-statistics} considering all the performance metrics as a whole.
+In terms of correlation statistics the null methods are the worst performers, except \textit{0hxtm}.
+From the perspective of accuracy-based statistics (RMSE and MAE), only the top 10 methods were observed to have significantly lower errors than the null methods considering the uncertainty of error metrics expressed as 95\% confidence intervals.
+
+The lower subplot of Fig.~\ref{fig:typeIII-rmse-plot}...
 
 Refer to SI TABLE: Error statistics for all participants.  
 Refer to SI FIGURE: Error distribution ridge plots for each method  (exp-pred macroscopic pKa). Which methods tend to overestimate and which methods tend to undestimate?  
 
-\begin{figure}
+\begin{figure}[ht!]
 \centering
 \includegraphics[width=0.5\linewidth]{figures/typeIII_statistics.pdf}
 \caption{{\bf Additional performance statistics for macrocopic \pKa{} predictions based on Hungarian matching.} 
@@ -553,7 +570,7 @@ Method comparison according to different statistics: RMSE, MAE, ME, R2, m, Kenda
 \caption{{\bf Four consistently well-performing prediction methods for macroscopic \pKa{} prediction based on consistent ranking within the Top~10 according to various statistical metrics.} 
 Submissions were ranked according to RMSE, MAE, R\textsuperscript{2}, and $\tau$. Consistently well-performing methods were selected as the ones that rank in the Top~10 in each of these statistical metrics. These methods also have less than 2 unmatched experimental \pKa{}s and less than 7 unmatched predicted \pKa{}s according to Hungarian matching. Performance statistics are provided as mean and 95\% confidence intervals.
 } 
-\label{well-performing-methods-table}
+\label{typeIII-well-performing-methods-table}
 \begin{tabular}{@{}llllllll@{}}
 \toprule
 \textbf{Submission ID} & \textbf{Method Name} & \textbf{RMSE} & \textbf{MAE} & \textbf{R\textsuperscript{2}} & \textbf{\begin{tabular}[c]{@{}l@{}}Kendall's Tau \\ ($\tau$)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Unmatched Exp. \\ \pKa{} Count\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Unmatched Pred. \\ \pKa{} Count [2,12]\end{tabular}} \\ \midrule
@@ -743,6 +760,8 @@ Compare predicted and experimental dominant microstates and calculate accuracy o
 
 
 
+
+
 \begin{figure}
 \centering
 \includegraphics[width=0.5\linewidth]{figures/typeI_dominant_microstate_accuracy.pdf}
@@ -770,6 +789,31 @@ Which molecule has more errors in predicting the major microstates?
 
 
 
+
+\begin{table}[h]
+\begin{center}
+\begin{threeparttable}
+\centering\scriptsize
+\caption{{\bf Top performing methods for microscopic \pKa{} predictions based on consistent ranking within the Top~10 according to various statistical metrics calculated for 8 molecule dataset.} 
+Performance statistics are provided as mean and 95\% confidence intervals. Submissions that rank in the Top~10 according to RMSE and MAE, and have perfect dominant microstate prediction accuracy were selected as consistently well-performing methods. Correlation-based statistics (R\textsuperscript{2}, and Kendall's Tau), although reported in the table, were excluded from the statistics used for determining top-performing methods. This was because correlation-based statistics were not very discriminating due to narrow dynamic range and the small number of data points in the 8 molecule dataset with NMR-determined dominant microstates. 
+} 
+\label{typeI-well-performing-methods-table}
+\begin{tabular}{@{}lllllllll@{}}
+\toprule
+\textbf{\begin{tabular}[c]{@{}l@{}}Submission\\ ID\end{tabular}} & \textbf{Method Name} & \textbf{\begin{tabular}[c]{@{}l@{}}Dominant \\ Microstate \\ Accuracy\end{tabular}} & \textbf{RMSE} & \textbf{MAE} & \textbf{R\textsuperscript{2}} & \textbf{Kendall's Tau} & \textbf{\begin{tabular}[c]{@{}l@{}}Unmatched \\ Exp. \pKa{} \\ Count\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Unmatched \\ Pred. \pKa{} \\ Count [2,12]\end{tabular}} \\ \midrule
+\rowcolor[HTML]{EFEFEF} 
+{\color[HTML]{000000} \textit{nb016}} & {\color[HTML]{000000} MoKa} & {\color[HTML]{000000} 1.0 [1.0, 1.0]} & {\color[HTML]{000000} 0.52 [0.25, 0.71]} & {\color[HTML]{000000} 0.43 [0.23, 0.65]} & {\color[HTML]{000000} 0.92 [0.05, 0.99]} & {\color[HTML]{000000} 0.62 [-0.14, 1.00]} & {\color[HTML]{000000} 0} & {\color[HTML]{000000} 3} \\
+\textit{hdiyq} & S+pKa & 1.0 [1.0, 1.0] & 0.68 [0.49, 0.83] & 0.60 [0.39, 0.80] & 0.86 [0.47, 0.98] & 0.78 [0.40, 1.00] & 0 & 16 \\
+\rowcolor[HTML]{EFEFEF} 
+\textit{nb011} & Jaguar & 1.0 [1.0, 1.0] & 0.72 [0.35, 1.07] & 0.54 [0.28, 0.86] & 0.86 [0.18, 0.98] & 0.64 [0.26, 0.95] & 0 & 36 \\
+\textit{6tvf8} & OE Gaussian Process & 1.0 [1.0, 1.0] & 0.76 [0.55, 0.95] & 0.68 [0.46, 0.90] & 0.92 [0.78, 0.99] & 0.87 [0.6, 1.00] & 0 & 55 \\
+\rowcolor[HTML]{EFEFEF} 
+\textit{0xi4b} & \begin{tabular}[c]{@{}l@{}}EC-RISM/B3LYP/6-311+G(d,p)\\ -P3NI-phi-noThiols-2par\end{tabular} & 1.0 [1.0, 1.0] & 1.15 [0.75, 1.50] & 0.98 [0.63, 1.36] & 0.77 [0.02, 0.98] & 0.51 [-0.14, 1.00] & 0 & 33 \\
+\textit{cywyk} & \begin{tabular}[c]{@{}l@{}}EC-RISM/B3LYP/6-311+G(d,p)\\ -P2-phi-noThiols-2par\end{tabular} & 1.0 [1.0, 1.0] & 1.17 [0.88, 1.41] & 1.06 [0.74, 1.35] & 0.73 [0.02, 0.98] & 0.56 [-0.08, 1.00] & 0 & 36 \\ \bottomrule
+\end{tabular}
+\end{threeparttable}
+\end{center}
+\end{table}
 
 
 
@@ -891,6 +935,9 @@ Suggestions about challenge construction
 Enumeration of protonation states before predictions (which states does one need to consider?)
 Suggestions about challenge analysis
 
+
+Submitting pKa predictions in terms of relative free energy of microstates, from which both microscopic and macroscopic pKas and fractiional populations of states at and pH can be calculated.
+Explicit hydrogen mol2 format can be used to capture individual tautomers
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -1187,7 +1234,8 @@ SM24 & COc1ccc(cc1)c2c3c(ncnc3oc2c4ccc(cc4)OC)NCCO & \begin{tabular}[c]{@{}l@{}}
 \begin{center}
 \begin{threeparttable}
 \centering\scriptsize
-\caption{{\bf Evaluation statistics calculated for all microscopic \pKa{} prediction submissions based on microstate pair match for 8 molecules with NMR data.} Methods are represented via their SAMPL6 submission IDs which can be cross referenced with Table~\ref{submission-ID-table} for method details. There are eight error metrics reported: the root-mean-squared error (RMSE), mean absolute error (MAE), mean (signed) error (ME), coefficient of determination (R\textsuperscript{2}), linear regression slope (m), Kendall’s Rank Correlation Coefficient ($\tau$), unmatched experimental \pKa{}s (number of missing \pKa{} predictions) and unmatched predicted \pKa{}s (number of extra \pKa{} predictions between 2 and 12. This table is ranked by increasing RMSE. A CSV version of this table can be found in \textit{SAMPL6-supplementary-documents.tar.gz}. } 
+\caption{{\bf Evaluation statistics calculated for all microscopic \pKa{} prediction submissions based on microstate pair match for 8 molecules with NMR data.} Methods are represented via their SAMPL6 submission IDs which can be cross referenced with Table~\ref{submission-ID-table} for method details. There are eight error metrics reported: the root-mean-squared error (RMSE), mean absolute error (MAE), mean (signed) error (ME), coefficient of determination (R\textsuperscript{2}), linear regression slope (m), Kendall’s Rank Correlation Coefficient ($\tau$), unmatched experimental \pKa{}s (number of missing \pKa{} predictions) and unmatched predicted \pKa{}s (number of extra \pKa{} predictions between 2 and 12. This table is ranked by increasing RMSE. A CSV version of this table can be found in \textit{SAMPL6-supplementary-documents.tar.gz}. \todo[inline]{Update this table with dominant microstate accuracy}
+} 
 \centering\scriptsize
 \label{SI-statistics-table-micro-pKa-8mol-microstate}
 \begin{tabular}{@{}lllllllll@{}}
