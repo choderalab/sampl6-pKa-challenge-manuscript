@@ -512,7 +512,7 @@ The performance of macroscopic \pKa{} predictions were analyzed by comparison to
 Overall \pKa{} prediction performance was lower than we have hoped for. 
 Fig.~\ref{fig:typeIII-rmse-plot} shows RMSE calculated for each prediction method represented by their submission IDs. 
 Other performance statistics are depicted in Fig.~\ref{fig:typeIII-statistics}.
-In both figures method categories were indicated by the color of the error bars.  
+In both figures method categories were indicated by the color of the error bars.  Statistics depicted in these figures can be found in Table~\ref{SI_statistics_table_macro_pKa}.
 Prediction error ranged between 0.7 to 3 \pKa{} units in terms of RMSE, while an RMSE between 2-3 log units was observed for the majority of methods (20 out of 38 methods). 
 Only five methods achieved RMSE less than 1 \pKa{} unit. One is QM method with COSMO-RS approach for solvation and linear empirical correction (\textit{xvxzd} (DSD-BLYP-D3(BJ)/def2-TZVPD//PBEh-3c[DCOSMO-RS] + RRHO(GFN-xTB[GBSA]) + Gsolv(COSMO-RS[TZVPD]) and linear fit)), and the remaining four are empirical prediction methods of LFER (\textit{xmyhm} (ACD/pKa Classsic), \textit{nb007} (Schrodinger/Epik Scan)) and QSPR/ML categories (\textit{gyuhx} (Simulations Plus), \textit{nb017} (MoKa)). 
 These five methods with RMSE less than 1 \pKa{} unit also are the methods that have the lowest MAE.
@@ -524,17 +524,32 @@ In terms of correlation statistics performance of many methods have good perform
 The overlap of these two sets are the following:
 \textit{gyuhx} (Simulations Plus), \textit{xvxzd} (DSD-BLYP-D3(BJ)/def2-TZVPD//PBEh-3c[DCOSMO-RS] + RRHO(GFN-xTB[GBSA]) + Gsolv(COSMO-RS[TZVPD]) and linear fit), \textit{xmyhm} (ACD/pKa Classic), \textit{ryzue} (Adiabatic scheme with single point correction: MD/M06-2X//6-311++G(d,p)//M06-2X/6-31+G(d) for bases and SMD/M06-2X//6-311++G(d,p)//M06-2X/6-31G(d) for acids + thermal corrections), and \textit{5byn6} 
 (Adiabatic scheme: thermodynamic cycle that uses gas phase optimized structures for gas phase free energy and solution phase geometries for solvent phase free energy. SMD/M06-2X/6-31+G(d) for bases and SMD/M06-2X/6-31G(d) for acids + thermal corrections).
-It is worth noting that the \textit{ryzue} and \textit{5byn6} are QM predictions without any empirical correction. Their high correlation and rank correlation coefficient scores signal that with an empirical correction their accuracy based performance could improve. Indeeed, the participants have showed that this is the case in their individual challenge analysis paper and achieved RMSE of 0.73 \pKa{} units after the challenge~\citep{Zeng:2018:J.Comput.AidedMol.Des.}.
+It is worth noting that the \textit{ryzue} and \textit{5byn6} are QM predictions without any empirical correction. Their high correlation and rank correlation coefficient scores signal that with an empirical correction their accuracy based performance could improve. Indeeed, the participants have showed that this is the case in their individual challenge analysis paper and achieved RMSE of 0.73 \pKa{} units after the challenge~\citep{Zeng:2018:J.Comput.AidedMol.Des.}. 
 
 Null prediction methods based on database lookup (\textit{5nm4j} and \textit{pwn3m}) had similar performance, roughly RMSE of 2.5 \pKa{} units, MAE of 1.5 \pKa{} units, R\textsuperscript{2} of 0.2 and Kendall's Tau of 0.3.
 Many methods were observed to have prediction performance advantage over the Null predictions shown in light blue in Fig.~\ref{fig:typeIII-rmse-plot} and Fig.~\ref{fig:typeIII-statistics} considering all the performance metrics as a whole.
 In terms of correlation statistics the null methods are the worst performers, except \textit{0hxtm}.
 From the perspective of accuracy-based statistics (RMSE and MAE), only the top 10 methods were observed to have significantly lower errors than the null methods considering the uncertainty of error metrics expressed as 95\% confidence intervals.
 
-The lower subplot of Fig.~\ref{fig:typeIII-rmse-plot}...
+Distribution of macroscopic \pKa{} prediction signed errors observed in each submission was plotted in Fig.~\ref{fig:typeIII-error-distribution}A as ridge plots based on Hungarian matching.
+\textit{2ii2g, f0gew, np64b, p0jba}, and \textit{yc70m} tend to overestimate and \textit{
+5byn6, ryzue}, and \textit{w4iyd} tend to underestimate macroscopic \pKa{} values. 
 
-Refer to SI TABLE: Error statistics for all participants.  
-Refer to SI FIGURE: Error distribution ridge plots for each method  (exp-pred macroscopic pKa). Which methods tend to overestimate and which methods tend to undestimate?  
+In addition the statistics related to the value of \pKa{}, we have also analyzed missing or extra \pKa{} predictions. 
+Analysis of the \pKa{} values with accuracy- and correlation-based error metrics was only possible after assignment of predicted macroscopic \pKa{}s to experimental \pKa{}s through the Hungarian matching, although, this approach masks \pKa{} prediction issues in the form of extra or missing macroscopic \pKa{} predictions. 
+To capture this form of prediction errors we reported the number of unmatched experimental \pKa{}s (missing \pKa{} predictions and the number of unmatched predicted \pKa{}s (extra \pKa{} predictions) after Hungarian matching for each method. 
+Both missing and extra \pKa{} prediction counts were only considered for the pH range of 2-12 which was the limits of experimental measurements.
+The lower subplot of Fig.~\ref{fig:typeIII-rmse-plot} shows the total count of unmatched experimental or predicted \pKa{}s for all the molecules in each prediction set. The order of submission IDs in the x-axis follows the RMSD based ranking so that the performance of each methods from both \pKa{} value accuracy and the number of \pKa{}s can be viewed together.
+Presence of missing or extra macroscopic \pKa{} predictions is a critical error, because inaccuracy in predicting the correct number of macroscopic transitions shows that methods are failing predict the correct set of charge states, i.e. failing to predict the correct number of ionization states that can be observed between the specificied pH range. 
+
+In challenge results, extra macroscopic \pKa{} predictions were found to be more common than missing \pKa{} predictions. 
+In \pKa{} prediction evaluations usually accuracy of ionization states predicted within a pH range seen is neglected. 
+When predictions are only evaluated for \pKa{} value accuracy with numerical matching algorithms more \pKa{} predictions are likely to lead to lower prediction errors. 
+Therefore, it is not surprising that methods are biased to predict extra \pKa{} values. 
+The SAMPL6 \pKa{} Challenge experimental data consists of 31 macroscopic \pKa{}s in total, measured for 24 molecules (6 molecules in the set have multiple \pKa{}s).
+Within the 10 methods with lowest RMSE only \textit{xvxzd} method has an error of missing predicted \pKa{} (2 unmatched out of 31 experimental \pKa{}s), and all other methods that rank top 10 according to RMSE have extra predicted \pKa{}s ranging from 1 to 13. Two prediction sets without any extra \pKa{} predictions and low RMSE are \textit{8xt50} (ReSCoSS conformations // DSD-BLYP-D3 reranking // COSMOtherm pKa) and \textit{nb015} (ChemAxon/Chemicalize).
+
+
 
 \begin{figure}[ht!]
 \centering
@@ -547,20 +562,17 @@ Mean absolute error (MAE), mean error (ME), Pearson’s R\textsuperscript{2}, an
 \end{figure}
 
 
-Describe number of missing and extra pKa for each method.  
-Report in total for all molecules how many predicted pKas are there and how many experimental pKas.  
-Refer to FIGURE: missing and extra pKa counts.  
-
-Describe overall performance comparison of different methods, grouped by methods class.
-
-\todo[inline]{Explain rationale behind how we analyze the data and determine success/failure}
-\todo[inline]{Performance comparison of different methods, grouped by methods class}
-Method comparison based on statistical metrics.  
-Explain the numerical matching methods used. Explain rationale behind how we analyze the data and determine success/failure.  
-Method comparison according to different statistics: RMSE, MAE, ME, R2, m, Kendall's tau.  
-
-
 \subsubsection{Consistently well performing methods for macroscopic \pKa{} prediction}
+
+Methods ranked differently when ordered by different error metrics, although there were a couple of methods that consistently ranked at the top fraction. 
+By using a combinatorial criteria that takes all multiple statistical metrics and unmatched \pKa{} counts into account, we identified a short list of consistently well performing methods for macroscopic \pKa{} predictions, shown in Table~\ref{typeIII-well-performing-methods-table}. 
+The criteria for selection was ranking in Top 10 according to RMSE, MAE, R\textsuperscript{2}, and Kendall's Tau and also having a combined unmatched \pKa{} (extra and missing \pKa{}s) count less than 8 (a third of the number of compounds).
+The resulted in a list of four methods which are consistently well performing across all criteria.
+
+Consistently well performing methods for macroscopic \pKa{} prediction included methods from all categories. Two methods of the QM+LEC category were \textit{xvxzd} (DSD-BLYP-D3(BJ)/def2-TZVPD//PBEh-3c[DCOSMO-RS] + RRHO(GFN-xTB[GBSA]) + Gsolv(COSMO-RS[TZVPD]) and linear fit) and \textit(8xt50) (ReSCoSS conformations // DSD-BLYP-D3 reranking // COSMOtherm pKa) and both used COSMO-RS approach. 
+Empirical \pKa{} predictions with top performance were both proprietary softwares. 
+From QSPR and LFER categories, \textit{gyuhx} (Simulation Plus) and \textit{xmymhm} (ACD/pKa Classic) were the methods that made it to consistently well performing methods list. Simulation Plus \pKa{} prediction method consisted of 10 artificial neural network ensembles trained on 16,000 compounds for 10 classes of ionizable atoms. Atom type and local molecular environment was how the ionization class of each atom was determined ~\citep{simulation_plus_D3R_presentation}. 
+ACD/pKa Classic which was trained on method 17,000 compounds uses Hammet-type equations and tries to capture effects related to tautomeric equilibria, covalent hydration, resonance effects, and  $\alpha, \beta$-unsaturated systems ~\citep{ACD-pKa-classic}.
 
 
 \begin{table}[h]
@@ -585,11 +597,9 @@ Submissions were ranked according to RMSE, MAE, R\textsuperscript{2}, and $\tau$
 \end{center}
 \end{table}
 
+In Figure~\ref{fig:typeIII_pred_vs_exp_correlation} prediction vs. experimental data correlation plots of macroscopic \pKa{} predictions with 4 consistently well-performing methods, a representative average method, and the null method(\textit{5nm4j}). The representative method with average performance (\textit{2ii2g} (EC-RISM/MP2/cc-pVTZ-P2-q-noThiols-2par)) was selected as the method with the highest RMSE below the median of all methods.
 
-\todo[inline]{Check if top few performing methods are consistent between error metrics. }
-
-
-\begin{figure}
+\begin{figure}[h]
 \centering
 \includegraphics[width=1.0\linewidth]{figures/typeIII-pred-vs-exp-correlation-fig.pdf}
 \caption{{\bf Predicted vs. experimental value correlation plots of 4 consistently well-performing methods, a representative method with average performance (\textit{2ii2g}), and the null method (\textit{5nm4j})}. 
@@ -601,6 +611,11 @@ Dark and light green shaded areas indicate 0.5 and 1.0 units of error. Error bar
 
 
 \subsubsection{Which chemicals are harder to predict?}
+
+In addition to comparing the performance methods that participated in the SAMPL6 Challenge, we also wanted to analyze macroscopic \pKa{} predictions from the perspective of challenge molecules and determine whether particular compounds or moieties suffer from larger inaccuracy in \pKa{} predictions. In Fig.~\ref{fig:MAE_vs_molecule_across_methods})
+
+the prediction errors for each compound in the challenge set to assess . 
+For this analysis, MAE is a more appropriate statistical value for following global trends, as its value is less affected by outliers than is RMSE.
 
 For physical prediction methods sulfur containing heterocycles, amide next to aromatic heterocycles, compounds with iodo and bromo domains have lower pKa prediction accuracy.
 
@@ -616,7 +631,7 @@ For physical prediction methods sulfur containing heterocycles, amide next to ar
 Prediction performance of individual molecules
 \todo[inline]{Which chemical structures make pKa predictions more difficult?}
 SAMPL6 pKa set consisted of only 24 small molecules which limits our ability to do statistical analysis to determine which chemical substructures contribute to greater errors in pKa predictions.
-\todo[inline]{Illustration/explanation of effects where microscopic pKas and macroscopic pKas can differ}
+
 
 \todo[inline]{Are there any correlations between molecular descriptors and pKa errors?}
 
@@ -900,6 +915,15 @@ Which chemical structures make pKa predictions more difficult?
 
 What can we learn from failures? Which physical effects are driving failures?
 Cycle closure errors
+
+Factors to consider when deciding which pKa prediction method to consider?
+-license
+-how expensive is the calculation
+-macrocopic pKa value accuracy
+-macrostate number accuracy
+-microscopic pKa value accuracy
+- microstate accuracy
+- tautomer ratio, correct relative free energy between tautomers
 
 
 %%%
