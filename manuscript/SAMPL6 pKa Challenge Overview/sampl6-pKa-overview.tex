@@ -610,38 +610,32 @@ Dark and light green shaded areas indicate 0.5 and 1.0 units of error. Error bar
 
 
 
-\subsubsection{Which chemicals are harder to predict?}
+\subsubsection{Which chemical properties are driving macroscopic \pKa{} prediction failures?}
 
-In addition to comparing the performance methods that participated in the SAMPL6 Challenge, we also wanted to analyze macroscopic \pKa{} predictions from the perspective of challenge molecules and determine whether particular compounds or moieties suffer from larger inaccuracy in \pKa{} predictions. In Fig.~\ref{fig:MAE_vs_molecule_across_methods})
+In addition to comparing the performance of methods that participated in the SAMPL6 Challenge, we also wanted to analyze macroscopic \pKa{} predictions from the perspective of challenge molecules and determine whether particular compounds suffer from larger inaccuracy in \pKa{} predictions. 
+The goal of this analysis is to provide guidance on which molecular properties or moieties might be causing larger \pKa{} prediction error.
+In Fig.~\ref{fig:molecules_with_MAE_of_all_methods} 2D depictions of challenge molecules are presented with MAE calculated for their macroscopic \pKa{} predictions over all methods, based on Hungarian match. For multiprotic molecules MAE was averaged over all the \pKa{}s. For the analysis of \pKa{} predictiona accuracy observed for each molecule, MAE is a more appropriate statistical value than RMSE for following global trends. This is because MAE value less sensitive to outliers than is RMSE.
 
-the prediction errors for each compound in the challenge set to assess . 
-For this analysis, MAE is a more appropriate statistical value for following global trends, as its value is less affected by outliers than is RMSE.
 
-For physical prediction methods sulfur containing heterocycles, amide next to aromatic heterocycles, compounds with iodo and bromo domains have lower pKa prediction accuracy.
+A comparison of prediction performance of individual molecules is shown in Fig.~\ref{fig:typeIII_molecular_MAE}. In Fig.~\ref{fig:typeIII_molecular_MAE}A MAE each molecule is shown  considering all blind predictions and reference calculations. A cluster of molecules marked orange and red have higher than average MAE. 
+Molecules marked red (SM06, SM21, and SM22) are the only compounds in SAMPL6 dataset with bromo or iodo groups and they suffered a macroscopic \pKa{} prediction error in the range of 1.7-2.0 \pKa{} units in terms of MAE.
+Molecules marked orange (SM03, SM10, SM18, SM19, and SM20) all have sulfur-containing heterocycles, and all molecules except SM18 of this group have MAE larger than 1.6 \pKa{} unit.
+SM18 despite containing thiazole group has a low MAE. SM18 is the only compound with three experimental \pKa{}s and we suspect presence of multiple experimental \pKa{}s could have a masking affect on the errors captured by MAE with Hungarian matching due to more pairing choices.
+
+We analyzing MAE of each molecule for empirical(LFER and QSPR/ML) and QM-based physical methods (QM, QM+LEC, and QM+MM) separetely for more insight. 
+Fig.~\ref{fig:typeIII_molecular_MAE}B shows that the difficulty of predicting \pKa{}s of the same subset of molecules was a trend conserved in the performance of physical methods. For QM-based methods too sulfur containing heterocycles, amide next to aromatic heterocycles, compounds with iodo and bromo domains have lower \pKa{} prediction accuracy.
+
+SAMPL6 \pKa{} set consists of only 24 small molecules which limits our ability to do statistically confirm the determination of which chemical substructures cause greater errors in \pKa{} predictions. Still the trends seen in this challenge distinguish molecules with iodo, bromo, and sulfur-containing heterocycles with larger prediction errors of macroscopic \pKa{} value. We hope that reporting this observation will lead to improvement of methods for similar compounds with such moieties. 
+
 
 \begin{figure}
 \begin{center}
 \includegraphics[width=0.95\linewidth]{figures/molecules_with_MAE_of_all_methods.pdf}
-\caption{{\bf Molecules of SAMPL6 Challenge with MAE calculated for all macroscopic \pKa{} predictions.} MAE calculated considering all prediction methods indicate which molecules had the lowest prediction accuracy in SAMPL6 Challenge. MAE values calculated for each molecule include all the matched \pKa{} values, which could be more than one per method for multiprotic molecules (SM06, SM14, SM15, SM16, SM18, SM22). Hungarian matching algorithm wasemployed for pairing experimental and predicted \pKa{} values. MAE values are reported with 95\% confidence intervals.
+\caption{{\bf Molecules of SAMPL6 Challenge with MAE calculated for all macroscopic \pKa{} predictions.} MAE calculated considering all prediction methods indicate which molecules had the lowest prediction accuracy in SAMPL6 Challenge. MAE values calculated for each molecule include all the matched \pKa{} values, which could be more than one per method for multiprotic molecules (SM06, SM14, SM15, SM16, SM18, SM22). Hungarian matching algorithm was employed for pairing experimental and predicted \pKa{} values. MAE values are reported with 95\% confidence intervals.
 }
 \label{fig:molecules_with_MAE_of_all_methods}
 \end{center}
 \end{figure}
-
-Prediction performance of individual molecules
-\todo[inline]{Which chemical structures make pKa predictions more difficult?}
-SAMPL6 pKa set consisted of only 24 small molecules which limits our ability to do statistical analysis to determine which chemical substructures contribute to greater errors in pKa predictions.
-
-
-\todo[inline]{Are there any correlations between molecular descriptors and pKa errors?}
-
-\todo[inline]{What can we learn from failures? Which physical effects are driving failures?}
-
-
-
-
-
-
 
 
 \begin{figure}
@@ -663,39 +657,26 @@ SAMPL6 pKa set consisted of only 24 small molecules which limits our ability to 
 \label{fig:typeIII-error-distribution}
 \end{figure}
 
+We have also looked for correlation with molecular descriptors for finding other potential explanations for why macroscopic \pKa{} predictions were larger in some molecules. 
+While testing correlation between errors and many molecular descriptors it is important to keep the possibility of spurious correlations in mind. 
+We haven't observed any significant correlation between numerical \pKa{} predictions and the descriptors we have tested. 
+First of all, higher number of experimental \pKa{}s (Fig.~\ref{fig:typeIII_molecular_MAE}A) did not seem to associate with lower \pKa{} prediction performance. 
+But we need to keep in mind that there was a low representation of multiprotic compounds in the SAMPL6 set (5 molecules with 2 macroscopic \pKa{}s and one molecule with 3 macroscopic \pKa{}).
+Other descriptors we checked for were presence of amide groups, molecular weight, heavy atom count, rotatable bond count, heteroatom count, heteroatom to carbon ratio, ring system count, maximum ring size, and the number of microstates (as enumerated for the challenge). 
+Correlation plots and R\textsuperscript{2} values can be seen in Fig.~\ref{fig:molecular_properties_vs_MAE_correlation}. 
+We had suspected that \pKa{} prediction methods may be trained better for moderate values (4-10) than extreme values as molecules with extreme \pKa{}s are less likely to change ionization states close to physiological pH. To test this we look at the distribution of absolute errors calculated for all molecules and challenge predictions binned by experimental \pKa{} value 2 \pKa{} unit increments. 
+As can be seen in Fig.~\ref{fig:macroscopic-pKa-error-vs-pKa-value}B, the value of true macroscopic \pKa{}s was not a factor affecting prediction error seen in SAMPL6 Challenge.
 
 
-
-
-Does molecular descriptors explain errors/performance ?
-We looked for correlation with descriptors, and potential explanation for errors. Keep spurious correlations in mind if we have many descriptors. No correlation observed. Reference the SI Figure of correlations.
-
-\todo[inline]{Comparison of errors/performance against molecular descriptors. Look for correlation with descriptors, and potential explanation for errors. Keep spurious correlations in mind if we have many descriptors.}
-
-Refer to Figure SI: correlation between prediction error and molecular descriptors. There is no clear correlation between molecular descriptors and mean absolute error for each molecule when calculated for all methods.  
-
-Are pKa predictions better in middle region? Error in pKa predictions does not correlate with the true value of pKa.
-No correlation between pKa value and error was seen.
-Reference the SI Figure.
-
-Refer to Ridge plots of Delta pKa error to identify compounds that were frequently mispredicted.
-
-Compare ME of molecules across methods.
-Are there molecules often overestimated or underestimated?
-
-No correlation of macroscopic pKa number to the errors? But we have low representation of multiprotic compounds
-
-
-
-
+Fig.~\ref{fig:typeIII-error-distribution}B is helpful to answer the question of "Are there molecules with consistently overestimated or underestimated \pKa{}s?". This ridge plots shows the error distribution of each experimental \pKa{}. SM02\_pKa1, SM04\_pKa1, SM14\_pKa1, and SM21\_pKa1 were underestimated by majority of the prediction methods for more than 1 \pKa{} unit. 
+SM03\_pKa1, SM06\_pKa2, SM19\_pKa1, and SM20\_pKa1 were overestimated by the majority of the preodction methods for more than 1 \pKa{} unit.
+SM03\_pKa1, SM06\_pKa2, SM10\_pKa1, SM19\_pKa1, and SM22\_pKa1 have the highest spread of errors and were less accurately predicted overall. Refer to Ridge plots of Delta pKa error to identify compounds that were frequently mispredicted.
 
 
 
 
 %%%
-\subsection{Analysis of microscopic \pKa{} predictions using microstates determined by NMR (8 molecules)}
-
-
+\subsection{Analysis of microscopic \pKa{} predictions using microstates determined by NMR for 8 molecules}
 
 
 \begin{figure}
