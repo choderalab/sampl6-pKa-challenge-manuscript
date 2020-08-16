@@ -736,38 +736,25 @@ Mean absolute error (MAE), mean error (ME), Pearson’s R\textsuperscript{2}, an
 \label{fig:typeI-statistics}
 \end{figure}
 
-Both accuracy and correlation based statistics were calculated for predicted microscopic \pKa{} values after microstate-based matching. RMSE, MAE, ME, R\textsuperscript{2}, and Kendall's Tau results of each method are shown in Fig.~\ref{fig:typeI-matching-algorithm-comparison}C and Fig.~\ref{fig:typeI-statistics}. 
-Due to small number of data points in this set, correlation based statistics calculated shows large uncertainty and provide less utility for distinguishing better performing methods. Therefore we focused more on accuracy based metrics for the analysis of microscopic \pKa{}s than correlation based metrics. In terms of accuracy of microscopic \pKa{} value, all three QSPR/ML based methods (\textit{nb016} (MoKa),\textit{hdiyq} (Simulations Plus), \textit{6tvf8} (OE Gaussian Process)), three QM-based methods (\textit{nb011} (Jaguar), \textit{ftc8w} (EC-RISM/MP2/cc-pVTZ-P2-q-noThiols-2par), \textit{t8ewk} (COSMOlogic\_FINE17)), and one LFER method (\textit{v8qph} (ACD/pKa GALAS)) achieved RMSE lower than 1 \pKa{} unit.
+Both accuracy and correlation based statistics were calculated for predicted microscopic \pKa{} values after microstate-based matching. RMSE, MAE, ME, R\textsuperscript{2}, and Kendall's Tau results of each method are shown in Fig.~\ref{fig:typeI-matching-algorithm-comparison}C and Fig.~\ref{fig:typeI-statistics}. A table of the calculated statistics can be found in Table~\ref{SI-statistics-table-micro-pKa-8mol-microstate}. Due to small number of data points in this set, correlation based statistics calculated shows large uncertainty and provide less utility for distinguishing better performing methods. Therefore we focused more on accuracy based metrics for the analysis of microscopic \pKa{}s than correlation based metrics. In terms of accuracy of microscopic \pKa{} value, all three QSPR/ML based methods (\textit{nb016} (MoKa),\textit{hdiyq} (Simulations Plus), \textit{6tvf8} (OE Gaussian Process)), three QM-based methods (\textit{nb011} (Jaguar), \textit{ftc8w} (EC-RISM/MP2/cc-pVTZ-P2-q-noThiols-2par), \textit{t8ewk} (COSMOlogic\_FINE17)), and one LFER method (\textit{v8qph} (ACD/pKa GALAS)) achieved RMSE lower than 1 \pKa{} unit. The same 6 methods also have the lowest MAE.
 
-\todo[inline]{Assessment of individual methods by each of our analysis methods}
-\todo[inline]{Performance comparison of different methods, grouped by methods class}
 
-\todo[inline]{Comment on the ranking of microscopic pKa prediction error statistsics for all participants (8 mol, microstate match). Refer to Fig.~\ref{fig:typeI-statistics}}
+\subsubsection{Evaluating microstate prediction accuracy of methods}
 
-Choosing molecules with right protonation state is important.
-Do people predict the correct sequence of dominant microstates?
- " Even if your pKa prediction is correct, protonation state prediction can be wrong."
+For many computational chemistry approaches including structure based modeling of protein-ligand interactions, predicting the ionization state and the exact position of protons is important to guide modeling.  
+This is why in addition to being able to predict \pKa{} values accurately, we need \pKa{} prediction methods to be able to capture microscopic protonation states accurately. Even when the predicted \pKa{} value is very accurate, the predicted protonation site can be wrong. 
+Therefore, we assessed if methods participating the SAMPL6 \pKa{} Challenge were predicting correctly the sequence of dominant microstates, i.e. dominant tautomers of each charge state observed between pH 2 and 12.
+
+
  Analyze which state has lowest free energy for each charge group ( The sequence of "experimentally visible states")
+ 
+Dominant microstate prediction accuracy of microscopic \pKa{} prediction method are shown in Fig.~\ref{fig:typeI_dominant_microstate_accuracy}.
+To extract the dominant tautomers predicted for the sequence of ionization states of each method, first, relative free energy of microstates were calculated at reference pH 0 ~\citep{Gunner:2020:J.Comput.AidedMol.Des.}. Then to determine dominant microstate of each charge, we have selected the lowest energy tautomer for each ionization states of the charges -1, 0, 1, and 2 (the charge range captured by NMR) experiments.
+Than predicted and experimental dominant microstates were compared for each charge to calculate the fraction of correctly predicted dominant tautomers. This value is reported as the dominant microstate accuracy for all charges (Fig.~\ref{fig:typeI_dominant_microstate_accuracy}A). Dominant microsate prediction errors were present the methods participating in the SAMPL6 \pKa{} Challenge. 10 QM and 3 QSPR/ML methods did not make any mistakes in dominant microstate predictions, although, they are expected to  be making mistakes in the relative ratio of tautomers (free energy difference between microstates) as reflected by \pKa{} value errors. While all the participating QSPR/ML methods showed good performance in dominant microstate prediction, LFER and some QM methods made mistakes. Accuracy of the prediction of the neutral dominant tautomers was perfect for all methods, except \textit{qsicn} (Fig.~\ref{fig:typeI_dominant_microstate_accuracy}B). But errors in predicting the major tautomer of charge +1 was much more frequent. 22 out of 35 prediction sets made at least one error in prediction the lowest energy tautomer with +1 charge. We didn't include ionization states with charges -1 and +2 in this assessment because we had only one compound with these charges in the dataset. Never the less, dominant tautomer prediction errors seems to be a bigger problem for charged tautomers than the neutral tautomer.    
 
+Experimental data of the sequence of dominant microstates was only available for 8 compounds. Therefore conclusions the performance of methods in terms of dominant tautomer prediction are limited to this narrow chemical diversity (benzimidazole and 4-aminoquinazoline derivatives). We present this analysis as a prototype of how microscopic \pKa{} predictions should be evaluated. To reach broad conclusions about which methods are better for capturing dominant microstates and ratios of tautomers we hope that in the future more extensive evaluations can be mode with larger experimental datasets following the strategy we are demonstrating here. Even if experimental microscopic \pKa{} measurement data is not available, experimental dominant tautomer determinations are still informative for assessing prediction methods.  
 
-
-
-
-
-
-
-
-
-\subsubsection{Dominant microstate prediction accuracy of methods}
-
-Calculate relative free energy of microstates to determine dominant microstate of each charge
-Compare predicted and experimental dominant microstates and calculate accuracy of each method
-
-
-
-
-
-\begin{figure}
+\begin{figure}[h]
 \centering
 \includegraphics[width=0.5\linewidth]{figures/typeI_dominant_microstate_accuracy.pdf}
 \caption{{\bf Some methods predicted the sequence of dominant tautomers inaccurately.} Prediction accuracy of dominant microstate of each charged state was calculated using the dominant microstate sequence determined by NMR for 8 molecules as reference. 
@@ -776,21 +763,19 @@ Compare predicted and experimental dominant microstates and calculate accuracy o
 \label{fig:typeI_dominant_microstate_accuracy}
 \end{figure}
 
+Focusing on dominant microstate sequence prediction accuracy from the perspective of molecules showed that major tautomer of SM14 cationic form was the most frequently mispredicted one. 
+Fig.~\ref{fig:typeI_dominant_microstate_accuracy} shows the dominant microstate prediction accuracy calculated for individual molecules for charge states 0 and +1, averaged over all prediction methods. 
+SM14, the molecule that exibits highest microstate prediction error, has two experimental \pKa{} values that were 2.4 \pKa{} units apart and we suspect that could be a contributor to the difficulty of predicting microstates accurately. 
+Other molecules are monoprotic (4-aminoquinazolines) or their experimental \pKa{} values are very well separated (SM14, 4.2 \pKa{} units). 
+It would be very interesting to expand this assessment to a larger variety of drug-like molecules to discover for which structures tautomer predictions are more accurate and for which structure computational predictions are not as reliable.
 
-What percent of the time predictions capture the dominant protonation state correctly? 
-Match by microstate and calculate RMSE and MAE. If you know the microstates, can you predict the value of the pKa right? 
 
-
-\todo[inline]{Does top 3 methods predict the same dominant microstate sequence? How differently do different methods predict microscopic transitions? (method vs method correlation plot to see if methods predict the same microstate pairs or not)}
-
-
-\subsubsection{Which molecules caused lower dominant microstate prediction accuracy?}
-
-Which molecule has more errors in predicting the major microstates?
+\subsubsection{Consistently-well performing methods for microscopic \pKa{} predictions}
 
 
 
-\todo[inline]{Comment on consensus prediction accuracy. Comparison of predicted microstates using consensus set of transitions of high accuracy prediction methods} 
+
+
 
 
 
