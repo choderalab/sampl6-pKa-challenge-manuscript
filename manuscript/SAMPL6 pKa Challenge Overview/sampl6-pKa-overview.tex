@@ -678,6 +678,18 @@ SM03\_pKa1, SM06\_pKa2, SM10\_pKa1, SM19\_pKa1, and SM22\_pKa1 have the highest 
 %%%
 \subsection{Analysis of microscopic \pKa{} predictions using microstates determined by NMR for 8 molecules}
 
+The common approach for analysing microscopic \pKa{} prediction accuracy has been to compare it to experimental macroscopic \pKa{} data, assuming experimental \pKa{}s describe titrations of distinguishable sides and, therefore, equal to microscopic \pKa{}s. But this typical approach fails to evaluate the methods in microscopic level.
+
+Analysis of microscopic \pKa{} predictions of the SAMPL6 Challenge was not straight-forward due to lack of experimental data with microscopic detail. For 24 molecules macroscopic \pKa{}s were determined with spectrophotometric method. 
+For 18 molecules single macroscopic titration was observed and for 6 molecules multiple experimental \pKa{}s were reported. 
+For 18 molecules with single experimental \pKa{} it is probabable that the molecules are monoprotic and therefore macroscopic \pKa{} value is equal to the microscopic \pKa{}, but there is no direct experimental evidence to support that this is the case but only the support from prediction methods. 
+There is always the possibility that the macroscopic \pKa{} observed is the result of two different titrations overlapping closely with respect to pH. 
+We did not want to bias the blind challenge analysis with any prediction method. 
+Therefore, we believe analyzing the microscopic \pKa{} predictions via Hungarian matching to experimental values with the assumption that the 18 molecules have single titratable site is not the best approach. 
+Instead analysis at the level of macroscopic \pKa{}s is much more appropriate when a numerical matching scheme is the only option to evaluate predictions using macroscopic experimental data.
+
+For a subset of the molecules in the dataset of 8 molecules, dominant microstates were inferred from NMR experiments. This dataset was extremely useful for guiding the assignment between experimental and predicted \pKa{} values based on microstates. In this section we present the performance evaluations of microscopic \pKa{} predictions for only the 8 compounds with experimentally determined dominant microstates.
+
 
 \begin{figure}
 \centering
@@ -691,48 +703,28 @@ RMSE is shown with error bars denoting 95\% confidence intervals obtained by boo
 \end{figure}
 
 
+\subsubsection{Microstate-based matching revealed errors masked by \pKa{} value-based matching between experimental and predicted \pKa{}s}
 
 
-\subsubsection{Comparing microscopic pKa predictions directly to macroscopic experimental pKa values with numerical matching leads to underestimation of errors}
+Comparing microscopic \pKa{} predictions directly to macroscopic experimental \pKa{} values with numerical matching can lead to underestimation of errors. 
+To demonstrate how numerical matching often masks the \pKa{} prediction errors we compared the performance analysis done by Hungarian matching to microstate-based matching for 8 molecules presented in Fig.~\ref{fig:typeI-matching-algorithm-comparison}A. RMSE calculated for microscopic \pKa{} predictions matched to experimental values via Hungarian matching is shown in Fig.~\ref{fig:typeI-matching-algorithm-comparison}B, while Fig.~\ref{fig:typeI-matching-algorithm-comparison}C shows RMSE calculated via microstate-based matching. 
+What is important to notice is that the Hungarian matching leads to significantly lower RMSE compared to microstate-based matching. The reason is that the Hungarian matching assigns experimental \pKa{} values to predicted \pKa{} values only based on the closeness of the numerical values, without consideration of the relative population of microstates and microstate identities. 
+Because of that a microscopic \pKa{} value that describes a transition between very low population microstates (high energy tautomers) can be assigned to the experimental \pKa{} if it has the closest \pKa{} value. 
+This is not helpful, because in reality the microscopic \pKa{}s that influence the observable macroscopic \pKa{} the most are the ones with higher populations (transitions between low energy tautomers).
+
+The number of unmatched predicted microscopic \pKa{s} are shown in lower bar plots of Fig.~\ref{fig:typeI-matching-algorithm-comparison}B and C, to emphasize the large number of microscopic \pKa{} predictions submitted by many methods. 
+In the case of microscopic \pKa{} the number of unmatched predictions do not indicate an error in the form of an extra predicted \pKa{}, because the spectrophotometric experiments do not capture all microscopic \pKa{}s theoretically possible (transitions between all pairs of microstates that are 1 proton apart). 
+\pKa{}s of transitions to and from very high energy tautomers are very hard to measure by experimental methods, including the most sensitive methods like NMR. 
+The reason we plotted them was more to demonstrate how the increased number of prediction value choices for Hungarian matching can lead to erroneously low RMSE values. 
+We have also checked how often Hungarian matching led to the correct matches between predicted and experimenal \pKa{} in terms of the microstate pairs, i.e. how often the microstate pair of the Hungarian match recapitulates the dominant microstate pair of the experiment. The overall accuracy of correct microstate pair match was found to be low for SAMPL6 Challenge submission. 
+Fig.~\ref{fig:microstate-pairs-with-Hungarian-match-vs-experiments} shows that for most methods the predicted microstate pair selected by Hungarian match did not match experimentally determined microstate pair.
+This means the lower RMSE results obtained from Hungarian matching are low for the wrong reason. 
+Matching experimental and predicted values on the basis of microstate IDs do not suffer from this problem.  
+
+The disadvantage of the evaluation through microstate-based matching approach is that the conclusions in this section are only about a subset of challenge compounds with limited diversity. This subset is composed of 6 molecules 4-aminoquinazoline and 2 molecules with benzimidazole scaffolds, and a total of 10 \pKa{} values. The sequence of dominant microstates for SM07 and SM14 were determined by NMR experiments directly~\citep{Isik:2018:J.Comput.AidedMol.Des.}, and dominant microstates of their derivatives were infered taking them as reference (Fig.~\ref{fig:typeI-matching-algorithm-comparison}). Although, we believe that microstate-based evaluation is more informative, the lack of a large experimental dataset limits the conclusions to a very narrow chemical diversity. 
 
 
-Demonstrate how numerical matching often masks the error
-Match by Hungarian and calculate accuracy of microstate prediction overall.
-When matched by pKa value, do people come with the same transition pairs?
-
-Reference Figure~\ref{fig:microstate-pairs-with-Hungarian-match-vs-experiments}  For most methods the microstate pair of Hungarian predicted pKa does not match experimentally determined microstate pair.
-
-
-
-Discussion of matching experimental and predicted values
-\todo[inline]{Difficulty of assessing predicted pKas using experimental data: matching problem}
-\todo[inline]{Explain rationale behind how we analyze the data and determine success/failure}
-
-Compare experimental data to microscopic pKa predictions, assuming experimental pKas are titrations of distinguishable sides and therefore equal to microscopic pKas.
-Molecules with only 1 pKa or well separated multiple pKas (more than 3 pKa units apart) SM14 and SM18 were excluded from this analysis, since their experimental pKa values don't satisfy these criteria.
-
-Errors computed by microstate-based matching are larger compared to numerical matching algorithms.
-Microscopic pKa analysis with numerical matching algorithms may mask errors due to higher number of guesses made.
-
-
-
-
-Conclusions will only be about 4-aminoquinazoline series and benzimidazole (8 molecules, 10 pKas)
-Refer to SI figure of dominant microstates.
-
-Choosing molecules with right protonation state is important.
-Do people predict the correct sequence of dominant microstates?
- " Even if your pKa prediction is correct, protonation state prediction can be wrong."
- Analyze which state has lowest free energy for each charge group ( The sequence of "experimentally visible states")
-
-
-
-\subsubsection{Accuracy of predicted pKa values when microstate matching is used}
-
-\todo[inline]{Assessment of individual methods by each of our analysis methods}
-\todo[inline]{Performance comparison of different methods, grouped by methods class}
-
-\todo[inline]{Comment on the ranking of microscopic pKa prediction error statistsics for all participants (8 mol, microstate match). Refer to Fig.~\ref{fig:typeI-statistics}}
+\subsubsection{Accuracy of \pKa{} predictions evaluated by microstate-based matching}
 
 \begin{figure}
 \centering
@@ -743,6 +735,23 @@ Mean absolute error (MAE), mean error (ME), Pearson’s R\textsuperscript{2}, an
 }
 \label{fig:typeI-statistics}
 \end{figure}
+
+Both accuracy and correlation based statistics were calculated for predicted microscopic \pKa{} values after microstate-based matching. RMSE, MAE, ME, R\textsuperscript{2}, and Kendall's Tau results of each method are shown in Fig.~\ref{fig:typeI-matching-algorithm-comparison}C and Fig.~\ref{fig:typeI-statistics}. 
+Due to small number of data points in this set, correlation based statistics calculated shows large uncertainty and provide less utility for distinguishing better performing methods. Therefore we focused more on accuracy based metrics for the analysis of microscopic \pKa{}s than correlation based metrics. In terms of accuracy of microscopic \pKa{} value, all three QSPR/ML based methods (\textit{nb016} (MoKa),\textit{hdiyq} (Simulations Plus), \textit{6tvf8} (OE Gaussian Process)), three QM-based methods (\textit{nb011} (Jaguar), \textit{ftc8w} (EC-RISM/MP2/cc-pVTZ-P2-q-noThiols-2par), \textit{t8ewk} (COSMOlogic\_FINE17)), and one LFER method (\textit{v8qph} (ACD/pKa GALAS)) achieved RMSE lower than 1 \pKa{} unit.
+
+\todo[inline]{Assessment of individual methods by each of our analysis methods}
+\todo[inline]{Performance comparison of different methods, grouped by methods class}
+
+\todo[inline]{Comment on the ranking of microscopic pKa prediction error statistsics for all participants (8 mol, microstate match). Refer to Fig.~\ref{fig:typeI-statistics}}
+
+Choosing molecules with right protonation state is important.
+Do people predict the correct sequence of dominant microstates?
+ " Even if your pKa prediction is correct, protonation state prediction can be wrong."
+ Analyze which state has lowest free energy for each charge group ( The sequence of "experimentally visible states")
+
+
+
+
 
 
 
@@ -905,6 +914,9 @@ Factors to consider when deciding which pKa prediction method to consider?
 -microscopic pKa value accuracy
 - microstate accuracy
 - tautomer ratio, correct relative free energy between tautomers
+
+Errors computed by microstate-based matching are larger compared to numerical matching algorithms.
+Microscopic pKa analysis with numerical matching algorithms may mask errors due to higher number of guesses made.
 
 
 %%%
