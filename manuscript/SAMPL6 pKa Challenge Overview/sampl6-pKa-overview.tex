@@ -57,7 +57,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% ARTICLE SETUP
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\title{Accuracy of macroscopic and microscopic \pKa{} predictions of small molecules evaluated by the SAMPL6 blind prediction challenge}
+\title{Accuracy of macroscopic and microscopic \pKa{} predictions of small molecules evaluated by the SAMPL6 Blind Challenge}
 
 \author[1,2*]{Mehtap Işık (ORCID: \href{http://orcid.org/0000-0002-6789-952X}{0000-0002-6789-952X})}
 \author[1,3]{Ari\"{e}n S. Rustenburg (ORCID: \href{http://orcid.org/0000-0002-3422-0613}{0000-0002-3422-0613})}
@@ -369,7 +369,7 @@ The dominant tautomer of each charge state was determined as the the microstate 
 This approach is feasible because the relative free energy of tautomers of the same ionization state is independent of pH and therefore the choice of reference pH is arbitrary.
 
 We created a shortlist of top-performing methods for macroscopic and microscopic \pKa{} predictions. Top macroscopic \pKa{} predictions were selected based on the following criteria of consistance performance among different metrics: ranking in the top 10 consistently according to two error (RMSE, MAE) and two correlation metrics (R-Squared, and Kendall’s Tau), and also havin a combined count of less than 8 missing or extra macroscopic \pKa{}s for the entire molecule set (a third of the number of compounds). 
-These methods are presented in Table~\ref{tableIII-well-performing-methods-table}. A separate list of top performing methods were selected for microscopic \pKa{} with the following criteria: ranking in the top 10 methods when ranked by accuracy statistics (RMSE and MAE) and perfect dominant microstate prediction accuracy. These methods are presented in Table~\ref{tableI-well-performing-methods-table}.
+These methods are presented in Table~\ref{typeIII-well-performing-methods-table}. A separate list of top performing methods were selected for microscopic \pKa{} with the following criteria: ranking in the top 10 methods when ranked by accuracy statistics (RMSE and MAE) and perfect dominant microstate prediction accuracy. These methods are presented in Table~\ref{typeI-well-performing-methods-table}.
 
 In addition to comparing the performance comparison of methods, we also wanted to compare \pKa{} prediction performance on the level of molecules to determine \pKa{}s of which molecules in the challenge set were harder to predict considering all the methods in the challenge. 
 For this purpose, we plotted prediction error distributions of each molecule considering all prediction methods. 
@@ -772,8 +772,9 @@ It would be very interesting to expand this assessment to a larger variety of dr
 
 \subsubsection{Consistently-well performing methods for microscopic \pKa{} predictions}
 
+To determine consistently top-performing methods for microscopic \pKa{} predictions we have determined different criteria than macroscopic \pKa{} predictions: having perfect dominant microstate prediction accuracy, unmatched \pKa{} count of 0, and ranking in the top 10 according RMSE and MAE. Correlation based statistics were not fount to have utility for discriminating performance due to large uncertainties in this statistics for a small dataset of 10 \pKa{} values. Unmatched predicted \pKa{} count was also not a consideration, since experimental data was only informative for the \pKa{} between dominant microstates and did not capture the all possible theoratical transitions between microstate pairs. Table~\ref{typeI-well-performing-methods-table} reports six methods that have consistent well performance according to many metrics, although evaluated only for the 8 molecule set due to limitations of the experimental dataset. Six methods were divided evenly between methods of QSPR/ML category and QM category. \textit{nb016} (MoKa), \textit{hdiyq} (Simulations Plus), and \textit{6tvf8} (OE Gaussian Process) were QSPR and ML based methods that performed well. \textit{nb011} (Jaguar), \textit{0xi4b}(EC-RISM/B3LYP/6-311+G(d,p)-P2-phi-noThiols-2par), and \textit{cywyk} (EC-RISM/B3LYP/6-311+G(d,p)-P2-phi-noThiols-2par) were QM predictions with linear empirical corrections with good performance with microscopic \pKa{} predictions. 
 
-
+Simulations Plus \pKa{} prediction method is the only method that appeared to be consistently well performing in both the assessment for macroscopic and microscopic \pKa{} prediction (\textit{} and \textit{hdiyq}). However it is worth noting that two methods that were in consistently top-performing methods list for macroscopic \pKa{} predictions lacked equivalent submissions of their underlying microscopic \pKa{} predictions and therefore could not be evaluated at the microstate level. These methods were \textit{} (ACD/Classic pKa) and \textit{xvxzd}(DSD-BLYP-D3(BJ)/def2-TZVPD//PBEh-3c[DCOSMO-RS] + RRHO(GFN-xTB[GBSA]) + Gsolv(COSMO-RS[TZVPD]) and linear fit). 
 
 
 
@@ -807,58 +808,61 @@ Performance statistics are provided as mean and 95\% confidence intervals. Submi
 
 
 
-%%% 
-\subsection{Analyzing microscopic pKa prediction from the perspective of thermodynamics}
-Explain  linearity  relative free energy of protonation states with respect to pH. Free energy perspective simplifies data capturing and analysis. Reference Marilyn's paper.
-
-Thermodynamic cycle closure checking allows evaluation of microsopic pKas  without experimental data.
-Checking for thermodynamic consistency
-
-
-\subsubsection{Cycle closure error}
-\todo[inline]{
-- Introduce linear protonation state free energy diagram [Cite Gunner et al 2019 paper]  
-FIGURE: linear plot of free energy vs pH  
-}
-
-Marilyn observed very good cycle closure results and very bad one that are up to 10 kcal/mol
- 
-She suggesting checking the cycle with maximum cycle closure error for each method and reporting that for each method.
-An historgam of max cycle closure error will help us bin these results into 3 categoris:
-1. good agreement
-2. moderate
-3. severe 
- 
-"We think thermodyamic cycles of protonation states need to be closed"
-Message: Methods need to checked for cycle closure errors.
-There can be information there that can be used to correct pKa predictions.
-When cycles are not closed it may be used as an indicator of prediction uncertainty.
-
 %%%
-\subsection{How would pKa errors affect protein-ligand binding affinity predictions?}
-\todo[inline]{Illustrate the ways in which the pKa errors can influence prediction errors for binding affinities}
-\todo[inline]{How do accuracy limitations in small molecule pKa prediction translate into modeling errors in ligand affinity prediction?}
-In addition, determining the free energy penalty of such states~\citep{deOliveira:2019:J.Chem.TheoryComput.} also requires knowing the \pKa{} value. 
+\subsection{How do \pKa{} prediction errors impact protein-ligand binding affinity predictions?}
 
-\todo[inline]{EQUATION: free energy of protonation state equation}
+Physical modeling methods for predicting protein-ligand binding affinities rely on \pKa{} predictions for modeling the protein and the ligand. As SAMPL6 \pKa{} Challenge only focused on small molecule \pKa{} prediction we will ignore the protonation state effects of the protein for now.
+Many affinity prediction methods such as docking,  MM/PBSA, MM/GBSA, absolute or alchemical relative free energy calculation methods predict the affinity of a fixed protonation state of the ligand to a receptor.
+These models strictly depend on \pKa{} predictions for determining possible protonation states of the ligand in aqueous environment and in protein complex, as well as the free energy penalty to reach those states~\citep{deOliveira:2019:J.Chem.TheoryComput.}. Accuracy of \pKa{} predictions can become a limitation for the performance of physical models that try to capture molecular association.
 
+In terms of the ligand protonation states, there are two ways in which the \pKa{} prediction errors can influence the prediction accuracy for protein-ligand binding free energies as depicted in Fig.~\ref{fig:pKa-effects-on-protein-ligand-binding}. First scenario is when ligand is present in aqueous solution in multiple protonation states (Fig.~\ref{fig:pKa-effects-on-protein-ligand-binding}A).
+When only the minor aqueous protonation state contributes to protein-ligand complex formation, overall binding free energy ($\Delta G_{bind}$) needs to be calculated as the sum of binding affinity of the minor state and the protonation penalty of that state ($\Delta G_{prot}$). 
+$\Delta G_{prot}$ is a function of pH and \pKa{}.
+A 1 unit of error in \pKa{} value would lead to 1.36 kcal/mol error in overall binding affinity, if the protonation state with the minor population binds the protein. 
+The following equations show the calculation of overall affinity:
 
-$$ \Delta G_{bind} =\Delta G_{bind}^{C} + \Delta G_{prot}$$  
+\begin{equation}
+\Delta G_{bind} =\Delta G_{bind}^{C} + \Delta G_{prot}
+\end{equation}
 
-$$ \Delta G_{bind} =\Delta G_{bind}^{C} + RT(pH - pK_a) \ln{(10)}$$
+\begin{equation}
+\Delta G_{bind} =\Delta G_{bind}^{C} + RT(pH - pK_a) \ln{(10)}
+\end{equation}
 
-$$ \Delta G_{bind} =\Delta G_{bind}^{N} + \Delta G_{corr}$$  
+In addition to multiple protonation states being present in the aqueous environment, multiple charge states can contribute to complex formation (Fig.~\ref{fig:pKa-effects-on-protein-ligand-binding}B). Then, overall free energy of binding needs to include a Multiple Protonation States Correction (MPSC) term ($\Delta G_{corr}$). MPSC is a function of pH, aqueous \pKa{} of the ligand, and the difference between the binding free energy of charged and neutral species ($\Delta G_{bind}^{C} - \Delta G_{bind}^{N}$) as shown below:
 
-$$ \Delta G_{bind} =\Delta G_{bind}^{N} - RT\ln{\frac{1 + e^{-\frac{\Delta G_{bind}^{C} - \Delta G_{bind}^{N}}{RT}}10^{pK_a - pH}}{1 + 10^{pK_a - pH}}} $$  
+\begin{equation}
+\Delta G_{bind} =\Delta G_{bind}^{N} + \Delta G_{corr}
+\end{equation}
 
+\begin{equation}
+\Delta G_{bind} =\Delta G_{bind}^{N} - RT\ln{\frac{1 + e^{-\frac{\Delta G_{bind}^{C} - \Delta G_{bind}^{N}}{RT}}10^{pK_a - pH}}{1 + 10^{pK_a - pH}}}
+\end{equation}
 
-\begin{figure}
+\begin{figure}[h]
 \centering
 \includegraphics[width=1.0\linewidth]{figures/pKa-effects-on-protein-ligand-binding.pdf}
 \caption{ {\bf Aqueous \pKa{} of the ligand can influence overall protein-ligand binding affinity.} {\bf A} When only the minor aqueous protonation state contributes to protein-ligand complex formation, overall binding free energy ($\Delta G_{bind}$) needs to be calculated as the sum of binding affinity of the minor state and the protonation penalty of that state. {\bf B} When multiple charge states contribute to complex formation, overall free energy of binding includes a multiple protonation states correction (MPSC) term ($\Delta G_{corr}$). MPSC is a function of pH, aqueous \pKa{} of the ligand, and the difference between the binding free energy of charged and neutral species ($\Delta G_{bind}^{C} - \Delta G_{bind}^{N}$).
 }
 \label{fig:pKa-effects-on-protein-ligand-binding}
 \end{figure}
+
+Using Equation 9 we can model the true MPSC ($\Delta G_{corr}$) value with respect to the difference between pH and the \pKa{} of the ligand, to see when this value has significant impact to overall binding free energy. In Fig.~\ref{fig:pKa-inaccuracy-and-MPSC}, true MPSC value that needs to be added to the $\Delta G_{bind}^{N}$ is shown for ligands with varying binding affinity difference between protonation states ($\Delta\Delta G = \Delta G_{bind}^{C} - \Delta G_{bind}^{N}$) and varying free energy of binding difference between the protonation states. Fig.~\ref{fig:pKa-inaccuracy-and-MPSC}A shows the simulation of a case where for a monoprotic base which has a charged state with lower affinity than the neutral state. Solid lines show the true correction. In situations where \pKa{} is lower than pH, correction factor disappears as the ligand fully populates the neutral state ($\Delta G_{bind} = \Delta G_{bind}^{N}$). As the \pKa{} value gets larger than the pH, the charged state is populated more and $\Delta G_{corr}$ value increases to approach  significant $\Delta\Delta G$. 
+What is interesting to note is the pH-\pKa{} range that $\Delta G_{corr}$ changes.
+It is often assumed that for a basic ligand if \pKa{} of a ligand is more than 2 units higher than the pH, then only 1\% of the population is in neutral state and it is safe to approximate the overall binding affinity with $\Delta G_{bind}^{C}$ only. Based on the relative free energy difference between ligand this assumption is not always correct. As seen in Fig.~\ref{fig:pKa-inaccuracy-and-MPSC}A, responsive region of $\Delta G_{corr}$ can span 3 pH units for a system with $\Delta\Delta G = 1 kcal/mol$  or 5 pH units for a system with $\Delta\Delta G = 4 kcal/mol$. This highlights that the range of \pKa{} values that impact binding affinity predictions is wider than previously appreciated. Molecules with \pKa{}s several units away from the physiological pH can still impact the overall binding affinity significantly due to MPSC. 
+
+Despite the need to capture the contributions of multiple protonations states by including MPSC in binding affinity calculations, inaccurate \pKa{} predictions can lead to errors in $\Delta G_{corr}$  and overall free energy of binding prediction. In Fig.~\ref{fig:pKa-inaccuracy-and-MPSC}A dashed lines show predicted $\Delta G_{corr}$ based on \pKa{} error of -1 units. We have chosen a \pKa{} error of 1 units as this is the average performance expected from the \pKa{} prediction methods based on the SAMPL6 Challenge. Underestimated \pKa{} causes underestimated $\Delta G_{corr}$ and overestimated affinities for a varying range of pH - \pKa{} values depending on binding affinity difference between protonation states($\Delta\Delta G$).
+In Fig.~\ref{fig:pKa-inaccuracy-and-MPSC}B dashed lines shows how the magnitude of the absolute error caused by calculating $\Delta G_{corr}$ with an inaccurate \pKa{} varies with respect to pH. Different colored lines show simulated results with varying binding affinity difference between protonation states. For a system whose charged state has lower affinity than the neutral state ($\Delta\Delta G$ = 2 kcal/mol), the absolute error caused by underestimated \pKa{} by 1 units only can be up to 0.9 kcal/mol.
+For a system whose charged state has even lower affinity than the neutral state ($\Delta\Delta G$ = 4 kcal/mol), the absolute error caused by underestimated \pKa{} by 1 units only can be up to 1.2 kcal/mol.
+The magnitude of errors contributing to overall binding affinity are too large to be neglected. Improving the accuracy of small molecule \pKa{} prediction methods can help to minimize the error in predicted MPSC.
+
+With the current level of \pKa{} prediction accuracy as observed in SAMPL6 Challenge, is it advantageous to include MPSC in affinity predictions that may be include errors caused by \pKa{} predictions? We provide a comparison of the two choices to answer this question: (1) Neglecting MPSC completely and assuming overall binding affinity is captured by $\Delta G_{bind}^{N}$, (2) including MPSC with potential error in overall affinity calculation. The magnitude of error caused by Choice 1 (ignoring MPSC) is depicted as solid line in Fig.~\ref{fig:pKa-inaccuracy-and-MPSC}B and the magnitude of error caused by MPSC computed with inaccurate \pKa{}  is depicted as dashed lines. What is the best strategy? Error due to choice 1 is always larger than error due to choice 2 for all pH-\pKa{} values. In this scenario including MPSC improves overall binding affinity prediction. The error caused my inaccurate \pKa{} is smaller than the error caused by neglecting MPSC. 
+
+The same question about whether or not an MPSC calculated based on an inaccurate \pKa{} should be included in binding affinity predictions can be asked for different circumstances underestimated or overestimated \pKa{} values, charged states with higher or lower affinities than the neutral states. We tried to capture these 4 circumstances in four quadrants of Fig.~\ref{fig:pKa-inaccuracy-and-MPSC}. In the case of overestimated \pKa{} values (Fig.~\ref{fig:pKa-inaccuracy-and-MPSC}E-H) it can be seen that for the most of the pH-\pKa{} range it is more advantageous to include the predicted MPSC in affinity calculations, except a smaller window where the opposite choice would be more advantegious. For instance, for the system with $\Delta\Delta G$ = 2 kcal/mol and overestimated \pKa{} (Fig.~\ref{fig:pKa-inaccuracy-and-MPSC}E) for the pH-\pKa{} region between -0.5 and 2, including predicted $\Delta G_{corr}$ causes more error than ignoring MPSC. 
+
+In reality we do not know the exact magnitude or the direction of the error of our predicted \pKa{}, therefore using simulated MPSC error plots to make the decision about when to include MPSC in binding affinity predictions is not possible. But based on the analysis of extreme cases, with 1 unit of \pKa{} error including MPSC correction is more often than not helpful in imporving binding affinity predictions. The detrimental effect of \pKa{} inaccuracy is still significant, however, future improvements in \pKa{} prediction methods can improve the accuracy of MPSC and binding affinity predictions of ligands which have multiple protonation states that contribute to aqueous or complex populations. Achieving \pKa{} value prediction accuracy of 0.5 units would significantly help the binding affinity models to incorporate more accurate MPSC terms.   
+
+
 
 \begin{figure}
 \centering
@@ -902,6 +906,8 @@ Factors to consider when deciding which pKa prediction method to consider?
 
 Errors computed by microstate-based matching are larger compared to numerical matching algorithms.
 Microscopic pKa analysis with numerical matching algorithms may mask errors due to higher number of guesses made.
+
+Due to the size of the experimental datasets evaluation of macroscopic \pKa{} prediction carried more weight in assessing performance of computational predictions, although microscopic \pKa{} evaluation can provide much more in depth analysis and can be more informative about capturing reasons for failure.
 
 
 %%%
