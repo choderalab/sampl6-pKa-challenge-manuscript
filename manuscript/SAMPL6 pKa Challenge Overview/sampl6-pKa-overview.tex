@@ -133,25 +133,29 @@ Predicting \pKa{} is a prerequisite for predicting many other properties of smal
 Computer-aided drug design efforts include assessing properties of virtual molecules to guide synthesis and prioritization decisions. 
 In such cases an experimental \pKa{} measurement is not possible. Therefore, accurate computational \pKa{} prediction methods are required.
 
-For a monoprotic weak acid (HA) or base (B) dissociation equilibria shown in Equation 1, the acid dissociation constant is expressed as in Equations 2 or its common negative logarithmic form as in Equation 3. 
-The ratio of ionization states can be calculate with HHenderson-Hasselbalch equations shown in Equation 4. 
+For a monoprotic weak acid (HA) or base (B) dissociation equilibria shown in Equation~\ref{eq:dissociation_equilibria}, the acid dissociation constant is expressed as in Equations~\ref{eq:dissociation_constant} or its common negative logarithmic form as in Equation~\ref{eq:pKa}. 
+The ratio of ionization states can be calculate with HHenderson-Hasselbalch equations shown in Equation~\ref{eq:pH_dependency_of_deprotonation}. 
 
 \begin{equation}
 HA \rightleftharpoons A^- + H^+ \;\;\;\;\; BH^+ \rightleftharpoons B + H^+
+\label{eq:dissociation_equilibria}
 \end{equation}
 
 \begin{equation}
 K_a = \frac{[A^-][H^+]}{[HA]}\;\;\;\;\;K_a = \frac{[B][H^+]}{[B^+]} 
+\label{eq:dissociation_constant}
 \end{equation}
 
 
 \begin{equation}
 pK_a = -\log_{10}{K_a}
+\label{eq:pKa}
 \end{equation}
 
 
 \begin{equation}
 pH = pK_a + \log_{10}{\frac{[A^-]}{[HA]}}\;\;\;\;\;pH = pK_a + \log_{10}{\frac{[B]}{[BH^+]}}
+\label{eq:pH_dependency_of_deprotonation}
 \end{equation}
 
 
@@ -181,6 +185,25 @@ Most common \pKa{} measurement techniques such as potentiometric and spectrophot
 Therefore, it is important to pay attention to the source and definition of \pKa{} values to interpret their meaning correctly. 
 Computational methods can predict both microscopic and macroscopic \pKa{}s. While microscopic \pKa{} predictions are more informative for determining relevant microstates/tautomers of a molecule and their relative free energies, computing predicted macroscopic \pKa{}s is useful for direct comparison of methods to more common macroscopic experimental measurements. In this paper, we explore approaches to assess the performance of both macroscopic and microscopic \pKa{} predictions, taking advantage of available experimental data.
 
+Microscopic \pKa{} predictions can be converted to macroscopic \pKa{} predictions either directly with the equation~\ref{eq:macro_pka_from_micro_pKa} ~\citep{Bochevarov:2016:J.Chem.TheoryComput.a} or through computing the macroscopic free energy of deprotonation between ionization states with charges N and N-1 via Boltzmann weighted sum of the relative free energy of microstates ($G_i$) as in equations~\ref{eq:bolzmann_Weighted_sum} and~\ref{eq:pKa_form_free_energy_of_protonation}~\citep{Selwa:2018:J.Comput.AidedMol.Des.}.
+
+\begin{align}
+ K_a^\text{macro} = \sum_{j=1}^{N_\text{deprot}} \frac{1}{\sum_{i=1}^{N_\text{prot}}\frac{1}{ K_{ij}^\text{micro}}} \quad, \label{eq:macro_pka_from_micro_pKa}
+\end{align}
+
+\begin{align}
+  \Delta G_{N-1, N} = RT \ln{\frac{\sum_i e^{-G_i/RT} \delta _{N_i, N-1}}{\sum_i e^{-G_i/RT} \delta _{N_i, N}}}
+  \label{eq:bolzmann_Weighted_sum}
+\end{align}
+
+\begin{align}
+  pK_a = pH - \frac{\Delta G_{N-1, N}}{RT \ln{10}}
+  \label{eq:pKa_form_free_energy_of_protonation}
+\end{align}
+
+In Equation~\ref{eq:bolzmann_Weighted_sum} $\Delta G_{N-1, N}$ is the effective macroscopic
+protonation free energy.  $\delta _{N_i, N-1}$ is equal to 1 when the microstate i has a total charge of N-1 and null otherwise. 
+$\delta _{N_i, N}$ is equal to 1 when the microstate i has a total charge of N and null otherwise. RT is the ideal gas constant times the temperature.
 
 
 %%%
@@ -357,12 +380,15 @@ The later count was restricted to only predictions with \pKa{} values between 2 
 Errors in extra or missing \pKa{} prediction errors highlight failure to predict the correct number of ionization states within a pH range.
 
 For the evaluation of microscopic \pKa{} predictions, taking advantage of the available dominant microstate sequence data for a subset of 8 compounds, we calculated the dominant microstate prediction accuracy. Dominant microstate prediction accuracy is the ratio of correct dominant tautomer predictions for each charge state divided by, calculated over all ionization states of each molecule. 
-In order to extract the sequence of dominant microstates from the microscopic \pKa{} predictions sets, we calculated the relative free energy of microstates selecting a neutral tautomer and pH 0 as reference following the Equation 5. Calculation of relative free energy of microstates was explained in more detail in a previous publication~\citep{Gunner:2020:J.Comput.AidedMol.Des.}. 
+In order to extract the sequence of dominant microstates from the microscopic \pKa{} predictions sets, we calculated the relative free energy of microstates selecting a neutral tautomer and pH 0 as reference following the Equation~\ref{eq:microstate_relative_free_energy}. Calculation of relative free energy of microstates was explained in more detail in a previous publication~\citep{Gunner:2020:J.Comput.AidedMol.Des.}. 
 
 Relative free energy of state with respect to reference state B at pH 0.0 (arbitrary pH value selected as reference) can be calculated as follows: 
+
 \begin{equation}
 \Delta G_{AB} = \Delta m_{AB} \:RT\ln{10}\:(pH - pK_{a})
+\label{eq:microstate_relative_free_energy}
 \end{equation}
+
 $\Delta m_{AB}$ is equal to the number protons in stae A minus state B. R and T indicate molar gas constant and temperature, respectively. 
 By calculating relative free energies of all predicted microstates with respect to the same reference state and pH, we were able to determine the sequence of predicted dominant microstates. 
 The dominant tautomer of each charge state was determined as the the microstate with the lowest free energy in the subset of predicted microstates of each ionization state. 
@@ -503,7 +529,10 @@ QM + MM & \begin{tabular}[c]{@{}l@{}}M06-2X/6-31G*(for bases) or 6-31+G*(for aci
 \includegraphics[width=0.5\linewidth]{figures/typeIII-rmse-unmatched-pKa-fig.pdf}
 \caption{{\bf RMSE and unmatched \pKa{} counts vs. submission ID plots for macroscopic \pKa{} predictions based on Hungarian matching.} 
 Methods are indicated by submission IDs. 
-RMSE is shown with error bars denoting 95\% confidence intervals obtained by bootstrapping over challenge molecules. Lower bar plots show the number of unmatched experimental \pKa{}s (light grey, missing predictions) and the number of unmatched \pKa{} predictions (dark grey, extra predictions) for each method between pH 2 and 12. Submission IDs are summarized in Table~\ref{submission-ID-table}. Submission IDs of the form \textit{nb\#\#\#} refer to non-blinded reference methods computed after the blind challenge submission deadline. All others refer to blind, prospective predictions. Submissions are colored by their method categories. Light blue colored database look up methods are utilized as the null prediction method.
+RMSE is shown with error bars denoting 95\% confidence intervals obtained by bootstrapping over challenge molecules. 
+Submissions are colored by their method categories. Light blue colored database look up methods are utilized as the null prediction method.
+QM methods (navy) includes pure QM, QM+LEC, and QM+MM approaches.
+Lower bar plots show the number of unmatched experimental \pKa{}s (light grey, missing predictions) and the number of unmatched \pKa{} predictions (dark grey, extra predictions) for each method between pH 2 and 12. Submission IDs are summarized in Table~\ref{submission-ID-table}. Submission IDs of the form \textit{nb\#\#\#} refer to non-blinded reference methods computed after the blind challenge submission deadline. All others refer to blind, prospective predictions. 
 }
 \label{fig:typeIII-rmse-plot}
 \end{figure}
@@ -513,7 +542,7 @@ Overall \pKa{} prediction performance was lower than we have hoped for.
 Fig.~\ref{fig:typeIII-rmse-plot} shows RMSE calculated for each prediction method represented by their submission IDs. 
 Other performance statistics are depicted in Fig.~\ref{fig:typeIII-statistics}.
 In both figures method categories were indicated by the color of the error bars.  Statistics depicted in these figures can be found in Table~\ref{SI_statistics_table_macro_pKa}.
-Prediction error ranged between 0.7 to 3 \pKa{} units in terms of RMSE, while an RMSE between 2-3 log units was observed for the majority of methods (20 out of 38 methods). 
+Prediction error ranged between 0.7 to 3.2 \pKa{} units in terms of RMSE, while an RMSE between 2-3 log units was observed for the majority of methods (20 out of 38 methods). 
 Only five methods achieved RMSE less than 1 \pKa{} unit. One is QM method with COSMO-RS approach for solvation and linear empirical correction (\textit{xvxzd} (DSD-BLYP-D3(BJ)/def2-TZVPD//PBEh-3c[DCOSMO-RS] + RRHO(GFN-xTB[GBSA]) + Gsolv(COSMO-RS[TZVPD]) and linear fit)), and the remaining four are empirical prediction methods of LFER (\textit{xmyhm} (ACD/pKa Classsic), \textit{nb007} (Schrodinger/Epik Scan)) and QSPR/ML categories (\textit{gyuhx} (Simulations Plus), \textit{nb017} (MoKa)). 
 These five methods with RMSE less than 1 \pKa{} unit also are the methods that have the lowest MAE.
 \textit{xmyhm} and \textit{xvxzd} were the only two methods for which the upper 95\% confidence interval of RMSE was lower than 1 \pKa{} unit. 
@@ -524,7 +553,7 @@ In terms of correlation statistics performance of many methods have good perform
 The overlap of these two sets are the following:
 \textit{gyuhx} (Simulations Plus), \textit{xvxzd} (DSD-BLYP-D3(BJ)/def2-TZVPD//PBEh-3c[DCOSMO-RS] + RRHO(GFN-xTB[GBSA]) + Gsolv(COSMO-RS[TZVPD]) and linear fit), \textit{xmyhm} (ACD/pKa Classic), \textit{ryzue} (Adiabatic scheme with single point correction: MD/M06-2X//6-311++G(d,p)//M06-2X/6-31+G(d) for bases and SMD/M06-2X//6-311++G(d,p)//M06-2X/6-31G(d) for acids + thermal corrections), and \textit{5byn6} 
 (Adiabatic scheme: thermodynamic cycle that uses gas phase optimized structures for gas phase free energy and solution phase geometries for solvent phase free energy. SMD/M06-2X/6-31+G(d) for bases and SMD/M06-2X/6-31G(d) for acids + thermal corrections).
-It is worth noting that the \textit{ryzue} and \textit{5byn6} are QM predictions without any empirical correction. Their high correlation and rank correlation coefficient scores signal that with an empirical correction their accuracy based performance could improve. Indeeed, the participants have showed that this is the case in their individual challenge analysis paper and achieved RMSE of 0.73 \pKa{} units after the challenge~\citep{Zeng:2018:J.Comput.AidedMol.Des.}. 
+It is worth noting that the \textit{ryzue} and \textit{5byn6} are QM predictions without any empirical correction. Their high correlation and rank correlation coefficient scores signal that with an empirical correction their accuracy based performance could improve. Indeed, the participants have showed that this is the case in their individual challenge analysis paper and achieved RMSE of 0.73 \pKa{} units after the challenge~\citep{Zeng:2018:J.Comput.AidedMol.Des.}. 
 
 Null prediction methods based on database lookup (\textit{5nm4j} and \textit{pwn3m}) had similar performance, roughly RMSE of 2.5 \pKa{} units, MAE of 1.5 \pKa{} units, R\textsuperscript{2} of 0.2 and Kendall's Tau of 0.3.
 Many methods were observed to have prediction performance advantage over the Null predictions shown in light blue in Fig.~\ref{fig:typeIII-rmse-plot} and Fig.~\ref{fig:typeIII-statistics} considering all the performance metrics as a whole.
@@ -534,6 +563,17 @@ From the perspective of accuracy-based statistics (RMSE and MAE), only the top 1
 Distribution of macroscopic \pKa{} prediction signed errors observed in each submission was plotted in Fig.~\ref{fig:typeIII-error-distribution}A as ridge plots based on Hungarian matching.
 \textit{2ii2g, f0gew, np64b, p0jba}, and \textit{yc70m} tend to overestimate and \textit{
 5byn6, ryzue}, and \textit{w4iyd} tend to underestimate macroscopic \pKa{} values. 
+
+There were four submissions of QM+LEC category that used COSMO-RS implicit solvation model. 
+It was interesting that while three of these achieved the lowest RMSE among QM-based methods (\textit{xvxzd}, \textit{yqkga}, and \textit{8xt50})~\citep{Pracht:2018:J.Comput.AidedMol.Des.} and one of them showed the highest RMSE (\textit{0hxtm} (COSMOtherm\_FINE17)) in SAMPL6 Challenge macroscopic \pKa{} predictions. 
+All four methods used COSMO-RS/FINE17 level to compute solvation free energies. The major difference between the three low-RMSE methods and the \textit{0hxtm} seems to be the protocol for determining relevant conformations for each microstate. 
+\textit{xvxzd}, \textit{yqkga}, and \textit{8xt50} methods used semi-empirical tight binding (GFN-xTB) method and GBSA continuum solvation model for geometry optimization of conformers and followed up with high level single point energy calculations with solvation free energy (COSMO-RS(FINE17/TZVPD)) and rigid rotor harmonic oscilator (RRHO[GFN-xTB(GBSA]) corrections. 
+\textit{yqkga}, and \textit{8xt50} methods selected  conformations for each microstate with Relevant Solution Conformer Sampling and Selection (ReSCoSS) workflow. Conformations were clustered according to shape and lowest energy conformations from each cluster according to BP86/TZVP/COSMO single point energies in any of the 10 different COSMO-RS solvents were considered as relevant conformers. More details of the ReSCoSS workflow was described by Pracht et al~\citep{Pracht:2018:J.Comput.AidedMol.Des.}
+\textit{yqkga} method further filtered out conformers that have less than 5\% Boltzmann weights at the DSD-BLYP-D3/def2-TZVPD + RRHO(GFNxTB) + COSMO-RS(fine) level.
+\textit{xvxzd} method used MF–MD–GC//GFN-xTB workflow and used energy thresholds of 6 kcal/mol and 10 kcal/mol, for conformer and microstate selection
+On the other hand, the comformational ensemble captured for each microstate seems to be much limited for \textit{0hxtm} method, judging by the method description in the submission file. \textit{0hxtm} method reported that relevant conformations were computed with the COSMOconf 4.2 workflow which produced multiple relevant conformers for only the neutral states of SM18 and SM22.  
+In contrast to \textit{xvxzd}, \textit{yqkga}, and \textit{8xt50} methods, the \textit{0hxtm} method also did not include a RRHO correction.
+Participants of the three low-RMSE methods report that capturing the chemical ensemble for each molecule including conformers and tautomers and high level QM calculations led to more successful macroscopic \pKa{} prediction results and RRHO correction provided a minor improvement~\citep{Pracht:2018:J.Comput.AidedMol.Des.}. Comparing these results to other QM approaches in SAMPL Challenge also points to the advantage of COSMO-RS solvation approach compared to other implicit solvent models.
 
 In addition the statistics related to the value of \pKa{}, we have also analyzed missing or extra \pKa{} predictions. 
 Analysis of the \pKa{} values with accuracy- and correlation-based error metrics was only possible after assignment of predicted macroscopic \pKa{}s to experimental \pKa{}s through the Hungarian matching, although, this approach masks \pKa{} prediction issues in the form of extra or missing macroscopic \pKa{} predictions. 
@@ -819,25 +859,25 @@ In terms of the ligand protonation states, there are two ways in which the \pKa{
 When only the minor aqueous protonation state contributes to protein-ligand complex formation, overall binding free energy ($\Delta G_{bind}$) needs to be calculated as the sum of binding affinity of the minor state and the protonation penalty of that state ($\Delta G_{prot}$). 
 $\Delta G_{prot}$ is a function of pH and \pKa{}.
 A 1 unit of error in \pKa{} value would lead to 1.36 kcal/mol error in overall binding affinity, if the protonation state with the minor population binds the protein. 
-The following equations show the calculation of overall affinity:
+The equations in Fig.~\ref{fig:pKa-effects-on-protein-ligand-binding}A show the calculation of overall affinity.
 
-\begin{equation}
-\Delta G_{bind} =\Delta G_{bind}^{C} + \Delta G_{prot}
-\end{equation}
+%\begin{equation}
+%\Delta G_{bind} =\Delta G_{bind}^{C} + \Delta G_{prot}
+%\end{equation}
 
-\begin{equation}
-\Delta G_{bind} =\Delta G_{bind}^{C} + RT(pH - pK_a) \ln{(10)}
-\end{equation}
+%\begin{equation}
+%\Delta G_{bind} =\Delta G_{bind}^{C} + RT(pH - pK_a) \ln{(10)}
+%\end{equation}
 
-In addition to multiple protonation states being present in the aqueous environment, multiple charge states can contribute to complex formation (Fig.~\ref{fig:pKa-effects-on-protein-ligand-binding}B). Then, overall free energy of binding needs to include a Multiple Protonation States Correction (MPSC) term ($\Delta G_{corr}$). MPSC is a function of pH, aqueous \pKa{} of the ligand, and the difference between the binding free energy of charged and neutral species ($\Delta G_{bind}^{C} - \Delta G_{bind}^{N}$) as shown below:
+In addition to multiple protonation states being present in the aqueous environment, multiple charge states can contribute to complex formation (Fig.~\ref{fig:pKa-effects-on-protein-ligand-binding}B). Then, overall free energy of binding needs to include a Multiple Protonation States Correction (MPSC) term ($\Delta G_{corr}$). MPSC is a function of pH, aqueous \pKa{} of the ligand, and the difference between the binding free energy of charged and neutral species ($\Delta G_{bind}^{C} - \Delta G_{bind}^{N}$) as shown in Fig.~\ref{fig:pKa-effects-on-protein-ligand-binding}B.
 
-\begin{equation}
-\Delta G_{bind} =\Delta G_{bind}^{N} + \Delta G_{corr}
-\end{equation}
+%\begin{equation}
+%\Delta G_{bind} =\Delta G_{bind}^{N} + \Delta G_{corr}
+%\end{equation}
 
-\begin{equation}
-\Delta G_{bind} =\Delta G_{bind}^{N} - RT\ln{\frac{1 + e^{-\frac{\Delta G_{bind}^{C} - \Delta G_{bind}^{N}}{RT}}10^{pK_a - pH}}{1 + 10^{pK_a - pH}}}
-\end{equation}
+%\begin{equation}
+%\Delta G_{bind} =\Delta G_{bind}^{N} - RT\ln{\frac{1 + e^{-\frac{\Delta G_{bind}^{C} - \Delta G_{bind}^{N}}{RT}}10^{pK_a - pH}}{1 + 10^{pK_a - pH}}}
+%\end{equation}
 
 \begin{figure}[h]
 \centering
@@ -876,24 +916,28 @@ All calculations are made for 25\degree C, and for a ligand with single basic ti
 
 
 %%%
-\subsection{Lessons learned from SAMPL6 pKa Challenge}
-\todo[inline]{Do any methods predict within experimental accuracy (how is the field doing overall)?}
-\todo[inline]{Common challenging factors for accurate pKa predictions. Tautomers, Heterocycles etc.}
+\subsection{Take-away lessons from SAMPL6 \pKa{} Challenge}
 
-Overall results:  
-Do any methods predict within experimental accuracy (how is the field doing overall)?
-Common challenging factors for accurate pKa predictions. Tautomers, Heterocycles etc.
+SAMPL6 \pKa{} Challenge showed that in general \pKa{} prediction performance of computational methods are lower than expected for drug-like molecules.   
+Multiple titration sutes, tautomerization, frequent presence of heterocycles and extended conjugation patterns, as well as high number of rotatable bonds, and the possibility of intramolecular hydrogen bonds are factors that complicate \pKa{} prediction of drug-like molecules.
+For macroscopic \pKa{} predictions have not yet reached experimental accuracy. 
+Inter-method variability of macroscopic \pKa{} measurements can be around 0.5 \pKa{} units~\citep{Fraczkiewicz:2013:ReferenceModuleinChemistryMolecularSciencesandChemicalEngineering}. 
+There was not a single method in SAMPL6 Challenge that achieved RMSE around 0.5 or lower for macropscopic \pKa{} predictions for the 24 molecule set of kinase inhibitor fragment-like molecules.
+Lower RMSE values were observed in the microscopic \pKa{} evaluation section of this study for some methods however the 8 molecule set used for that analysis poses a very limited dataset to reach conclusions about general expectations for drug-like molecules.
 
-Discussion of matching problem betwene experimental and predicted values.  
-Difficulty of assessing predicted pKas using experimental data: matching problem
-Explain rationale behind how we analyze the data and determine success/failure.
+As the majority of experimental data was in the form of macroscopic \pKa{} values, we had to adopt a numerical matching algorithm (Hungarian matching) to pair predicted and experimental values to calculate performance statistics of macroscopic \pKa{} predictions. Accuracy, correlation, and extra/missing \pKa{} prediction counts were the main metrics for macroscopic \pKa{} evaluations. An RMSE range of 0.7 to 3.2 \pKa{} units.
+Only five methods achieved RMSE between 0.7-1 \pKa{} units, while an RMSE between 1.5-3 log units was observed for the majority of methods. All four methods of LFER category and three out of 5 QSPR/ML methods achieved RMSE less than 1.5 \pKa{} units. All the QM methods that achieved this level of performance included linear empirical corrections to rescale and unbias their \pKa{} predictions. 
 
-Conclusion about prediction performance of individual molecules:
-SAMPL6 pKa set consisted of only 24 small molecules which limits our ability to do statistical analysis to determine which chemical substructures contribute to greater errors in pKa predictions.  
-Which chemical structures make pKa predictions more difficult?  
+Based on consideration of multiple error metrics, we compiled a short list of consistently-well performing methods for macroscopic \pKa{} evaluations. Two methods from QM+LEC methods, one QSPR/ML, two empricial methods achieved consistent performance according to many metrics. The common features of the two empirical methods were their large training sets (16000-17000 compounds) and being commercial prediction models.
 
-What can we learn from failures? Which physical effects are driving failures?
-Cycle closure errors
+There were four submissions of QM-based methods that utilized COSMO-RS implicit solvation model. 
+It was interesting that while three of these achieved the lowest RMSE among QM-based methods (\textit{xvxzd}, \textit{yqkga}, and \textit{8xt50})~\citep{Pracht:2018:J.Comput.AidedMol.Des.} and one of them showed the highest RMSE (\textit{0hxtm} (COSMOtherm\_FINE17)) in SAMPL6 Challenge macroscopic \pKa{} predictions. Comparison of these methods indicates that capturing conformational ensemble of microstates, high level QM calculations, and RRHO corrections were factors contributing to better macroscopic \pKa{} predictions.
+Linear empirical corrections applied QM calculations imporved results, especially when the linear correction is calibrated for an experimental dataset using the same level of theory  ast the deprotonation free energy predictions (as in \textit{xvxzd}).
+This challenge also points to the advantage of COSMO-RS solvation approach compared to other implicit solvent models.
+
+Evaluation of macroscopic \pKa{} prediction accuracy of individual molecules on average considering all the predictions in SAMPL6 Challenge provided insight into which molecules posed greater difficulty for \pKa{} predictions.    \pKa{} prediction errors were higher for compounds with sulfur-containing heterocyles, iodo, and bromo groups. This trend was also conserved when only QM-based methods were analyzed. SAMPL6 \pKa{} dataset consisted of only 24 small molecules which limited our ability to statistically confirm this conclusion, however, we believe it is worth reporting molecular features that coincided with larger errors even if we can not evaluate the driving reason for these failures. 
+
+Utilizing a numerical matching algorithm to pair experimental and predicted macroscopic \pKa{} values was a necessity, however, this approach did not capture all aspects of prediction errors. Computing the number of missing or extra \pKa{} predictions remaining after Hungarian matching, provided a window of observing macroscopic \pKa{} prediction errors such as number of macroscopic transitions or ionization states expected in a pH interval. In \pKa{} evaluation studies it is very typical to just focus on \pKa{} value errors evaluated after matching, and to ignore \pKa{} prediction errors that the matching protocol can not capture. SAMPL6 \pKa{} Challenge results showed sporatic presence of missing \pKa{} predictions and very frequent case of extra \pKa{} predictions. Both indicates failures to capture the correct sequence of ionizations states. The traditional way of evaluating \pKa{}s that only focuses on the \pKa{} value error after some sort of numerical match between predictions and experimental values may have motivated these types of errors as there would be no penalty for missing a macroscopic deprotonation and predicting an extra one. This problem does not seem to be specific to any method category.
 
 Factors to consider when deciding which pKa prediction method to consider?
 -license
@@ -911,7 +955,13 @@ Due to the size of the experimental datasets evaluation of macroscopic \pKa{} pr
 
 
 %%%
-\subsection{Suggestions for future challenges}
+\subsection{Suggestions for future challenge design and evaluation of \pKa{} predictions}
+
+When the experimental data is in the form of macroscopic \pKa{} values, the best way to evaluate computational predictions is in the level of predicted macroscopic \pKa{}s. Microscopic \pKa{} predictions can be converted to macroscopic \pKa{} predictions.
+Discussion of matching problem betwene experimental and predicted values.  
+Difficulty of assessing predicted pKas using experimental data: matching problem
+Explain rationale behind how we analyze the data and determine success/failure.
+
 In the SAMPL6 \pKa{} Challenge there wasn't a requirement that prediction sets should report predictions for all compounds. 
 Some participants reported predictions for only a subset of compounds which may lead these methods to look more accurate than others, due to missing predictions.
 It would have been a better choice to require submissions for whole sets for better comparison of method performance. 
@@ -946,6 +996,8 @@ Suggestions about challenge analysis
 
 Submitting pKa predictions in terms of relative free energy of microstates, from which both microscopic and macroscopic pKas and fractiional populations of states at and pH can be calculated.
 Explicit hydrogen mol2 format can be used to capture individual tautomers
+
+Capture computing costs in terms of average compute hours per molecule
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
