@@ -956,56 +956,56 @@ Protein-ligand binding affinity predictions rely on \pKa{} predictions in two wa
 \pKa{} prediction error of this magnitude (assuming dominant tautomers were predicted correctly) could cause up to 0.9 and 1.2 kcal/mol error in overall binding affinity when relative binding affinity of protonation states are 2 or 4 kcal/mol different, respectively. 
 For the case of 4 kcal/mol binding affinity difference between protonation states the pH-\pKa{} range that the error would be larger than 0.5 kcal/mol suprizingly spans around 3.5 pH units. We demonstrated that the range of pH-\pKa{} value that MPSC needs to be incorporated in binding affinity predictions can be wider than the widely assumed range of 2 pH units, based on the affinity difference between protonation states. At the level of 1 unit \pKa{} error incorporating MSPC would improve binding affinity predictions more often than not. If microscopic \pKa{} could be predicted with 0.5 \pKa{} units of accuracy, MPSC calculations would be much more reliable.
 
-There are multipe factors to consider when deciding which \pKa{} prediction method to utilize. These factors include the accuracy of microscopic and macroscopic \pKa{} values, accuracy of the number and the identity of ionization states predicted within the experimental pH interval, the accuracy of microstates predicted within the experimental pH interval, accuracy of tautomeric ratio (i.e. relative free energy between microstates), how costly is the calculation in terms of time and resources, and whether one has access to software licenses that might be required. We were disappointed to see that all top performing empirical methods were developed as commercial software that require a licenses to run, and there were not any open-source alternatives for empirical \pKa{} predictions. Since then two publications reported open source machine learning based \pKa{} prediction methods, however one can only predict the most acidic or most basic macroscopic \pKa{} values of a molecule~\citep{Mansouri:2019:J.Cheminformatics} and the second one is only trained for predicting \pKa{} values of monoprotic molecules~\citep{Baltruschat:2020:F1000Research}.
+There are multipe factors to consider when deciding which \pKa{} prediction method to utilize. These factors include the accuracy of microscopic and macroscopic \pKa{} values, accuracy of the number and the identity of ionization states predicted within the experimental pH interval, the accuracy of microstates predicted within the experimental pH interval, accuracy of tautomeric ratio (i.e. relative free energy between microstates), how costly is the calculation in terms of time and resources, and whether one has access to software licenses that might be required. 
 
-
+We were disappointed to see that all top performing empirical methods were developed as commercial software that require a licenses to run, and there were not any open-source alternatives for empirical \pKa{} predictions. Since then two publications reported open source machine learning based \pKa{} prediction methods, however one can only predict the most acidic or most basic macroscopic \pKa{} values of a molecule~\citep{Mansouri:2019:J.Cheminformatics} and the second one is only trained for predicting \pKa{} values of monoprotic molecules~\citep{Baltruschat:2020:F1000Research}. Recently a \pKa{} prediction methodology was published that describes a mixed approach of semi-empricial QM calculations and machine learning that can predict macroscopic \pKa{}s of both mono-and polyprotic species~\citep{Hunt:2020:J.Chem.Inf.Model.}. The authors reported RMSE of 0.85 for the retrospective analysis performed on the SAMPL6 dataset.
 
 
 
 %%%
 \subsection{Suggestions for future challenge design and evaluation of \pKa{} predictions}
 
-When the experimental data is in the form of macroscopic \pKa{} values, the best way to evaluate computational predictions is in the level of predicted macroscopic \pKa{}s. Microscopic \pKa{} predictions can be converted to macroscopic \pKa{} predictions.
-Discussion of matching problem betwene experimental and predicted values.  
-Difficulty of assessing predicted pKas using experimental data: matching problem
-Explain rationale behind how we analyze the data and determine success/failure.
+The first \pKa{} challenge of SAMPL series was useful for understanding the current state of the field and led to many lessons. We believe the highest benefit can be achieved if further iteration so of small molecule \pKa{} prediction challenges can be organized, creating motivation for improving protonation state prediction methods for drug-like molecules. 
+In future challenges it is desireable to increase chemical diversity to cover more of common scaffolds~\ref{Zdrazil:2018:J.Med.Chem.} and functional groups~\ref{Ertl:2020:J.Med.Chem.} seen in drug-like molecules, and gradually increasing the complexity of molecules.
 
-In the SAMPL6 \pKa{} Challenge there wasn't a requirement that prediction sets should report predictions for all compounds. 
-Some participants reported predictions for only a subset of compounds which may lead these methods to look more accurate than others, due to missing predictions.
-It would have been a better choice to require submissions for whole sets for better comparison of method performance. 
+Future challenges should promote stringent evaluation for \pKa{} prediction methods from the perspective of microscopic \pKa{} and microstate predictions.
+It is necessary to assess the capability of \pKa{} prediction methods to capture the free energy profile of microstates of multiprotic molecules. 
+This is critical because \pKa{} predictions are often utilized to determine relevant protonation states and tautomers of small molecules that must be captured in other physical modeling approaches, such as protein-ligand binding affinity or distribution coefficient predictions. 
 
-\todo[inline]{Discuss what can be done to further improve future challenges}
-How can we maximize what we learn?
-What should we have people predict?
-How should we select compounds / measure pKas?
+In this paper, we demonstrated how experimental microstate information can guide the analysis further than the typical \pKa{} evaluation approach that has been used so far. The traditional \pKa{} evaluation approach only focuses on the numerical error of the \pKa{} values and neglects the difference between macroscopic and microscopic \pKa{} definitions.
+This is mainly caused by lack of \pKa{} datasets with microscopic detail. 
+To improve \pKa{} and protonation state predictions of multiprotic molecules it is necessary to embrace the difference between  macroscopic and microscopic \pKa{} definitions and select strategies for experimental data collection and prediction evaluation accordingly.
+In SAMPL6 Challenge the analysis was limited by the availability of experimental microscopic data as well. As usual macroscopic \pKa{} values were abundant (24 molecules) and limited data on microscopic states was available (8 molecules), although the later opened new avenues for evaluation. 
+For future blind challenges for multiprotic compounds, striving collect experimental datasets with microscopic \pKa{}s would be very beneficial. 
+Benchmark datasets of microscopic \pKa{}s are currently missing. 
+This limits the improvement of \pKa{} and tautomer prediction methods for multiprotic molecules. 
+If collection of experimental microscopic \pKa{}s is not possible due to time and resource cost of such NMR experiments, at least supplementing the more automated macroscopic \pKa{} measurements with NMR-based determination of the dominant microstate sequence or tautomeric ratios of each ionization state can create very useful benchmark datasets. This supplementary information can allow microstate-based assignment between experimental and predicted \pKa{}s and more realistic assessment of method performance.
 
-\todo[inline]{Suggestions about challenge construction}
-Future challenge direction  
-Challenge path: predict pKas, give people pKas to predict logDs on same molecules, then predict for new set of compounds logDs without provided pKas.  
+If the only available experimental data is in the form of macroscopic \pKa{} values, the best way to evaluate computational predictions is by calculating predicted macroscopic \pKa{} predictions. With the conversion of microscopic \pKa{} to macroscopic \pKa{}s all the structural information about the titration site is lost and only remaining information is the total charge of macroscopic ionization states. Unfortunately, most macroscopic \pKa{} measurements including potentiometric and spectrophotometric methods do not capture the absolute charge of the macrostates. Spectrophotometric method does not measure charge at all. Potentiometric method can only capture the relative charge chanege between methods.  Only pH-dependent solubility based \pKa{} estimations can differentiate the neutral and charged states from one another. So it is very common to have experimental datasets of macroscopic \pKa{} without any charge or protonation position information regarding the macrostates.
+This causes an issue of assigning predicted and experimental \pKa{} values before any error statistics can be calculated.
+As delineated by Fraczkiewicz et. al. the most fair and reasonable solution for \pKa{} matching problem involves an assignment algorithm that preserves the order of predicted and experimental microstates and uses the principle of smallest differences to pair values~\citep{Fraczkiewicz:2013:ReferenceModuleinChemistryMolecularSciencesandChemicalEngineering}. We recommend Hungarian matching with squared error cost function. The algorithm is available in SciPy package (scipy.optimize.linear\_sum\_assignment)~\citep{SciPy-linear-sum-assignment}.
 
-Enumeration of protonation states before predictions (which states does one need to consider?)
+For capturing all the necessary information related to \pKa{} predictions we allowed three different submission types in SAMPL6: (1) macroscopic \pKa{} values, (2) microscopic \pKa{} values and microstate pair identities, (3) fractional population of microstates with respect to pH. We realized later that collecting fractional populations of microstates was redundant, as microscopic \pKa{} and microstate pairs values capture all the necessary information to construct fractional population vs. pH curves.  Only microscopic and macroscopic \pKa{} values were used for thed challenge analysis presented in this paper.
+While exploring ways to evaluate SAMPL6 \pKa{} Challenge results, we developed a better way to capture microscopic \pKa{} predictions as presented in an earlier paper~\citep{Gunner:2020:J.Comput.AidedMol.Des.}. This alternative reporting format consists of charge and relative free energy of microstates with respect to a reference microstate and pH predicted by \pKa{} predictions. This approach presents the most concise method of capturing all necessary information regarding microscopic \pKa{} predictions and allows calculation of predicted microscopic \pKa{}s, microstate population with respect to pH, macroscopic \pKa{}s, macroscopic population with respect to pH, and tautomer ratios. 
+Still there may be methods developed to trained to predict macroscopic \pKa{}s directly instead of computing it from microstate predictions that justifies allowing a macroscopic \pKa{} reporting format. 
+In future challenges, we recommend collection of \pKa{} predictions in two submisson types: (1) macroscopic\pKa{} values and (2) microstates, their total charge, and relative free energies with respect to a specified reference microstate and pH. 
 
-\todo[inline]{Suggestions about challenge analysis}
+In SAMPL6 because we were worried about parsing submitted microstates in SMILES from different sources correctly, we created an pre-enumerated list of microstates and assigned them microstate IDs. There were two disadvantages of this approach. First, this list of enumerated microstates were used as an input by some participants which was not our intentions. Second, the first iteration of enumerated microstates was not complete. We had add to add new microstates and assign them microstate IDs for a couple of rounds until reaching a complete list. In future challenges, a better way of handling the problem of capturing predicted microstates would be asking participants to submit a mol2 file that represents the microstate with explicit hydrogens. The organizors must only provide the microstate that was selected as the reference state for the relative microstate free energy calculations.
 
-NMR experimental techniques could be used to validate microstate information in future challenges
+In the SAMPL6 \pKa{} Challenge there was not a requirement that prediction sets should report predictions for all compounds. 
+Some participants reported predictions for only a subset of compounds which may have led these methods to look more accurate than others, due to missing predictions.
+In the future it will be better to allow submissions of only complete  sets for better comparison of method performance. 
 
-Reporting microscopic pKa predictions with charges, microstate free energies is betetr
-Experimental dataset with microstate infromation is more helpful.
+A wide range of methods participated the SAMPL6 \pKa{} Challenge from very fast QSPR methods to QM methods with high-level of theory and extensive exploration of conformational ensembles. In the future, it would be interesting to capture computing costs in terms of average compute hours per molecule. This can provide guidance to future users of \pKa{} prediction methods for selection of which method to use.
 
-What can be done to further improve future challenges
-How can we maximize what we learn?
-What should we have people predict?
-How should we select compounds / measure pKas? NMR experimental techniques could be used to validate microstate information in future challenges
-
-Suggestions about challenge construction
-Enumeration of protonation states before predictions (which states does one need to consider?)
-Suggestions about challenge analysis
+To maximize the lessons that can be learned from blind challenges we believe in the utility of evaluating  predictions of different physicochemical properties for the same molecules in consecutive challenges. 
+In SAMPL6 we organized both \pKa{} and \logP{} challenges. Unfortunately only a subset of compounds in \pKa{} datasets were suitable for the potentiometric \logP{} measurements. Still for the subset of compounds that were common in both challenges comparing prediction performance can lead to beneficial insights especially for physical modeling techniques if there are common aspects that are beneficial or detrimantal to prediction performance. For example, in SAMPL6 \pKa{} and \logP{} Challenges COSMO-RS and EC-RISM solvation models achieved good performance.
+Having a variety of experimental measurements of physicochemical properties can also help identifying sources of errors. For example, dominant microstates determined for \pKa{} challenge can provide information to check if correct tautomers are modeling in a \logP{} or \logD{} challenge.
+\pKa{} prediction is a requirement for \logD{} prediction and experimental \pKa{} values can help diagnosing the source of errors in \logD{} predictions better. 
+The physical challenges in SAMPL7, which is currently running with a deadline of September 30th, 2020, follow this principle and include both \pKa{}, \logP{}, and membrane permeability properties for a set of monoprotic compounds. 
+We hope that future \pKa{} challenges can focus on multiprotic drug-like compounds with microscopic \pKa{} measurements for an in depth analysis.
 
 
-Submitting pKa predictions in terms of relative free energy of microstates, from which both microscopic and macroscopic pKas and fractiional populations of states at and pH can be calculated.
-Explicit hydrogen mol2 format can be used to capture individual tautomers
-
-Capture computing costs in terms of average compute hours per molecule
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -1109,7 +1109,7 @@ JDC is a member of the Scientific Advisory Board for Schr\"{o}dinger, LLC.
 DLM is a member of the Scientific Advisory Board of OpenEye Scientific Software.
 
 Table ref: \cite{ACD-pKa-galas, ACD-pKa-classic, simulation-plus-pKa, chemicalize-pKa, moka-pKa}
-trial: [], +, -, *, \#, \textbackslash{}m
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% BIBLIOGRAPHY
