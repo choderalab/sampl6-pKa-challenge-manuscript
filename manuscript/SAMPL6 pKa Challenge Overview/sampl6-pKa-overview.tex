@@ -226,7 +226,11 @@ Similarly for \logD{} predictions, inaccurate prediction aqueous protonation sta
 %%%
 \subsection{Approaches to predict small molecule \pKa{}s}
 
-\todo[inline]{Overview of kinds of pKa prediction methods available. Define method categories: DL, LFER, QSPR/ML, QM, QM+LEC, and QM+MM}
+There are a large variety \pKa{} prediction methods developed until this day for aqueous \pKa{} prediction of small molecules. Broadly we can divide \pKa{} predictions as empirical knowledge based methods and physical methods. Empirical method categrories include Database Lookup (DL), Linear Free Energy Relationship (LFER), Quantitative Structure Property Relatinship (QSPR), and Machine Learning  approaches. DL methods rely on the principal that structurally similar compounds have similar \pKa{} values and utilize an experimental database of complete structures or 
+fragments. The \pKa{} values of the most similar database entries are reported as the predicted \pKa{} of the query molecule.
+In QSPR approach, the \pKa{} values is predicted as a function of various quantitative molecular descriptors and the parameters of the function are trained on experimental datasets. A function in the form of multiple linear regression is very common, although much complex forms can also be used such as the artifical neural networks in ML methods.
+LFER approach is the oldest \pKa{} prediction strategy. They use Hammett-Taft type equations to predict \pKa{} based on classification of molecule to a parent class (associated with a base \pKa{} value) and two parameters that describe how the base \pKa{} value must be modified based on its substituents. 
+Physical modeling of \pKa{} predictions require Quantum Mechanics (QM) models. Molecular mechanics based \pKa{} prediction methods have not been found as a feasible approach for small molecule \pKa{} predictions as  deprotonation is a covalent bond breaking event that can only be captured by QM. QM methods are often utilized together with linear empirical corrections (LEC) that are designed to rescale and unbias QM predictions for better accuracy.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1080,7 +1084,7 @@ In this article we aimed to demonstrate not only the comparative analysis of the
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Author Contributions}
 
-Conceptualization, MI, JDC, CB, DLM ; Methodology, MI, JDC ; Software, MI, AR, ASR ; Formal Analysis, MI, ASR, AR ; Investigation, MI ; Resources, JDC;  Data Curation, MI ; Writing-Original Draft, MI, JDC; Writing - Review and Editing, MI, ASR, AR, CB, DLM, JDC; Visualization, MI, AR ; Supervision, JDC, DLM, CB, ASR ; Project Administration, MI ; Funding Acquisition, JDC, DLM.
+Conceptualization, MI, JDC ; Methodology, MI, JDC, ASR ; Software, MI, AR, ASR ; Formal Analysis, MI, ASR ; Investigation, MI ; Resources, JDC, DLM;  Data Curation, MI ; Writing-Original Draft, MI; Writing - Review and Editing, MI, JDC, ASR, AR, DLM; Visualization, MI, AR ; Supervision, JDC, DLM ; Project Administration, MI ; Funding Acquisition, JDC, DLM.
 
 %(Follow the \href{http://www.cell.com/pb/assets/raw/shared/guidelines/CRediT-taxonomy.pdf}{CRediT Taxonomy})
 
@@ -1089,27 +1093,37 @@ Conceptualization, MI, JDC, CB, DLM ; Methodology, MI, JDC ; Software, MI, AR, A
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Acknowledgments}
 
-\todo[inline]{Complete acknowledgments section. Caitlin Bannan for guidance on working microstate definition for the challenge, Thomas Fox for MoKa reference calculations, Kiril Lanevskij for hungarian algorithm}
-MI, ASR, and JDC acknowledge support from the Sloan Kettering Institute.
-JDC acknowledges support from NIH grant P30 CA008748. 
-MI acknowledges Doris J.\ Hutchinson Fellowship. 
+We would like to acknowledge the infrastructure and website support of Mike Chui that allowed seamless collection of challenge submissions. Mike Chui also provided assistance with constructing a submission validation script to ensure all submissions adhered to machine readable format. 
+We are grateful to Kiril Lanevskij for suggesting the Hungarian algorithm for matching experimental and predicted \pKa{} values. 
+We would like to thank Thomas Fox for providing MoKa reference calculations.
+We acknowledge Caitlin Bannan for guidance on definint a working microstate definition for the challenge and guidance for designing the challenge. 
 We thank Brad Sherborne for his valuable insights at the conception of the \pKa{} challenge and connecting us with Timothy Rhodes and Dorothy Levorse who were able to provide resources and expertise for experimental measurements performed at MRL. 
-We acknowledge Paul Czodrowski who provided feedback on multiple stages of this work: challenge construction, purchasable compound selection and manuscript. 
-MI, ASR, AR and JDC are grateful to OpenEye Scientific for providing a free academic software license for use in this work.
+We acknowledge Paul Czodrowski who provided feedback on multiple stages of this work: challenge construction, purchasable compound selection, and evaluation. %manuscript draft. 
+MI, JDC, and DLM gratefully acknowledge support from NIH grant R01GM124270 supporting the SAMPL Blind Challenges.
+MI, ASR, AR, and JDC acknowledge support from the Sloan Kettering Institute.
+JDC acknowledges support from NIH grant P30 CA008748. 
+DLM appreciates financial support from the National Institutes of Health (1R01GM108889-01) and the National Science Foundation (CHE 1352608).
+MI acknowledges Doris J.\ Hutchinson Fellowship. 
+MI, ASR, AR, and JDC are grateful to OpenEye Scientific for providing a free academic software license for use in this work.
+MI, ASR, AR, and JDC thank Janos Fejervari and ChemAxon team that gave us permission to include ChemAxon/Chemicalize \pKa{} predictions as a reference prediction in challenge analysis. 
 
-Mike Chui
-%\todo[inline]{JDC: Can we cite the ORCIDs of people we thank in this work?}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Disclaimers
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Disclaimers}
+
+The content is solely the responsibility of the authors and does not necessarily represent the official views of the National Institutes of Health.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Disclosures 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Disclosures}
 
-JDC is a member of the Scientific Advisory Board for Schr\"{o}dinger, LLC.
-DLM is a member of the Scientific Advisory Board of OpenEye Scientific Software.
-
-Table ref: \cite{ACD-pKa-galas, ACD-pKa-classic, simulation-plus-pKa, chemicalize-pKa, moka-pKa}
-
+JDC was a member of the Scientific Advisory Board for Schr\"{o}dinger, LLC during part of this study.
+JDC and DLM are current members of the Scientific Advisory Board of OpenEye Scientific Software, and DLM is an Open Science Fellow with Silicon Therapeutics.
+The Chodera laboratory receives or has received funding from multiple sources, including the National Institutes of Health, the National Science Foundation, the Parker Institute for Cancer Immunotherapy, Relay Therapeutics, Entasis Therapeutics, Vir Biotechnology, Silicon Therapeutics, EMD Serono (Merck KGaA), AstraZeneca, Vir Biotechnology, XtalPi, the Molecular Sciences Software Institute, the Starr Cancer Consortium, the Open Force Field Consortium, Cycle for Survival, a Louis V. Gerstner Young Investigator Award, The Einstein Foundation, and the Sloan Kettering Institute.
+A complete list of funding can be found at \url{http://choderalab.org/funding}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% BIBLIOGRAPHY
