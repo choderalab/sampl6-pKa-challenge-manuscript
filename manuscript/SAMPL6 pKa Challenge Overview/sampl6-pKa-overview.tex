@@ -984,6 +984,7 @@ If collection of experimental microscopic \pKa{}s is not possible due to time an
 If the only available experimental data is in the form of macroscopic \pKa{} values, the best way to evaluate computational predictions is by calculating predicted macroscopic \pKa{} predictions. With the conversion of microscopic \pKa{} to macroscopic \pKa{}s all the structural information about the titration site is lost and only remaining information is the total charge of macroscopic ionization states. Unfortunately, most macroscopic \pKa{} measurements including potentiometric and spectrophotometric methods do not capture the absolute charge of the macrostates. Spectrophotometric method does not measure charge at all. Potentiometric method can only capture the relative charge chanege between methods.  Only pH-dependent solubility based \pKa{} estimations can differentiate the neutral and charged states from one another. So it is very common to have experimental datasets of macroscopic \pKa{} without any charge or protonation position information regarding the macrostates.
 This causes an issue of assigning predicted and experimental \pKa{} values before any error statistics can be calculated.
 As delineated by Fraczkiewicz et. al. the most fair and reasonable solution for \pKa{} matching problem involves an assignment algorithm that preserves the order of predicted and experimental microstates and uses the principle of smallest differences to pair values~\citep{Fraczkiewicz:2013:ReferenceModuleinChemistryMolecularSciencesandChemicalEngineering}. We recommend Hungarian matching with squared error cost function. The algorithm is available in SciPy package (scipy.optimize.linear\_sum\_assignment)~\citep{SciPy-linear-sum-assignment}.
+In addition to the analysis of numerical error statistics after Hungarian matching, at the very least number of missing and extra \pKa{} predictions must be reported based on unmatched \pKa{} values. Missing or extra \pKa{} predictions point to a problem with capturing the right number of ionization states within the pH interval of the experimental measurements. We have demonstrated that for microscopic \pKa{} predictions performance analysis based in Hungarian matching results in overly optimistic and misleading results, instead the employed microstate-based matching provided a more realistic assessment. 
 
 For capturing all the necessary information related to \pKa{} predictions we allowed three different submission types in SAMPL6: (1) macroscopic \pKa{} values, (2) microscopic \pKa{} values and microstate pair identities, (3) fractional population of microstates with respect to pH. We realized later that collecting fractional populations of microstates was redundant, as microscopic \pKa{} and microstate pairs values capture all the necessary information to construct fractional population vs. pH curves.  Only microscopic and macroscopic \pKa{} values were used for thed challenge analysis presented in this paper.
 While exploring ways to evaluate SAMPL6 \pKa{} Challenge results, we developed a better way to capture microscopic \pKa{} predictions as presented in an earlier paper~\citep{Gunner:2020:J.Comput.AidedMol.Des.}. This alternative reporting format consists of charge and relative free energy of microstates with respect to a reference microstate and pH predicted by \pKa{} predictions. This approach presents the most concise method of capturing all necessary information regarding microscopic \pKa{} predictions and allows calculation of predicted microscopic \pKa{}s, microstate population with respect to pH, macroscopic \pKa{}s, macroscopic population with respect to pH, and tautomer ratios. 
@@ -1008,24 +1009,23 @@ We hope that future \pKa{} challenges can focus on multiprotic drug-like compoun
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Conclusion
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Conclusion}
+
+The first SAMPL6 \pKa{} Challenge focused on kinase inhibitor like molecules to assess the performance of \pKa{} predictions for drug-like molecules. With wide participation we had an opportunity to prospectively evaluate \pKa{} predictions spanning various empirical and QM based approaches. A small number of popular \pKa{} prediction methods that were missing from blind submissions were added as reference calculations after the challenge deadline. 
+
+The experimental dataset consisted of spectrophotometric measurements of 24 molecules and some of which were multiprotic. There was also experimental data on dominant microstate sequence of a  subset of the challenge molecules, but not direct microscopic \pKa{} measurements. We have performed comparative analysis of methods represented in the blind challenge in terms of both macroscopic and microscopic \pKa{} prediction performance avoiding any assumptions about the experimental \pKa{}s. 
+
+As the majority of the experimental data was macroscopic \pKa{} values, we had to utilize Hungarian matching to assign predicted and experimental values before calculating accuracy and correlation based statistics. In addition to evaluating error in predicted \pKa{} values, we also reported the macroscopic \pKa{} errors that were not captured by the match between experimental and predicted \pKa{} values. These were extra or missing \pKa{} predictions which are important indicators that predictions are failing to capture the correct ionization states. 
+
+We utilized the experimental dominant microstate sequence data of 8 molecules to evaluate microscopic \pKa{} predictions in more detail. This experimental data allowed us to use microstate-based matching for evaluating the accuracy of microscopic \pKa{} values in a more realistic way. We have determined that QM and LFER predictions had lower accuracy in determining the dominant tautomer of the charged microstates than the neutral states. For both macroscopic and microscopic \pKa{} predictions we have determined methods that were consistently well-performing according to multiple statistical metrics. Focusing on the comparison of molecules instead of methods for macroscopic \pKa{} prediction accuracy indicated molecules with sulfur-containing heterocyles, iodo, and bromo groups suffered from lower \pKa{} prediction accuracy. 
+
+Overall performance level observed for \pKa{} predictions in this challenge is concerning for the application of \pKa{} prediction methods in computer-aided drug design. Many methods for capturing target affinities and physicochemical properties rely on \pKa{} predictions for determining relevant protonation states and the free energy penalty of such states. 1 unit of \pKa error is an optimistic estimate of currrent macroscopic \pKa{} predictions for drug-like molecules based on SAMPL6 Challenge where errors in predicting correct number of ionization states or determining the correct dominant microstate were also common to many methods. In the absence of other sources of errors, we showed that 1 unit over- or underestimation of the \pKa{} of a ligand can cause significant errors in the overall binding affinity calculation due to errors in multiple protonation state correction factor. 
+
+All information regarding the challenge structure, experimental data, blind prediction submission sets, and evaluation of methods are available in the SAMPL6 GitHub Repository for future follow up analysis and to serve as a benchmark dataset for testing methods. 
+
+In this article we aimed to demonstrate not only the comparative analysis of the \pKa{} prediction performance of contemporary methods for drug-like molecules, but also to propose a stringent \pKa{} prediction evaluation strategy that takes into account differences in microscopic and macroscopic \pKa{} definitions. We hope that this study will guide and motivate further improvement of \pKa{} prediction methods.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
