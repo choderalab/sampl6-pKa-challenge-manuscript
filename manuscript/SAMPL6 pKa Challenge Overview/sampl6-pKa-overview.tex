@@ -172,6 +172,7 @@ Similarly for \logD{} predictions, an inaccurate prediction of protonation state
 
 For a monoprotic weak acid (HA) or base (B)---whose dissociation equilibria are shown in Equation~\ref{eq:dissociation_equilibria}---the acid dissociation constant is expressed as in Equation~\ref{eq:dissociation_constant}, or, commonly, in its negative base-10 logarithmic form as in Equation~\ref{eq:pKa}. 
 The ratio of ionization states can be calculated with Henderson-Hasselbalch equations shown in Equation~\ref{eq:pH_dependency_of_deprotonation}. 
+
 \begin{equation}
 HA \rightleftharpoons A^- + H^+ \;\; ; \;\; BH^+ \rightleftharpoons B + H^+
 \label{eq:dissociation_equilibria}
@@ -192,6 +193,7 @@ pK_a = -\log_{10}{K_a}
 pH = pK_a + \log_{10}{\frac{[A^-]}{[HA]}}\;\; ; \;\;pH = pK_a + \log_{10}{\frac{[B]}{[BH^+]}}
 \label{eq:pH_dependency_of_deprotonation}
 \end{equation}
+
 For multiprotic molecules, the definition of \pKa{} diverges into macroscopic \pKa{} and microscopic \pKa{}~\citep{Darvey:1995:Biochem.Educ., Bodner:1986:J.Chem.Educ., Murray:1995:Anal.Chem.}. 
 Macroscopic \pKa{} describes the equilibrium dissociation constant between different charged states of the molecule. 
 Each charge state can be composed of multiple tautomers. 
@@ -208,7 +210,7 @@ Different experimental methods are sensitive to changes in the total charge or t
 Most common \pKa{} measurement techniques such as potentiometric and spectrophotometric methods measure macroscopic \pKa{}s, while NMR measurements can determine microscopic \pKa{}s by measuring microstate populations with respect to pH. 
 Therefore, it is important to pay attention to the source and definition of \pKa{} values in order to correctly interpret their meaning. 
 
-Many computational methods can predict both microscopic and macroscopic \pKa{}s. While experimental measurements more often provide only macroscopic \pKa{}s,  microscopic \pKa{} predictions are more informative for determining relevant microstates (tautomers) of a molecule and their relative free energies. 
+Many computational methods can predict both microscopic and macroscopic \pKa{}s. While experimental measurements more often provide only macroscopic \pKa{}s,  microscopic \pKa{} predictions are more informative for determining relevant microstates (microscopic protonation states and tautomers) of a molecule and their relative free energies. 
 Predicted microstate populations can be converted to predicted macroscopic \pKa{}s for direct comparison with experimentally obtained macroscopic \pKa{}s. 
 In this paper, we explore approaches to assess the performance of both macroscopic and microscopic \pKa{} predictions, taking advantage of available experimental data.
 
@@ -311,6 +313,20 @@ The distribution of experimental \pKa{} values was roughly uniform between 2--12
 2D representations of all compounds are provided in Fig.~\ref{fig:molecules_with_MAE_of_all_methods}. 
 Drug-like molecules are often larger and more complex than the ones used in this study. 
 We limited the size and the number of rotatable bonds of compounds to create molecule set of intermediate difficulty.
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=0.95\linewidth]{figures/molecules_with_MAE_of_all_methods.pdf}
+\caption{{\bf Molecules from the SAMPL6 Challenge with MAE calculated for all macroscopic \pKa{} predictions.} 
+The MAE calculated over all prediction methods indicates which molecules had the lowest prediction accuracy in the SAMPL6 Challenge. 
+MAE values calculated for each molecule include all the matched \pKa{} values. 
+SM06, SM14, SM15, SM16, SM18, and SM22 were multiprotic. 
+Hungarian matching algorithm was employed for pairing experimental and predicted \pKa{} values. 
+MAE values are reported with 95\% confidence intervals.
+}
+\label{fig:molecules_with_MAE_of_all_methods}
+\end{center}
+\end{figure}
 
 The dataset composition and experimental details---without the identity of the small molecules---were announced approximately one month before the challenge start date. 
 Experimental macroscopic \pKa{} measurements were collected using a spectrophotometric method with the Sirius T3 (Sirius Analytical), at room temperature, in ionic strength-adjusted water with 0.15~M KCl~\citep{Isik:2018:J.Comput.AidedMol.Des.}. 
@@ -827,19 +843,7 @@ Still, the trends observed in this challenge point to molecules with iodo-, brom
 We hope that reporting this observation will lead to the improvement of methods for similar compounds with such moieties. 
 
 
-\begin{figure}
-\begin{center}
-\includegraphics[width=0.95\linewidth]{figures/molecules_with_MAE_of_all_methods.pdf}
-\caption{{\bf Molecules from the SAMPL6 Challenge with MAE calculated for all macroscopic \pKa{} predictions.} 
-The MAE calculated over all prediction methods indicates which molecules had the lowest prediction accuracy in the SAMPL6 Challenge. 
-MAE values calculated for each molecule include all the matched \pKa{} values. 
-SM06, SM14, SM15, SM16, SM18, and SM22 were multiprotic. 
-Hungarian matching algorithm was employed for pairing experimental and predicted \pKa{} values. 
-MAE values are reported with 95\% confidence intervals.
-}
-\label{fig:molecules_with_MAE_of_all_methods}
-\end{center}
-\end{figure}
+
 
 
 \begin{figure}
@@ -1009,13 +1013,14 @@ Even if experimental microscopic \pKa{} measurement data is not available, exper
 
 \begin{figure}[h!]
 \centering
-\includegraphics[width=0.5\linewidth]{figures/typeI_dominant_microstate_accuracy.pdf}
+\includegraphics[width=1.0\linewidth]{figures/typeI_dominant_microstate_accuracy.pdf}
 \caption{{\bf Some methods predicted the sequence of dominant tautomers inaccurately.} 
 Prediction accuracy of the dominant microstate of each charged state was calculated using the dominant microstate sequence determined by NMR for 8 molecules as reference. 
 {\bf(A)} Dominant microstate accuracy vs.\ submission ID plot was calculated considering all the dominant microstates seen in the experimental microstate dataset of 8 molecules. {\bf(B)} Dominant microstate accuracy vs. submission ID plot was generating considering only the dominant microstates of charge 0 and +1 seen in the 8 molecule dataset. 
 The accuracy of each molecule is broken out by the total charge of the microstate. 
 {\bf(C)} Dominant microstate prediction accuracy calculated for each molecule averaged over all methods. 
 In {\bf(B)} and {\bf(C)}, the accuracy of predicting the dominant neutral tautomer is shown in blue and the accuracy of predicting the dominant +1 charged tautomer is shown in green. Error bars denoting 95\% confidence intervals obtained by bootstrapping.
+{\bf(D)} Depiction of SM14 microstates for protonation states with +2, +1, and 0 charges. The dominant tautomer of each macroscopic protonation state is highlighted with a rectangle. Dominant microstates of each charge were determined based on NMR experiments~\citep{Isik:2018:J.Comput.AidedMol.Des.}.
 }
 \label{fig:typeI_dominant_microstate_accuracy}
 \end{figure}
@@ -1342,6 +1347,9 @@ A wide range of methods participated in the SAMPL6 \pKa{} Challenge---from very 
 In the future, it would be interesting to capture computing costs in terms of average compute hours per molecule. 
 This can provide guidance to future users of \pKa{} prediction methods for selection of which method to use.
 
+Some molecules suffered from less accurate \pKa{} predictions than others in SAMPL6.  To understand the reason for these failures better, it can be helpful to ask participants who submit empirical prediction methods to inspect their training sets for the presence of similar compounds and optionally report it.  
+
+
 \paragraph{It is advantageous to field associated challenges with common set of molecules for different physicochemical properties.}
 Future blind challenges can maximize learning opportunities by evaluating predictions of different physicochemical properties for the same molecules in consecutive challenges. 
 In SAMPL6, we organized both \pKa{} and \logP{} challenges. 
@@ -1466,6 +1474,7 @@ MI, JDC, and DLM gratefully acknowledge support from NIH grant R01GM124270 suppo
 MI, ASR, AR, and JDC acknowledge support from the Sloan Kettering Institute.
 JDC acknowledges support from NIH grant P30CA008748 and NIH grant R01GM121505. 
 DLM appreciates financial support from the National Institutes of Health (R01GM108889) and the National Science Foundation (CHE 1352608).
+MRG acknowledges support of MCB-1519640 from the National Science Foundation. 
 MI acknowledges Doris J.\ Hutchinson Fellowship. 
 MI, ASR, AR, and JDC are grateful to OpenEye Scientific for providing a free academic software license for use in this work.
 MI, ASR, AR, and JDC thank Janos Fejervari and ChemAxon team that gave us permission to include ChemAxon/Chemicalize \pKa{} predictions as a reference prediction in challenge analysis. 
